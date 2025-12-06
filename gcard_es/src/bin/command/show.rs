@@ -26,7 +26,7 @@ pub fn show(args: ShowArgs) {
     println!();
 
     if args.detailed {
-        for (idx, (key, degree_seq)) in graph.iter().enumerate() {
+        for (idx, (key, degree_piecewise)) in graph.iter().enumerate() {
             println!("Path {}:", idx + 1);
             println!("  Source: {}", key.src_node_type);
             println!("  Destination: {}", key.dst_node_type);
@@ -38,12 +38,16 @@ pub fn show(args: ShowArgs) {
                     step_idx + 1, step.src_type, step.edge_type, step.dst_type
                 );
             }
+            let degree_seq = degree_piecewise.get_degree_sequence();
             println!("  Degree sequence length: {}", degree_seq.len());
             println!("  Degree sequence (first 10): {:?}", 
                      &degree_seq[..degree_seq.len().min(10)]);
             if degree_seq.len() > 10 {
                 println!("  ... ({} more values)", degree_seq.len() - 10);
             }
+            println!("  Piecewise function segments: {}", 
+                     degree_piecewise.get_piecewise_function().constants.len());
+            println!("  Total rows: {:.2}", degree_piecewise.get_num_rows());
             println!();
         }
     } else {

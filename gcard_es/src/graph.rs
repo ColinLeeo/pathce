@@ -6,6 +6,7 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 
 use crate::error::{GCardError, GCardResult};
+use crate::degreepiecewise::DegreePiecewise;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct PathStep {
@@ -44,11 +45,56 @@ impl PathKey {
             path: data.path_def.clone(),
         }
     }
+
+    pub fn from_simple_string(
+        path_str: &str,
+        graph: &DegreeSeqGraph,
+    ) -> Option<Self> {
+        let parts: Vec<&str> = path_str.split('-').collect();
+        if parts.len() < 3 || parts.len() % 2 == 0 {
+            return None;
+        }
+
+        let src_node_type = parts[0].to_string();
+        let mut steps = Vec::new();
+        let mut current_src = src_node_type.clone();
+
+        for i in (1..parts.len()).step_by(2) {
+            if i + 1 >= parts.len() {
+                break;
+            }
+            let edge_type = parts[i].to_string();
+            let dst_node_type = parts[i + 1].to_string();
+
+            steps.push(PathStep {
+                edge_type: edge_type.clone(),
+                src_type: current_src.clone(),
+                dst_type: dst_node_type.clone(),
+            });
+
+            current_src = dst_node_type;
+        }
+
+        let dst_node_type = current_src;
+        let path_def = PathDefinition { steps };
+
+        let candidate = Self {
+            src_node_type,
+            dst_node_type,
+            path: path_def,
+        };
+
+        if graph.contains_path(&candidate) {
+            Some(candidate)
+        } else {
+            Some(candidate)
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct DegreeSeqGraph {
-    path_degree_seqs: HashMap<PathKey, Vec<u64>>,
+    path_degree_seqs: HashMap<PathKey, DegreePiecewise>,
 }
 
 impl DegreeSeqGraph {
@@ -109,7 +155,6 @@ impl DegreeSeqGraph {
             )));
         }
 
-        // 验证路径的起始和结束类型
         if !data.path_def.steps.is_empty() {
             let first_step = &data.path_def.steps[0];
             let last_step = &data.path_def.steps[data.path_def.steps.len() - 1];
@@ -128,7 +173,6 @@ impl DegreeSeqGraph {
                 )));
             }
 
-            // 验证路径的连续性（中间步骤的 dst_type 应该等于下一步的 src_type）
             for i in 0..data.path_def.steps.len() - 1 {
                 let current = &data.path_def.steps[i];
                 let next = &data.path_def.steps[i + 1];
@@ -142,36 +186,31 @@ impl DegreeSeqGraph {
         }
 
         let key = PathKey::from_data(&data);
-        self.path_degree_seqs.insert(key, data.degree_seq);
+        let degree_piecewise = DegreePiecewise::from_degree_sequence_default(data.degree_seq)?;
+        self.path_degree_seqs.insert(key, degree_piecewise);
         Ok(())
     }
 
-    /// 获取路径的度数序列
-    pub fn get_degree_seq(&self, key: &PathKey) -> Option<&Vec<u64>> {
+    pub fn get_degree_seq(&self, key: &PathKey) -> Option<&DegreePiecewise> {
         self.path_degree_seqs.get(key)
     }
 
-    /// 获取所有路径键
     pub fn path_keys(&self) -> impl Iterator<Item = &PathKey> {
         self.path_degree_seqs.keys()
     }
 
-    /// 获取所有路径和对应的度数序列
-    pub fn iter(&self) -> impl Iterator<Item = (&PathKey, &Vec<u64>)> {
+    pub fn iter(&self) -> impl Iterator<Item = (&PathKey, &DegreePiecewise)> {
         self.path_degree_seqs.iter()
     }
 
-    /// 获取路径数量
     pub fn num_paths(&self) -> usize {
         self.path_degree_seqs.len()
     }
 
-    /// 检查是否包含指定的路径
     pub fn contains_path(&self, key: &PathKey) -> bool {
         self.path_degree_seqs.contains_key(key)
     }
 
-    /// 导出为 bincode 格式
     pub fn export_bincode<P: AsRef<Path>>(&self, path: P) -> GCardResult<()> {
         let file = File::create(path)?;
         let writer = BufWriter::new(file);
@@ -179,7 +218,6 @@ impl DegreeSeqGraph {
         Ok(())
     }
 
-    /// 从 bincode 格式导入
     pub fn import_bincode<P: AsRef<Path>>(path: P) -> GCardResult<Self> {
         let file = File::open(path)?;
         let reader = BufReader::new(file);
