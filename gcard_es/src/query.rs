@@ -260,8 +260,6 @@ mod tests {
     fn test_gamma_operation() {
         let graph = create_test_graph();
         let planner = QueryPlanner::new(&graph);
-        let graph = create_test_graph();
-        let planner = QueryPlanner::new(&graph);
 
         let p_k_p = planner.from_simple_path("Person-knows-Person").unwrap();
         let p_s_u = planner
