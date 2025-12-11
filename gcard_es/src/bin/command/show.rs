@@ -2,6 +2,7 @@ use std::path::PathBuf;
 
 use clap::Args;
 use gcard_es::DegreeSeqGraph;
+use gcard_es::degreepiecewise::DegreePiecewise;
 
 #[derive(Debug, Args)]
 pub struct ShowArgs {
@@ -22,45 +23,50 @@ pub fn show(args: ShowArgs) {
         }
     };
 
-    println!("Total paths: {}", graph.num_paths());
+    println!("Total edge sets: {}", graph.num_edge_sets());
     println!();
 
     if args.detailed {
-        for (idx, (key, degree_piecewise)) in graph.iter().enumerate() {
-            println!("Path {}:", idx + 1);
-            println!("  Source: {}", key.src_node_type);
-            println!("  Destination: {}", key.dst_node_type);
-            println!("  Path length: {}", key.path.steps.len());
-            println!("  Steps:");
-            for (step_idx, step) in key.path.steps.iter().enumerate() {
-                println!(
-                    "    {}: {} --[{}]--> {}",
-                    step_idx + 1, step.src_type, step.edge_type, step.dst_type
-                );
-            }
-            let degree_seq = degree_piecewise.get_degree_sequence();
-            println!("  Degree sequence length: {}", degree_seq.len());
-            println!("  Degree sequence (first 10): {:?}", 
-                     &degree_seq[..degree_seq.len().min(10)]);
-            if degree_seq.len() > 10 {
-                println!("  ... ({} more values)", degree_seq.len() - 10);
-            }
-            println!("  Piecewise function segments: {}", 
-                     degree_piecewise.get_piecewise_function().constants.len());
-            println!("  Total rows: {:.2}", degree_piecewise.get_num_rows());
+        for (idx, (edge_set, endpoints)) in graph.iter().enumerate() {
+            println!("Edge Set {}:", idx + 1);
+            println!("  Edge labels: {:?}", edge_set.iter().collect::<Vec<_>>());
+            println!("  Number of endpoints: {}", endpoints.len());
             println!();
+            
+            for (node_type, degree_seq) in endpoints {
+                println!("  Endpoint: {}", node_type);
+                println!("    Degree sequence length: {}", degree_seq.len());
+                
+                // 显示前10个值
+                if !degree_seq.is_empty() {
+                    let preview_len = degree_seq.len().min(10);
+                    println!("    Degree sequence (first {}): {:?}", 
+                             preview_len, &degree_seq[..preview_len]);
+                    if degree_seq.len() > 10 {
+                        println!("    ... ({} more values)", degree_seq.len() - 10);
+                    }
+                }
+                
+                // 如果详细模式，也显示 piecewise function 信息
+                if let Ok(degree_piecewise) = DegreePiecewise::from_degree_sequence_default(degree_seq.clone()) {
+                    let pcf = degree_piecewise.get_piecewise_function();
+                    println!("    Piecewise function segments: {}", pcf.constants.len());
+                    println!("    Total rows: {:.2}", degree_piecewise.get_num_rows());
+                }
+                println!();
+            }
         }
     } else {
-        println!("Paths summary:");
-        for (idx, key) in graph.path_keys().enumerate() {
+        println!("Edge sets summary:");
+        for (idx, (edge_set, endpoints)) in graph.iter().enumerate() {
+            let edge_labels: Vec<&str> = edge_set.iter().map(|s| s.as_str()).collect();
+            let node_types: Vec<&str> = endpoints.keys().map(|s| s.as_str()).collect();
             println!(
-                "  {}: {} --[{} steps]--> {}",
+                "  {}: {:?} -> endpoints: {:?}",
                 idx + 1,
-                key.src_node_type,
-                key.path.steps.len(),
-                key.dst_node_type
+                edge_labels,
+                node_types
             );
         }
     }
 }
-

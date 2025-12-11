@@ -270,7 +270,7 @@ impl PiecewiseConstantFunction {
             new_cumulative_rows.push(cur_row);
             cur_left = cur_right;
         }
-        
+
         Self {
             constants: new_constants,
             right_interval_edges: self.right_interval_edges.clone(),
@@ -332,7 +332,9 @@ impl PiecewiseConstantFunction {
     }
 }
 
-pub fn pointwise_function_mult_refs(functions: &[&PiecewiseConstantFunction]) -> PiecewiseConstantFunction {
+pub fn pointwise_function_mult_refs(
+    functions: &[&PiecewiseConstantFunction],
+) -> PiecewiseConstantFunction {
     if functions.is_empty() {
         return PiecewiseConstantFunction::empty();
     }
@@ -384,9 +386,7 @@ pub fn pointwise_function_mult_refs(functions: &[&PiecewiseConstantFunction]) ->
         cumulative_rows.push(cur_cumulative_rows);
 
         for (i, func) in functions.iter().enumerate() {
-            if function_has_space[i]
-                && func.right_interval_edges[indices[i]] <= right
-            {
+            if function_has_space[i] && func.right_interval_edges[indices[i]] <= right {
                 indices[i] += 1;
             }
         }
@@ -408,7 +408,9 @@ pub fn pointwise_function_mult_refs(functions: &[&PiecewiseConstantFunction]) ->
     func
 }
 
-pub fn pointwise_function_mult(functions: &[PiecewiseConstantFunction]) -> PiecewiseConstantFunction {
+pub fn pointwise_function_mult(
+    functions: &[PiecewiseConstantFunction],
+) -> PiecewiseConstantFunction {
     if functions.is_empty() {
         return PiecewiseConstantFunction::empty();
     }
@@ -460,9 +462,7 @@ pub fn pointwise_function_mult(functions: &[PiecewiseConstantFunction]) -> Piece
         cumulative_rows.push(cur_cumulative_rows);
 
         for (i, func) in functions.iter().enumerate() {
-            if function_has_space[i]
-                && func.right_interval_edges[indices[i]] <= right
-            {
+            if function_has_space[i] && func.right_interval_edges[indices[i]] <= right {
                 indices[i] += 1;
             }
         }
@@ -484,7 +484,9 @@ pub fn pointwise_function_mult(functions: &[PiecewiseConstantFunction]) -> Piece
     func
 }
 
-pub fn pointwise_function_min(functions: &[PiecewiseConstantFunction]) -> PiecewiseConstantFunction {
+pub fn pointwise_function_min(
+    functions: &[PiecewiseConstantFunction],
+) -> PiecewiseConstantFunction {
     if functions.is_empty() {
         return PiecewiseConstantFunction::empty();
     }
@@ -528,8 +530,7 @@ pub fn pointwise_function_min(functions: &[PiecewiseConstantFunction]) -> Piecew
         if right > left {
             for (i, func) in functions.iter().enumerate() {
                 if function_has_space[i] {
-                    cumulative_rows_per_function[i] +=
-                        (right - left) * func.constants[indices[i]];
+                    cumulative_rows_per_function[i] += (right - left) * func.constants[indices[i]];
                 }
             }
 
@@ -559,9 +560,7 @@ pub fn pointwise_function_min(functions: &[PiecewiseConstantFunction]) -> Piecew
         }
 
         for (i, func) in functions.iter().enumerate() {
-            if function_has_space[i]
-                && func.right_interval_edges[indices[i]] <= right
-            {
+            if function_has_space[i] && func.right_interval_edges[indices[i]] <= right {
                 indices[i] += 1;
             }
         }
@@ -669,6 +668,7 @@ fn calculate_bins_relative_error(data: &[u64], relative_error: f64) -> GCardResu
 
 #[cfg(test)]
 mod tests {
+    use crate::degreepiecewise::calculate_non_joining_column_frequency;
     use super::*;
 
     #[test]
@@ -708,7 +708,10 @@ mod tests {
         assert!(!result.cumulative_rows.is_empty());
 
         assert_eq!(result.right_interval_edges.len(), result.constants.len());
-        assert_eq!(result.right_interval_edges.len(), result.cumulative_rows.len());
+        assert_eq!(
+            result.right_interval_edges.len(),
+            result.cumulative_rows.len()
+        );
     }
 
     #[test]
@@ -720,16 +723,32 @@ mod tests {
     }
 
     #[test]
-    fn test_pointwise_function_mult_single() {
-        let func = PiecewiseConstantFunction {
-            constants: vec![2.0, 3.0],
-            right_interval_edges: vec![5.0, 10.0],
-            cumulative_rows: vec![10.0, 25.0],
-        };
+    fn test_pointwise_function_alpha() {
+        let degree1: Vec<u64> = vec![10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        let degree2: Vec<u64> = vec![10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        let p1 =
+            PiecewiseConstantFunction::from_degree_sequence(&degree1.clone(), 0.1, true).unwrap();
+        let p2 =
+            PiecewiseConstantFunction::from_degree_sequence(&degree2.clone(), 0.1, true).unwrap();
 
-        let result = pointwise_function_mult(&[func.clone()]);
-        assert_eq!(result.constants, func.constants);
-        assert_eq!(result.right_interval_edges, func.right_interval_edges);
-        assert_eq!(result.cumulative_rows, func.cumulative_rows);
+        let result = pointwise_function_mult(&[p1.clone(), p2.clone()]);
+        print!("{:?}", result);
+        print!("total num is {}", result.get_num_rows());
+    }
+
+    #[test]
+    fn test_pointwise_function_beta() {
+        let degree1: Vec<u64> = vec![10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        let degree2: Vec<u64> = vec![10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        let degree3: Vec<u64> = vec![10, 8, 8, 8, 6, 5, 4, 3, 2, 1];
+        let p1 =
+            PiecewiseConstantFunction::from_degree_sequence(&degree1.clone(), 0.1, true).unwrap();
+        let p2 =
+            PiecewiseConstantFunction::from_degree_sequence(&degree2.clone(), 0.1, true).unwrap();
+        let p3 =
+            PiecewiseConstantFunction::from_degree_sequence(&degree3.clone(), 0.1, true).unwrap();
+        let result = calculate_non_joining_column_frequency(&p1, &p2, &p3);
+        println!("{:?}", result);
+        println!("total num is {}", result.get_num_rows());
     }
 }

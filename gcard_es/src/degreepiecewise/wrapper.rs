@@ -208,7 +208,7 @@ fn maxreduce_edge(edge_a: &Pcf, edge_b: &Pcf) -> (Pcf, Pcf) {
     (aligned_a, aligned_b)
 }
 
-pub fn gamma(paths: Vec<(&Pcf, &Pcf)>) -> (Pcf, Pcf) {
+pub fn gamma_core(paths: Vec<(&Pcf, &Pcf)>) -> (Pcf, Pcf) {
     if paths.is_empty() {
         return (Pcf::empty(), Pcf::empty());
     }
