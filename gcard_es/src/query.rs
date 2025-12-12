@@ -194,74 +194,27 @@ mod tests {
     use std::path::Path;
 
     fn load_graph() -> DegreeSeqGraph {
-        DegreeSeqGraph::import_bincode(Path::new("/Users/colin/dev/pathce/gcard_es/graph.bincode"))
+        DegreeSeqGraph::import_bincode(Path::new("/Users/colin/dev/pathce/graphs/ldbc/gcard/graph.bincode"))
             .unwrap()
     }
-    ///
-    /// Post-hasTag-Tag
-    // Forum-hasTag2-Tag
-    // Person-hasInterest-Tag
-    // Person-likes1-Comment
-    // Forum-hasMember-Person
-    // City-isPartOf-Country
-    // Person-likes-Post
-    // Comment-hasTag1-Tag
-    // Person-knows-Person
-    // Person-studyAt-University
-    // Person-isLocatedIn-City
-    // Person-workAt-Company
-    // Person-hasMember-Forum-hasTag2-Tag
-    // Person-knows-Person-workAt-Company
-    // Tag-hasInterest-Person-likes1-Comment
-    // Forum-hasMember-Person-hasInterest-Tag
-    // Comment-likes1-Person-workAt-Company
-    // Forum-hasTag2-Tag-hasTag-Post
-    // Comment-hasTag1-Tag-hasTag-Post
-    // Forum-hasMember-Person-isLocatedIn-City
-    // University-studyAt-Person-likes-Post
-    // Person-isLocatedIn-City-isPartOf-Country
-    // Forum-hasMember-Person-workAt-Company
-    // Post-likes-Person-isLocatedIn-City
-    // Person-likes-Post-hasTag-Tag
-    // Person-knows-Person-studyAt-University
-    // Forum-hasMember-Person-studyAt-University
-    // Tag-hasInterest-Person-workAt-Company
-    // Post-likes-Person-likes1-Comment
-    // Person-hasInterest-Tag-hasTag2-Forum
-    // Post-likes-Person-workAt-Company
-    // Forum-hasMember-Person-likes1-Comment
-    // University-studyAt-Person-likes1-Comment
-    // City-isLocatedIn-Person-likes1-Comment
-    // City-isLocatedIn-Person-workAt-Company
-    // Forum-hasMember-Person-likes-Post
-    // Comment-hasTag1-Tag-hasTag2-Forum
-    // Person-hasInterest-Tag-hasTag-Post
-    // Person-hasInterest-Tag-hasTag1-Comment
-    // University-studyAt-Person-hasInterest-Tag
-    // University-studyAt-Person-workAt-Company
-    // University-studyAt-Person-isLocatedIn-City
-    // Person-likes1-Comment-hasTag1-Tag
-    // Person-knows-Person-likes1-Comment
-    // Person-knows-Person-hasInterest-Tag
-    // Post-likes-Person-hasInterest-Tag
-    // City-isLocatedIn-Person-hasInterest-Tag
 
     #[test]
     fn test_q1() -> GCardResult<()> {
         let graph = load_graph();
-        let b1 = beta(
-            &expr!(&graph, [isLocatedIn, isPartOf], Person)?,
-            &expr!(&graph, [hasMember], Person)?,
-            &expr!(&graph, [hasMember], Forum)?,
-        );
 
-        let b2 = beta(
-            &expr!(&graph, [hasTag1, hasType], Comment)?,
-            &expr!(&graph, [containerOf, replyOf], Comment)?,
-            &expr!(&graph, [containerOf, replyOf], Forum)?,
-        );
-
-        let result = alpha(&[b1, b2]).get_num();
+        let result = alpha(&[
+            beta(
+                &expr!(&graph, [isLocatedIn2, isPartOf], Person)?,
+                &expr!(&graph, [hasMember], Person)?,
+                &expr!(&graph, [hasMember], Forum)?,
+            ),
+            beta(
+                &expr!(&graph, [hasTag, hasType], Comment)?,
+                &expr!(&graph, [containerOf, replyOf1], Comment)?,
+                &expr!(&graph, [containerOf, replyOf1], Forum)?,
+            ),
+        ])
+        .get_num();
         println!("get row num is {}", result);
         Ok(())
     }
@@ -272,12 +225,12 @@ mod tests {
 
         let g = gamma(vec![
             (
-                expr!(&graph, [hasCreator, knows], Comment)?,
-                expr!(&graph, [hasCreator, knows], Person)?,
+                expr!(&graph, [hasCreator1, knows], Comment)?,
+                expr!(&graph, [hasCreator1, knows], Person)?,
             ),
             (
-                expr!(&graph, [replyof, hasCreator], Comment)?,
-                expr!(&graph, [replyof, hasCreator], Person)?,
+                expr!(&graph, [replyOf1, hasCreator], Comment)?,
+                expr!(&graph, [replyOf1, hasCreator], Person)?,
             ),
         ]);
 
@@ -291,14 +244,14 @@ mod tests {
     fn test_q3() -> GCardResult<()> {
         let graph = load_graph();
 
-        let e1 = expr!(&graph, [hasTag], Message)?;
-        let e2 = expr!(&graph, [hasCreator], Message)?;
-        let e3 = expr!(&graph, [likes], Message)?;
-        let e4 = expr!(&graph, [replyof], Message)?;
+        let e1 = expr!(&graph, [hasTag2], Post)?;
+        let e2 = expr!(&graph, [hasCreator], Post)?;
+        let e3 = expr!(&graph, [likes], Post)?;
+        let e4 = expr!(&graph, [replyOf1], Post)?;
 
         let result = alpha(&[e1, e2, e3, e4]).sum();
 
-        println!("Q3 result = {}", result);
+        println!("Q4 result = {}", result);
         Ok(())
     }
 
@@ -399,10 +352,7 @@ mod tests {
         let p2_r = expr!(&graph, [likes, is_located_in], City)?;
 
         // Gamma  Pair<Comment, City>
-        let g = gamma(vec![
-            (p1_l, p1_r),
-            (p2_l, p2_r),
-        ]);
+        let g = gamma(vec![(p1_l, p1_r), (p2_l, p2_r)]);
 
         // DSL: Gamma(...).left.sum()
         let result = g.sum();
@@ -415,8 +365,8 @@ mod tests {
     fn test_p4() -> GCardResult<()> {
         let graph = load_graph();
 
-        let e1 = expr!(&graph, [has_creator, replayof], Post)?;          // [has_creator, replayof].post
-        let e2 = expr!(&graph, [hasMember, container_of], Post)?;        // [hasMember,container_of].post
+        let e1 = expr!(&graph, [hasCreator1, replyOf1], Post)?; // [has_creator, replayof].post
+        let e2 = expr!(&graph, [hasMember, containerOf], Post)?; // [hasMember,container_of].post
 
         let result = alpha(&[e1, e2]).sum();
 
@@ -428,8 +378,8 @@ mod tests {
     fn test_p5() -> GCardResult<()> {
         let graph = load_graph();
 
-        let c_like  = expr!(&graph, [hasCreator, likes], Comment)?; // [hasCreator, likes].comment
-        let c_reply = expr!(&graph, [replyof], Comment)?;           // [replyof].comment
+        let c_like = expr!(&graph, [hasCreator1, likes1], Comment)?; // [hasCreator, likes].comment
+        let c_reply = expr!(&graph, [replyOf], Comment)?; // [replyof].comment
 
         // Gamma(
         //   ([hasCreator, likes].comment,[hasCreator, likes].comment),
@@ -437,9 +387,9 @@ mod tests {
         //   ([hasCreator, likes].comment,[hasCreator, likes].comment)
         // )
         let g = gamma(vec![
-            (c_like.clone(),  c_like.clone()),
+            (c_like.clone(), c_like.clone()),
             (c_reply.clone(), c_reply.clone()),
-            (c_like.clone(),  c_like),
+            (c_like.clone(), c_like),
         ]);
 
         // ..sum()
@@ -453,20 +403,29 @@ mod tests {
     fn test_p6() -> GCardResult<()> {
         let graph = load_graph();
 
-        // t = Gamma(
-        //   ([has_member, likes].forum, [has_member,likes].post),
-        //   ([container_of].forum, [container_of].post)
+        // t=Gamma(
+        //     ([hasMember, likes].post, [hasMember, likes].Forum),
+        //     ([containerof].post, [containerof]. forum)
         // )
         let t = gamma(vec![
             (
-                expr!(&graph, [has_member, likes], Forum)?,
-                expr!(&graph, [has_member, likes], Post)?,
+                expr!(&graph, [hasMember, likes], Post)?,
+                expr!(&graph, [hasMember, likes], Forum)?,
             ),
             (
-                expr!(&graph, [container_of], Forum)?,
-                expr!(&graph, [container_of], Post)?,
+                expr!(&graph, [containerOf], Post)?,
+                expr!(&graph, [containerOf], Forum)?,
             ),
         ]);
+
+        // Alpha(
+        //     Gamma(
+        //     beta([like].Post, t.Post, t.forum),
+        //     beta(t.Post, [like].Post, [like].person)
+        //     ),
+        //     ([hasMember].forum, [hasMember].Person)
+        //     )
+        // )
 
         // t.post / t.forum
         let t_post = t.get("Post");
@@ -493,19 +452,17 @@ mod tests {
         let g_inner = gamma(vec![
             (beta1, beta2),
             (
-                expr!(&graph, [has_member], Forum)?,
-                expr!(&graph, [has_member], Person)?,
+                expr!(&graph, [hasMember], Forum)?,
+                expr!(&graph, [hasMember], Person)?,
             ),
         ]);
 
         // Gamma(...).person
         let g_person = g_inner.get("Person");
 
-        // [knows].person
-        let knows_person = expr!(&graph, [knows], Person)?;
 
         // Alpha( Gamma(...).person, [knows].person ).sum()
-        let result = alpha(&[g_person, knows_person]).sum();
+        let result = g_person.sum();
 
         println!("p6 result = {}", result);
         Ok(())
@@ -543,11 +500,7 @@ mod tests {
 
         // ---------- Gamma( pair1, pair2, pair3 ).sum() ----------
 
-        let g = gamma(vec![
-            (b_hm1, b_hm2),
-            (knows_p1, knows_p2),
-            (b_c1, b_c2),
-        ]);
+        let g = gamma(vec![(b_hm1, b_hm2), (knows_p1, knows_p2), (b_c1, b_c2)]);
 
         let result = g.sum();
 
@@ -559,16 +512,14 @@ mod tests {
     fn test_p8() -> GCardResult<()> {
         let graph = load_graph();
 
-        let tag_expr     = expr!(&graph, [hasTag], Tag)?;      // [hasTag].tag
-        let tag_comment  = expr!(&graph, [hasTag], Comment)?;  // [hasTag].Comment
+        let tag_expr = expr!(&graph, [hasTag], Tag)?; // [hasTag].tag
+        let tag_comment = expr!(&graph, [hasTag], Comment)?; // [hasTag].Comment
 
         let b_tag_1 = beta(&tag_expr, &tag_expr, &tag_comment);
         let b_tag_2 = beta(&tag_expr, &tag_expr, &tag_comment);
 
-
         let reply_comment_1 = expr!(&graph, [replyof], Comment)?; // [replyof].comment
         let reply_comment_2 = expr!(&graph, [replyof], Comment)?;
-
 
         // Beta([has_creator, knows].person, [has_creator].person, [has_creator].comment)
         let b_creator_1 = beta(
@@ -587,9 +538,9 @@ mod tests {
         // ---------- Gamma( pair1, pair2, pair3 ).sum() ----------
 
         let g = gamma(vec![
-            (b_tag_1,           b_tag_2),
-            (reply_comment_1,   reply_comment_2),
-            (b_creator_1,       b_creator_2),
+            (b_tag_1, b_tag_2),
+            (reply_comment_1, reply_comment_2),
+            (b_creator_1, b_creator_2),
         ]);
 
         let result = g.sum();
@@ -597,7 +548,4 @@ mod tests {
         println!("p8 result = {}", result);
         Ok(())
     }
-
-
-
 }
