@@ -19,6 +19,8 @@ enum Command {
     Serialize(SerializeArgs),
     /// Show the contents of a bincode graph file.
     Show(ShowArgs),
+    /// Create catalog from DuckDB database and export to bincode file.
+    CreateCatalog(CreateCatalogArgs),
 }
 
 const STACK_SIZE: usize = 128 * 1024 * 1024;
@@ -32,6 +34,7 @@ fn main() {
             match command {
                 Command::Serialize(args) => serialize(args),
                 Command::Show(args) => show(args),
+                Command::CreateCatalog(args) => create_catalog(args),
             }
         })
         .unwrap();

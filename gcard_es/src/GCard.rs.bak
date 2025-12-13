@@ -1,0 +1,640 @@
+use std::collections::{BTreeSet, HashMap};
+use std::fs;
+use std::fs::File;
+use std::path::{Path, PathBuf};
+use std::sync::Arc;
+
+use minigu_catalog::provider::{GraphProvider, GraphTypeProvider, SchemaProvider};
+use minigu_common::data_type::LogicalType;
+use minigu_common::types::{LabelId, VertexId};
+use minigu_context::graph::{GraphContainer, GraphStorage};
+use minigu_context::procedure::Procedure;
+use minigu_storage::error::StorageResult;
+use minigu_storage::iterators::AdjacencyIteratorTrait;
+use minigu_storage::tp::{MemTransaction, MemoryGraph};
+use minigu_transaction::GraphTxnManager;
+use minigu_transaction::IsolationLevel::Serializable;
+use rayon::prelude::*;
+use rayon::ThreadPoolBuilder;
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize, Eq, Hash, PartialEq)]
+pub struct PathPattern {
+    pub node_labels: Vec<LabelId>,
+    pub edge_labels: Vec<LabelId>,
+}
+
+impl PathPattern {
+    pub fn len(&self) -> usize {
+        self.edge_labels.len()
+    }
+
+    pub fn print(&self, id_map: &HashMap<LabelId, String>) {
+        let mut parts = Vec::new();
+        for i in 0..self.edge_labels.len() {
+            // 添加节点
+            let node_name = id_map
+                .get(&self.node_labels[i])
+                .map(|s| s.as_str())
+                .unwrap_or("Unknown");
+            parts.push(node_name.to_string());
+            // 添加边
+            let edge_name = id_map
+                .get(&self.edge_labels[i])
+                .map(|s| s.as_str())
+                .unwrap_or("Unknown");
+            parts.push(edge_name.to_string());
+        }
+        // 添加最后一个节点
+        let last_node_name = id_map
+            .get(&self.node_labels[self.node_labels.len() - 1])
+            .map(|s| s.as_str())
+            .unwrap_or("Unknown");
+        parts.push(last_node_name.to_string());
+        
+        println!("{}", parts.join("-"));
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.edge_labels.is_empty()
+    }
+
+    pub fn src_label_id(&self) -> LabelId {
+        self.node_labels[0]
+    }
+
+    pub fn dst_label_id(&self) -> LabelId {
+        self.node_labels[self.node_labels.len() - 1]
+    }
+
+    pub fn suffix(&self) -> Option<PathPattern> {
+        if self.edge_labels.len() <= 1 {
+            None
+        } else {
+            Some(PathPattern {
+                node_labels: self.node_labels[1..].to_vec(),
+                edge_labels: self.edge_labels[1..].to_vec(),
+            })
+        }
+    }
+
+    pub fn get_step(&self, i: usize) -> Option<(LabelId, LabelId, LabelId)> {
+        if i < self.edge_labels.len() {
+            Some((
+                self.node_labels[i],
+                self.node_labels[i + 1],
+                self.edge_labels[i],
+            ))
+        } else {
+            None
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PathVertexDegrees {
+    pub pattern: PathPattern,
+    pub degrees: HashMap<VertexId, u64>,
+}
+
+pub type PathDegreesMap = HashMap<BTreeSet<LabelId>, HashMap<LabelId, HashMap<VertexId, u64>>>;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PathDegreeSeqOutput {
+    pub edge_labels: Vec<String>,
+    pub endpoints: HashMap<String, Vec<u64>>,
+}
+pub type EdgeInfo = HashMap<LabelId, (LabelId, LabelId)>;
+fn get_all_edges(catalog: &dyn GraphTypeProvider) -> EdgeInfo {
+    let mut edges = HashMap::new();
+    for edge_type in catalog.edge_type_keys() {
+        let edges_type = catalog
+            .get_edge_type(&edge_type)
+            .expect("edge type not found")
+            .unwrap();
+        let src_type = edges_type.src().label_set().first().unwrap().clone();
+        let dst_type = edges_type.dst().label_set().first().unwrap().clone();
+        let edge_label_id = edge_type.first().unwrap().clone();
+
+        edges.insert(edge_label_id, (src_type, dst_type));
+    }
+    edges
+}
+
+type EdgeSetEndpoints = HashMap<BTreeSet<LabelId>, (LabelId, LabelId)>;
+
+fn enumerate_edge_combinations(all_edges: &EdgeInfo, max_k: usize) -> EdgeSetEndpoints {
+    let mut edge_sets: EdgeSetEndpoints = HashMap::new();
+
+    for (edge_label_id, (src_label_id, dst_label_id)) in all_edges {
+        let mut edge_set = BTreeSet::new();
+        edge_set.insert(*edge_label_id);
+        edge_sets.insert(edge_set, (*src_label_id, *dst_label_id));
+    }
+
+    for k in 2..=max_k {
+        let mut new_edge_sets: EdgeSetEndpoints = HashMap::new();
+        for (edge_set, &(start_type, end_type)) in &edge_sets {
+            if edge_set.len() != k - 1 {
+                continue;
+            }
+
+            for (edge_label_id, (src_label_id, dst_label_id)) in all_edges {
+                if *src_label_id == start_type || *dst_label_id == start_type {
+                    let mut new_edge_set = edge_set.clone();
+                    new_edge_set.insert(*edge_label_id);
+
+                    let new_start_type = if *src_label_id == start_type {
+                        *dst_label_id
+                    } else {
+                        *src_label_id
+                    };
+
+                    new_edge_sets.insert(new_edge_set, (new_start_type, end_type));
+                }
+
+                if *src_label_id == end_type || *dst_label_id == end_type {
+                    let mut new_edge_set = edge_set.clone();
+                    new_edge_set.insert(*edge_label_id);
+
+                    let new_end_type = if *src_label_id == end_type {
+                        dst_label_id
+                    } else {
+                        src_label_id
+                    };
+
+                    new_edge_sets.insert(new_edge_set, (start_type, *new_end_type));
+                }
+            }
+        }
+
+        for (edge_set, endpoints) in new_edge_sets {
+            edge_sets.entry(edge_set).or_insert(endpoints);
+        }
+    }
+
+    edge_sets
+}
+
+fn find_edge_combination_path_with_endpoints(
+    edge_set: &BTreeSet<LabelId>,
+    all_edges: &EdgeInfo,
+    start_type: LabelId,
+    end_type: LabelId,
+) -> Option<PathPattern> {
+    if edge_set.is_empty() {
+        return None;
+    }
+    let edges: EdgeInfo = edge_set
+        .iter()
+        .filter_map(|&edge_label| {
+            all_edges
+                .get(&edge_label)
+                .map(|&(src_type, dst_type)| (edge_label, (src_type, dst_type)))
+        })
+        .collect();
+
+    if edges.len() != edge_set.len() {
+        return None;
+    }
+
+    let mut node_labels = vec![start_type];
+    let mut edge_labels = Vec::new();
+    let mut current_node = start_type;
+    let mut used_edges = BTreeSet::new();
+
+    while used_edges.len() < edge_set.len() {
+        let mut found = false;
+        for (edge_type, (src_type, dst_type)) in &edges {
+            if used_edges.contains(&edge_type) {
+                continue;
+            }
+
+            if *src_type == current_node {
+                edge_labels.push(*edge_type);
+                node_labels.push(*dst_type);
+                current_node = *dst_type;
+                used_edges.insert(edge_type);
+                found = true;
+                break;
+            } else if *dst_type == current_node {
+                edge_labels.push(*edge_type);
+                node_labels.push(*src_type);
+                current_node = *src_type;
+                used_edges.insert(edge_type);
+                found = true;
+                break;
+            }
+        }
+
+        if !found {
+            return None;
+        }
+    }
+
+    if current_node == end_type {
+        Some(PathPattern {
+            node_labels,
+            edge_labels,
+        })
+    } else {
+        None
+    }
+}
+
+fn iter_vertices_of_type(
+    graph: Arc<MemoryGraph>,
+    node_type: LabelId,
+    txn: &Arc<MemTransaction>,
+) -> StorageResult<Vec<VertexId>> {
+    graph
+        .iter_vertices(txn)?
+        .filter_map(|vertex| match vertex {
+            Ok(vertex) => {
+                if vertex.label_id == node_type {
+                    Some(Ok(vertex.vid))
+                } else {
+                    None
+                }
+            }
+            Err(e) => Some(Err(e)),
+        })
+        .collect()
+}
+
+fn neighbors_matching_step_undirected(
+    graph: Arc<MemoryGraph>,
+    vertex_id: VertexId,
+    current_node_label: LabelId,
+    target_node_label: LabelId,
+    src_node_label: LabelId,
+    edge_label: LabelId,
+    txn: &Arc<MemTransaction>,
+) -> Vec<VertexId> {
+    let current_vertex = match graph.get_vertex(&txn, vertex_id) {
+        Ok(v) => v,
+        Err(_) => {
+            println!(
+                "neighbors_matching_step_undirected: vertex_id={} not found",
+                vertex_id
+            );
+            return Vec::new();
+        }
+    };
+
+    if current_vertex.label_id != current_node_label {
+        return Vec::new();
+    }
+
+    let use_outgoing = current_node_label == src_node_label;
+
+    let mut adj_iter = if use_outgoing {
+        txn.iter_adjacency_outgoing(vertex_id)
+    } else {
+        txn.iter_adjacency_incoming(vertex_id)
+    };
+
+    adj_iter =
+        AdjacencyIteratorTrait::filter(adj_iter, move |neighbor| neighbor.label_id() == edge_label);
+
+    let mut matching_neighbors = Vec::new();
+
+    for neighbor_result in adj_iter {
+        match neighbor_result {
+            Ok(neighbor) => {
+                let neighbor_id = neighbor.neighbor_id();
+                match graph.get_vertex(&txn, neighbor_id) {
+                    Ok(neighbor_vertex) => {
+                        if neighbor_vertex.label_id == target_node_label {
+                            matching_neighbors.push(neighbor_vertex.vid);
+                        }
+                    }
+                    Err(_) => {
+                        continue;
+                    }
+                }
+            }
+            Err(_) => {
+                continue;
+            }
+        }
+    }
+    matching_neighbors
+}
+
+fn agg_degree_sequence(
+    path_degree: &PathDegreesMap,
+    graph_type: &dyn GraphTypeProvider,
+) -> Vec<PathDegreeSeqOutput> {
+    let mut label_id_to_name_map: HashMap<LabelId, String> = HashMap::new();
+    for name in graph_type.label_names() {
+        if let Ok(Some(id)) = graph_type.get_label_id(&name) {
+            label_id_to_name_map.insert(id, name);
+        }
+    }
+
+    let label_id_to_name = |label_id: LabelId| -> String {
+        label_id_to_name_map
+            .get(&label_id)
+            .cloned()
+            .unwrap_or_else(|| format!("Unknown_{}", label_id))
+    };
+
+    let mut out = Vec::new();
+    for (edge_labels, endpoint_degrees) in path_degree {
+        let edge_label_names: Vec<String> = edge_labels
+            .iter()
+            .map(|&label_id| label_id_to_name(label_id))
+            .collect();
+
+        let mut endpoints: HashMap<String, Vec<u64>> = HashMap::new();
+        for (endpoint_type, vertex_degrees) in endpoint_degrees {
+            let mut degree_seq: Vec<u64> = vertex_degrees.values().copied().collect();
+            degree_seq.sort_unstable_by(|a, b| b.cmp(a));
+            degree_seq.retain(|&x| x != 0);
+            endpoints.insert(label_id_to_name(*endpoint_type), degree_seq);
+        }
+
+        out.push(PathDegreeSeqOutput {
+            edge_labels: edge_label_names,
+            endpoints,
+        });
+    }
+    out
+}
+
+fn save_type_path_degree_seq(
+    seqs: &[PathDegreeSeqOutput],
+    out_dir: &Path,
+) -> Result<(), std::io::Error> {
+    let summary_dir = out_dir.join("summary");
+    fs::create_dir_all(&summary_dir)?;
+    let file_path = summary_dir.join("typed_path_degree_sequence.json");
+    let f = File::create(file_path)?;
+    serde_json::to_writer_pretty(f, &seqs)?;
+    Ok(())
+}
+
+pub fn build_procedure() -> Procedure {
+    // parameters:
+    // 1. graph name
+    // 2. max length of path.
+    // 3. output folder.
+    let parameters = vec![LogicalType::String, LogicalType::Int8, LogicalType::String];
+    Procedure::new(parameters, None, move |mut context, args| {
+        let graph_name = args[0]
+            .try_as_string()
+            .expect("expecting string value for graph_name")
+            .as_ref()
+            .ok_or_else(|| anyhow::anyhow!("expecting string value for graph name"))?
+            .to_string();
+
+        let num_threads = std::thread::available_parallelism()
+            .map(|n| n.get())
+            .unwrap_or(8);
+        // let num_threads = 1;
+
+        let custom_pool = ThreadPoolBuilder::new()
+            .num_threads(num_threads)
+            .build()
+            .map_err(|e| anyhow::anyhow!("Failed to create thread pool: {}", e))?;
+        println!(
+            "Using {} rayon threads (available parallelism: {})",
+            num_threads,
+            std::thread::available_parallelism()
+                .map(|n| n.get())
+                .unwrap_or(1)
+        );
+
+        let schema = context
+            .current_schema
+            .ok_or_else(|| anyhow::anyhow!("current schema not set"))?;
+        let graph_container = schema
+            .get_graph(&graph_name)?
+            .ok_or_else(|| anyhow::anyhow!("graph named '{}' not found", graph_name))?;
+
+        let graph_type_ref = graph_container.graph_type();
+        let graph_container = graph_container
+            .downcast_ref::<GraphContainer>()
+            .ok_or_else(|| anyhow::anyhow!("graph '{}' container type mismatch", graph_name))?;
+
+        let graph = match graph_container.graph_storage() {
+            GraphStorage::Memory(g) => Arc::clone(&g),
+            _ => {
+                return Err(anyhow::anyhow!("graph '{}' is not a memory graph", graph_name).into());
+            }
+        };
+
+        let path_len = args[1]
+            .try_as_int8()
+            .expect("max length of path must be int8")
+            .ok_or_else(|| anyhow::anyhow!("expecting int8 for path length"))?;
+
+        let out_put_dir = args[2]
+            .try_as_string()
+            .expect("expecting string value for output folder")
+            .as_ref()
+            .ok_or_else(|| anyhow::anyhow!("expecting string value for output folder"))?
+            .to_string();
+
+        let all_edges = get_all_edges(graph_type_ref.as_ref());
+        let edge_combinations = enumerate_edge_combinations(&all_edges, path_len as usize);
+
+        let txn = graph.txn_manager().begin_transaction(Serializable)?;
+
+        let mut label_id_to_name_map: HashMap<LabelId, String> = HashMap::new();
+        for name in graph_type_ref.label_names() {
+            if let Ok(Some(id)) = graph_type_ref.get_label_id(&name) {
+                label_id_to_name_map.insert(id, name.clone());
+                print!("{}-{}\n", id, name.clone());
+            }
+        }
+
+        let results = custom_pool.install(
+            || -> Result<PathDegreesMap, Box<dyn std::error::Error + Send + Sync>> {
+                let mut local_results: PathDegreesMap = HashMap::new();
+
+                let mut combinations_by_len: HashMap<
+                    usize,
+                    Vec<(BTreeSet<LabelId>, (LabelId, LabelId))>,
+                > = HashMap::new();
+                for (edge_set, endpoints) in &edge_combinations {
+                    combinations_by_len
+                        .entry(edge_set.len())
+                        .or_insert_with(Vec::new)
+                        .push((edge_set.clone(), *endpoints));
+                }
+
+                for current_len in 1..=path_len as usize {
+                    let combos = combinations_by_len
+                        .get(&current_len)
+                        .cloned()
+                        .unwrap_or_default();
+
+                    let results_ref = Arc::new(&local_results);
+
+                    let mut all_path_results: Vec<(
+                        BTreeSet<LabelId>,
+                        LabelId,
+                        HashMap<VertexId, u64>,
+                    )> = Vec::new();
+
+                    for (edge_set, (start_type, end_type)) in &combos {
+                        if let Some(path_pattern) = find_edge_combination_path_with_endpoints(
+                            edge_set,
+                            &all_edges,
+                            *start_type,
+                            *end_type,
+                        ) {
+                            path_pattern.print(&label_id_to_name_map);
+                            let vertices_from_start =
+                                iter_vertices_of_type(graph.clone(), *start_type, &txn).map_err(
+                                    |e| Box::new(e) as Box<dyn std::error::Error + Send + Sync>,
+                                )?;
+
+                            let degrees_from_start: HashMap<VertexId, u64> = vertices_from_start
+                                .par_iter()
+                                .map(|&v| {
+                                    let cnt = if current_len == 1 {
+                                        let (current_node, target_node, edge_label) =
+                                            path_pattern.get_step(0).unwrap();
+                                        let edge_info = all_edges.get(&edge_label).unwrap();
+                                        let neighs = neighbors_matching_step_undirected(
+                                            graph.clone(),
+                                            v,
+                                            current_node,
+                                            target_node,
+                                            edge_info.0,
+                                            edge_label,
+                                            &txn,
+                                        );
+                                        neighs.len() as u64
+                                    } else {
+                                        let (current_node, target_node, edge_label) =
+                                            path_pattern.get_step(0).unwrap();
+                                        let edge_info = all_edges.get(&edge_label).unwrap();
+                                        let suffix_pattern = path_pattern.suffix().unwrap();
+                                        let suffix_edges: BTreeSet<LabelId> =
+                                            suffix_pattern.edge_labels.iter().copied().collect();
+                                        let suffix_stats =
+                                            results_ref.get(&suffix_edges).unwrap_or_else(|| {
+                                                panic!("suffix error: {:?}", suffix_edges)
+                                            });
+
+                                        let suffix_start_type = suffix_pattern.src_label_id();
+                                        let suffix_vertex_degrees = suffix_stats
+                                            .get(&suffix_start_type)
+                                            .cloned()
+                                            .unwrap_or_default();
+
+                                        let neighs = neighbors_matching_step_undirected(
+                                            graph.clone(),
+                                            v,
+                                            current_node,
+                                            target_node,
+                                            edge_info.0,
+                                            edge_label,
+                                            &txn,
+                                        );
+
+                                        neighs
+                                            .par_iter()
+                                            .map(|&u| {
+                                                suffix_vertex_degrees.get(&u).copied().unwrap_or(0)
+                                            })
+                                            .sum()
+                                    };
+                                    (v, cnt)
+                                })
+                                .collect();
+
+                            all_path_results.push((
+                                edge_set.clone(),
+                                *start_type,
+                                degrees_from_start,
+                            ));
+
+                            let vertices_from_end =
+                                iter_vertices_of_type(graph.clone(), *end_type, &txn).map_err(
+                                    |e| Box::new(e) as Box<dyn std::error::Error + Send + Sync>,
+                                )?;
+
+                            let degrees_from_end: HashMap<VertexId, u64> = vertices_from_end
+                                .par_iter()
+                                .map(|&v| {
+                                    let cnt = if current_len == 1 {
+                                        let (target_node, current_node, edge_label) =
+                                            path_pattern.get_step(0).unwrap();
+                                        let edge_info = all_edges.get(&edge_label).unwrap();
+                                        let neighs = neighbors_matching_step_undirected(
+                                            graph.clone(),
+                                            v,
+                                            current_node,
+                                            target_node,
+                                            edge_info.0,
+                                            edge_label,
+                                            &txn,
+                                        );
+                                        neighs.len() as u64
+                                    } else {
+                                        let last_idx = path_pattern.edge_labels.len() - 1;
+                                        let (target_node, current_node, edge_label) =
+                                            path_pattern.get_step(last_idx).unwrap();
+                                        let edge_info = all_edges.get(&edge_label).unwrap();
+                                        let mut suffix_edges: BTreeSet<LabelId> = path_pattern
+                                            .edge_labels[..last_idx]
+                                            .iter()
+                                            .copied()
+                                            .collect();
+                                        let suffix_stats =
+                                            results_ref.get(&suffix_edges).unwrap_or_else(|| {
+                                                panic!("reversed suffix error: {:?}", suffix_edges)
+                                            });
+
+                                        let suffix_start_type = path_pattern.node_labels
+                                            [path_pattern.node_labels.len() - 2];
+                                        let suffix_vertex_degrees = suffix_stats
+                                            .get(&suffix_start_type)
+                                            .cloned()
+                                            .unwrap_or_default();
+
+                                        let neighs = neighbors_matching_step_undirected(
+                                            graph.clone(),
+                                            v,
+                                            current_node,
+                                            target_node,
+                                            edge_info.0,
+                                            edge_label,
+                                            &txn,
+                                        );
+
+                                        neighs
+                                            .par_iter()
+                                            .map(|&u| {
+                                                suffix_vertex_degrees.get(&u).copied().unwrap_or(0)
+                                            })
+                                            .sum()
+                                    };
+                                    (v, cnt)
+                                })
+                                .collect();
+
+                            all_path_results.push((edge_set.clone(), *end_type, degrees_from_end));
+                        }
+                    }
+
+                    for (edge_labels, endpoint_type, degrees) in all_path_results {
+                        let entry = local_results
+                            .entry(edge_labels)
+                            .or_insert_with(HashMap::new);
+                        entry.insert(endpoint_type, degrees);
+                    }
+                }
+                Ok(local_results)
+            },
+        )?;
+        let to_serialize = agg_degree_sequence(&results, graph_type_ref.as_ref());
+        save_type_path_degree_seq(&to_serialize, &PathBuf::from(out_put_dir));
+        Ok(vec![])
+    })
+}
