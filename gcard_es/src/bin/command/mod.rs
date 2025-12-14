@@ -1,4 +1,4 @@
-mod create_catalog;
+pub mod create_catalog;
 mod serialize;
 mod show;
 

@@ -1,3 +1,4 @@
+use std::fmt;
 use serde::{Deserialize, Serialize};
 
 use crate::error::GCardResult;
@@ -7,6 +8,33 @@ pub struct PiecewiseConstantFunction {
     pub constants: Vec<f64>,
     pub right_interval_edges: Vec<f64>,
     pub cumulative_rows: Vec<f64>,
+}
+
+impl fmt::Display for PiecewiseConstantFunction {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let n = self.constants.len();
+
+        writeln!(f, "PiecewiseConstantFunction {{")?;
+        writeln!(f, "  segments: {}", n)?;
+
+        let mut left = f64::NEG_INFINITY;
+
+        for i in 0..n {
+            let right = self.right_interval_edges[i];
+            let c = self.constants[i];
+            let cum = self.cumulative_rows[i];
+
+            writeln!(
+                f,
+                "  [{:>8.3}, {:>8.3})  value = {:>8.4},  cumulative = {:>8.4}",
+                left, right, c, cum
+            )?;
+
+            left = right;
+        }
+
+        writeln!(f, "}}")
+    }
 }
 
 impl PiecewiseConstantFunction {

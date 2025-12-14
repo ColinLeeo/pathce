@@ -1,7 +1,9 @@
 use crate::degreepiecewise::{gamma_core, Pcf};
 use crate::error::{GCardError, GCardResult};
 use crate::graph::DegreeSeqGraph;
-use std::collections::{HashMap, HashSet};
+use crate::AltKey;
+use std::collections::HashMap;
+use std::fmt;
 use std::rc::Rc;
 
 #[derive(Debug, Clone)]
@@ -18,6 +20,43 @@ pub enum Expr {
         node_map: HashMap<String, Rc<Pcf>>,
     },
 }
+
+impl fmt::Display for Expr {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Expr::Single { pcf, node } => {
+                writeln!(f, "Expr::Single")?;
+                writeln!(f, "  node: {}", node)?;
+                writeln!(f, "  pcf:")?;
+
+                for line in format!("{}", pcf).lines() {
+                    writeln!(f, "    {}", line)?;
+                }
+
+                Ok(())
+            }
+
+            Expr::Pair { node_map, .. } => {
+                writeln!(f, "Expr::Pair")?;
+                writeln!(f, "  node_map ({}):", node_map.len())?;
+
+                let mut keys: Vec<_> = node_map.keys().collect();
+                keys.sort();
+
+                for k in keys {
+                    let pcf = &node_map[k];
+                    writeln!(f, "    {}:", k)?;
+                    for line in format!("{}", pcf).lines() {
+                        writeln!(f, "      {}", line)?;
+                    }
+                }
+
+                Ok(())
+            }
+        }
+    }
+}
+
 
 impl Expr {
     pub fn new_single(node: impl Into<String>, pcf: Rc<Pcf>) -> Expr {
@@ -65,13 +104,13 @@ impl Expr {
 
     pub fn from_path(
         graph: &DegreeSeqGraph,
-        edges: HashSet<&str>,
+        path: &AltKey,
         target_node: &str,
     ) -> GCardResult<Self> {
         let degree_seq = graph
-            .get_degree_seq_vec_by_edges(&edges, target_node)
+            .get_degree_seq_vec_by_path(path, target_node)
             .ok_or_else(|| {
-                GCardError::InvalidData(format!("Path not found: {:?}.{}", edges, target_node))
+                GCardError::InvalidData(format!("Path not found: {:?}.{}", path, target_node))
             })?;
 
         let degree_piecewise =
@@ -141,14 +180,14 @@ impl Expr {
 macro_rules! expr {
     ($graph:expr, [$($edge:ident),*], $target:ident) => {
         {
-            let edges: HashSet<&str> = [$(stringify!($edge)),*].iter().cloned().collect();
-            Expr::from_path($graph, edges, stringify!($target))
+        let key = AltKey(vec![$(stringify!($edge).to_string()),*]);
+            Expr::from_path($graph, &key, stringify!($target))
         }
     };
     ($graph:expr, [$($edge:ident),*], $target:expr) => {
         {
-            let edges: HashSet<&str> = [$(stringify!($edge)),*].iter().cloned().collect();
-            Expr::from_path($graph, edges, $target)
+        let key = AltKey(vec![$(stringify!($edge).to_string()),*]);
+            Expr::from_path($graph, &key, $target)
         }
     };
 }
@@ -195,25 +234,31 @@ mod tests {
 
     fn load_graph() -> DegreeSeqGraph {
         DegreeSeqGraph::import_bincode(Path::new(
-            "/Users/colin/dev/pathce/graphs/ldbc/gcard/graph.bincode",
+            "/Users/colin/dev/pathce/gcard_es/statistic.bincode",
         ))
         .unwrap()
+    }
+
+    fn print_path(graph: &DegreeSeqGraph) {
+        let path = &graph.edge_set_to_endpoints;
+        for (key, _) in path {
+            println!("{:?}", key);
+        }
     }
 
     #[test]
     fn test_q1() -> GCardResult<()> {
         let graph = load_graph();
-
         let result = alpha(&[
             beta(
-                &expr!(&graph, [isLocatedIn2, isPartOf], Person)?,
-                &expr!(&graph, [hasMember], Person)?,
-                &expr!(&graph, [hasMember], Forum)?,
+                &expr!(&graph, [Person, Person_isLocatedIn_City, City, City_isPartOf_Country, Country], Person)?,
+                &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
+                &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
             ),
             beta(
-                &expr!(&graph, [hasTag, hasType], Comment)?,
-                &expr!(&graph, [containerOf, replyOf1], Comment)?,
-                &expr!(&graph, [containerOf, replyOf1], Forum)?,
+                &expr!(&graph, [Comment, Comment_hasTag_Tag, Tag, Tag_hasType_TagClass, TagClass], Comment)?,
+                &expr!(&graph, [Forum, Forum_containerOf_Post, Post, Comment_replyOf_Post, Comment], Comment)?,
+                &expr!(&graph, [Forum, Forum_containerOf_Post, Post, Comment_replyOf_Post, Comment], Forum)?,
             ),
         ])
         .get_num();
@@ -224,32 +269,29 @@ mod tests {
     #[test]
     fn test_q2() -> GCardResult<()> {
         let graph = load_graph();
-
         let g = gamma(vec![
             (
-                expr!(&graph, [hasCreator1, knows], Comment)?,
-                expr!(&graph, [hasCreator1, knows], Person)?,
+                expr!(&graph, [Comment, Comment_hasCreator_Person, Person, Person_knows_Person, Person], Comment)?,
+                expr!(&graph, [Comment, Comment_hasCreator_Person, Person, Person_knows_Person, Person], Person)?,
             ),
             (
-                expr!(&graph, [replyOf1, hasCreator], Comment)?,
-                expr!(&graph, [replyOf1, hasCreator], Person)?,
+                expr!(&graph, [Comment, Comment_replyOf_Post, Post, Post_hasCreator_Person, Person], Comment)?,
+                expr!(&graph, [Comment, Comment_replyOf_Post, Post, Post_hasCreator_Person, Person], Person)?,
             ),
         ]);
-
         let result = g.get_num();
         println!("q2 row num is {}", result);
-
         Ok(())
     }
 
     #[test]
-    fn test_q3() -> GCardResult<()> {
+    fn test_q4() -> GCardResult<()> {
         let graph = load_graph();
 
-        let e1 = expr!(&graph, [hasTag2], Post)?;
-        let e2 = expr!(&graph, [hasCreator], Post)?;
-        let e3 = expr!(&graph, [likes], Post)?;
-        let e4 = expr!(&graph, [replyOf1], Post)?;
+        let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post)?;
+        let e2 = expr!(&graph, [Post, Post_hasCreator_Person, Person], Post)?;
+        let e3 = expr!(&graph, [Person, Person_likes_Post, Post], Post)?;
+        let e4 = expr!(&graph, [Comment, Comment_replyOf_Post, Post], Post)?;
 
         let result = alpha(&[e1, e2, e3, e4]).sum();
 
@@ -260,9 +302,10 @@ mod tests {
     #[test]
     fn test_q5() -> GCardResult<()> {
         let graph = load_graph();
+        print_path(&graph);
 
-        let e1 = expr!(&graph, [hasTag2], Post)?;
-        let e2 = expr!(&graph, [replyOf1, hasTag], Post)?;
+        let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post)?;
+        let e2 = expr!(&graph, [Post, Comment_replyOf_Post, Comment, Comment_hasTag_Tag, Tag], Post)?;
 
         let result = alpha(&[e1, e2]).sum();
 
@@ -274,8 +317,8 @@ mod tests {
     fn test_q6() -> GCardResult<()> {
         let graph = load_graph();
 
-        let e1 = expr!(&graph, [knows, knows], Person)?;
-        let e2 = expr!(&graph, [hasInterest], Person)?;
+        let e1 = expr!(&graph, [Person, Person_knows_Person, Person, Person_knows_Person, Person], Person)?;
+        let e2 = expr!(&graph, [Person, Person_hasInterest_Tag, Tag], Person)?;
 
         let result = alpha(&[e1, e2]).sum();
 
@@ -379,9 +422,9 @@ mod tests {
     #[test]
     fn test_p5() -> GCardResult<()> {
         let graph = load_graph();
-
-        let c_like = expr!(&graph, [hasCreator1, likes1], Comment)?; // [hasCreator, likes].comment
-        let c_reply = expr!(&graph, [replyOf], Comment)?; // [replyof].comment
+        print_path(&graph);
+        let c_like = expr!(&graph, [Comment,Comment_hasCreator_Person, Person, Person_likes_Comment, Comment], Comment)?; // [hasCreator, likes].comment
+        let c_reply = expr!(&graph, [Comment, Comment_replyOf_Comment, Comment], Comment)?; // [replyof].comment
 
         // Gamma(
         //   ([hasCreator, likes].comment,[hasCreator, likes].comment),
@@ -404,19 +447,19 @@ mod tests {
     #[test]
     fn test_p6() -> GCardResult<()> {
         let graph = load_graph();
-
+        print_path(&graph);
         // t=Gamma(
         //     ([hasMember, likes].post, [hasMember, likes].Forum),
         //     ([containerof].post, [containerof]. forum)
         // )
         let t = gamma(vec![
             (
-                expr!(&graph, [hasMember, likes], Post)?,
-                expr!(&graph, [hasMember, likes], Forum)?,
+                expr!(&graph, [Forum, Forum_hasMember_Person, Person, Person_likes_Post, Post], Post)?,
+                expr!(&graph, [Forum, Forum_hasMember_Person, Person, Person_likes_Post, Post], Forum)?,
             ),
             (
-                expr!(&graph, [containerOf], Post)?,
-                expr!(&graph, [containerOf], Forum)?,
+                expr!(&graph, [Forum, Forum_containerOf_Post, Post], Post)?,
+                expr!(&graph, [Forum, Forum_containerOf_Post, Post], Forum)?,
             ),
         ]);
 
@@ -434,13 +477,13 @@ mod tests {
         let t_forum = t.get("Forum");
 
         // Beta([likes].post, t.post, t.forum)
-        let beta1 = beta(&expr!(&graph, [likes], Post)?, &t_post, &t_forum);
+        let beta1 = beta(&expr!(&graph, [Person, Person_likes_Post, Post], Post)?, &t_post, &t_forum);
 
         // Beta(t.post, [likes].post, [likes].person)
         let beta2 = beta(
             &t_post,
-            &expr!(&graph, [likes], Post)?,
-            &expr!(&graph, [likes], Person)?,
+            &expr!(&graph, [Person, Person_likes_Post, Post], Post)?,
+            &expr!(&graph, [Person, Person_likes_Post, Post], Person)?,
         );
 
         // Gamma(
@@ -450,8 +493,8 @@ mod tests {
         let g_inner = gamma(vec![
             (beta1, beta2),
             (
-                expr!(&graph, [hasMember], Forum)?,
-                expr!(&graph, [hasMember], Person)?,
+                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
+                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
             ),
         ]);
 
@@ -468,38 +511,39 @@ mod tests {
     #[test]
     fn test_p7() -> GCardResult<()> {
         let graph = load_graph();
+        print_path(&graph);
         let t1 = gamma(vec![
             (
                 beta(
-                    &expr!(&graph, [hasCreator1, replyOf1], Comment)?,
-                    &expr!(&graph, [hasCreator1], Comment)?,
-                    &expr!(&graph, [hasCreator1], Person)?,
+                    &expr!(&graph, [Person, Comment_hasCreator_Person, Comment, Comment_replyOf_Comment, Comment], Comment)?,
+                    &expr!(&graph, [Comment, Comment_hasCreator_Person, Person], Comment)?,
+                    &expr!(&graph, [Comment, Comment_hasCreator_Person, Person], Person)?,
                 ),
                 beta(
-                    &expr!(&graph, [hasCreator1], Comment)?,
-                    &expr!(&graph, [hasCreator1, replyOf1], Comment)?,
-                    &expr!(&graph, [hasCreator1, replyOf1], Person)?,
+                    &expr!(&graph, [Comment, Comment_hasCreator_Person, Person], Comment)?,
+                    &expr!(&graph, [Person, Comment_hasCreator_Person, Comment, Comment_replyOf_Comment, Comment], Comment)?,
+                    &expr!(&graph, [Person, Comment_hasCreator_Person, Comment, Comment_replyOf_Comment, Comment], Person)?,
                 ),
             ),
             (
-                expr!(&graph, [knows], Person)?,
-                expr!(&graph, [knows], Person)?,
+                expr!(&graph, [Person, Person_knows_Person, Person], Person)?,
+                expr!(&graph, [Person, Person_knows_Person, Person], Person)?,
             ),
         ]);
 
         let g = gamma(vec![
             (
-                expr!(&graph, [hasMember], Forum)?,
-                expr!(&graph, [hasMember], Person)?,
+                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
+                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
             ),
             (
                 beta(
                     &t1.get("Person"),
-                    &expr!(&graph, [hasMember], Person)?,
-                    &expr!(&graph, [hasMember], Forum)?,
+                    &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
+                    &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
                 ),
                 beta(
-                    &expr!(&graph, [hasMember], Person)?,
+                    &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
                     &t1.get("Person"),
                     &t1.get("Person"),
                 ),

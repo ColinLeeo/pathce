@@ -4,7 +4,7 @@ use std::sync::Arc;
 
 use clap::Args;
 use duckdb::Connection;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Args)]
 pub struct CreateCatalogArgs {
@@ -29,6 +29,19 @@ type DegreeMap = HashMap<NodeId, u64>;
 type PatternDegCache = HashMap<PathPattern, HashMap<String, DegreeMap>>;
 
 type AdjCache = HashMap<(String, String, String), Arc<HashMap<NodeId, Vec<NodeId>>>>;
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct AltKey(pub Vec<String>);
+
+impl AltKey {
+    pub fn sorted(&self) -> AltKey {
+        let mut v = self.0.clone();
+        v.sort();
+        AltKey(v)
+    }
+}
+
+pub type BinCatalog = HashMap<AltKey, HashMap<String, Vec<u64>>>;
 
 pub fn create_catalog(args: CreateCatalogArgs) {
     println!("{:#?}", args);
@@ -131,9 +144,12 @@ pub fn create_catalog(args: CreateCatalogArgs) {
         }
     }
 
-    let serialized = build_serialized_catalog(&cache);
+    // let serialized = build_serialized_catalog(&cache);
+    //
+    // write_catalog_json(&serialized, &args.output).expect("failed to write catalog json");
 
-    write_catalog_json(&serialized, &args.output).expect("failed to write catalog json");
+    let bin = build_bin_catalog(&cache);
+    write_bincode(&args.output, &bin).expect("Error writing bincode");
 }
 
 fn get_tables(conn: &Connection) -> Result<Vec<String>, duckdb::Error> {
@@ -268,7 +284,6 @@ fn compute_len_ge2_degrees(
 ) -> Result<(), duckdb::Error> {
     for pattern in patterns {
         let (v_seq, e_seq) = pattern;
-        // let l = e_seq.len();
         let suffix = (v_seq[1..].to_vec(), e_seq[1..].to_vec());
         let left_node = v_seq[0].to_string();
         let right_node = v_seq.last().unwrap().to_string();
@@ -285,7 +300,8 @@ fn compute_len_ge2_degrees(
         let rsuffix = (rp.0[1..].to_vec(), rp.1[1..].to_vec());
         let rsuffix_left_deg = cache[&rsuffix].get(&rsuffix.0[0].to_string()).unwrap();
         let edge_info = parse_edge_table(rp.1[0].as_str()).unwrap();
-        let radj0 = get_adj_left_right(conn, adj_cache, &rp.1[0], right_node == edge_info.src_label)?;
+        let radj0 =
+            get_adj_left_right(conn, adj_cache, &rp.1[0], right_node == edge_info.src_label)?;
         let right_deg = dp_extend(radj0, &rsuffix_left_deg);
         cache
             .entry(pattern.clone())
@@ -457,6 +473,53 @@ fn build_serialized_catalog(cache: &PatternDegCache) -> SerializedCatalog {
     }
 
     out
+}
+
+fn build_bin_catalog(cache: &PatternDegCache) -> BinCatalog {
+    let mut out: BinCatalog = HashMap::new();
+    for ((node_seq, edge_seq), degree_map) in cache {
+        let key = make_alt_key(node_seq, edge_seq);
+
+        let start_node = node_seq.first().unwrap().clone();
+        let end_node = node_seq.last().unwrap().clone();
+        let start_vec = clean_degree_map(degree_map.get(&start_node.clone()).unwrap());
+        let end_vec = clean_degree_map(degree_map.get(&end_node.clone()).unwrap());
+        if out.contains_key(&key) {
+            let obj = out.get_mut(&key).unwrap();
+            let vec_start = obj.get(&start_node).unwrap();
+            let vec_end = obj.get(&end_node).unwrap();
+            if (*vec_start!= start_vec) {
+                println!("conflict!!!")
+            }
+            if (*vec_end != end_vec) {
+                println!("conflict!!!")
+            }
+            continue;
+        }
+        let entry = out.entry(key).or_insert_with(HashMap::new);
+        entry.insert(start_node, start_vec);
+        entry.insert(end_node, end_vec);
+    }
+    out
+}
+
+fn write_bincode(path: &PathBuf, catalog: &BinCatalog) -> Result<(), std::io::Error> {
+    let f = File::create(path)?;
+    let mut w = BufWriter::new(f);
+
+    bincode::serialize_into(&mut w, catalog).expect("serailize failed");
+    Ok(())
+}
+
+fn make_alt_key(node_seq: &[String], edge_seq: &[String]) -> AltKey {
+    let mut out = Vec::with_capacity(node_seq.len() + edge_seq.len());
+    for i in 0..node_seq.len() {
+        out.push(node_seq[i].clone());
+        if i < edge_seq.len() {
+            out.push(edge_seq[i].clone());
+        }
+    }
+    AltKey(out)
 }
 
 use std::fs::File;

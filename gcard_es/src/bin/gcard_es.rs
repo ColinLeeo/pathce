@@ -1,4 +1,4 @@
-mod command;
+pub mod command;
 
 use std::thread;
 
@@ -6,6 +6,7 @@ use clap::Parser;
 use mimalloc::MiMalloc;
 
 use crate::command::*;
+
 
 #[global_allocator]
 static ALLOC: MiMalloc = MiMalloc;
@@ -32,7 +33,7 @@ fn main() {
         .spawn(|| {
             let command = Command::parse();
             match command {
-                Command::Serialize(args) => serialize(args),
+                Command::Serialize(args) => (),
                 Command::Show(args) => show(args),
                 Command::CreateCatalog(args) => create_catalog(args),
             }
