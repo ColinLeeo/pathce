@@ -4,6 +4,8 @@ use crate::graph::DegreeSeqGraph;
 use crate::AltKey;
 use std::collections::HashMap;
 use std::fmt;
+use std::fs::File;
+use std::io::BufWriter;
 use std::rc::Rc;
 
 #[derive(Debug, Clone)]
@@ -56,7 +58,6 @@ impl fmt::Display for Expr {
         }
     }
 }
-
 
 impl Expr {
     pub fn new_single(node: impl Into<String>, pcf: Rc<Pcf>) -> Expr {
@@ -214,8 +215,9 @@ pub fn beta(rx: &Expr, sx: &Expr, sy: &Expr) -> Expr {
         sx.as_pcf(),
         sy.as_pcf(),
     );
-
-    Expr::new_single(sy.node_name().to_string(), Rc::new(result))
+    let tmp = Expr::new_single(sy.node_name().to_string(), Rc::new(result));
+    let res = alpha(&[tmp, sy.clone()]);
+    res
 }
 
 pub fn gamma(paris: Vec<(Expr, Expr)>) -> Expr {
@@ -249,16 +251,92 @@ mod tests {
     #[test]
     fn test_q1() -> GCardResult<()> {
         let graph = load_graph();
+        let res = beta(
+            &expr!(
+                &graph,
+                [
+                    Comment,
+                    Comment_hasTag_Tag,
+                    Tag,
+                    Tag_hasType_TagClass,
+                    TagClass
+                ],
+                Comment
+            )?,
+            &expr!(
+                &graph,
+                [
+                    Forum,
+                    Forum_containerOf_Post,
+                    Post,
+                    Comment_replyOf_Post,
+                    Comment
+                ],
+                Comment
+            )?,
+            &expr!(
+                &graph,
+                [
+                    Forum,
+                    Forum_containerOf_Post,
+                    Post,
+                    Comment_replyOf_Post,
+                    Comment
+                ],
+                Forum
+            )?,
+        );
+        println!("get num {} rows", res.get_num());
         let result = alpha(&[
             beta(
-                &expr!(&graph, [Person, Person_isLocatedIn_City, City, City_isPartOf_Country, Country], Person)?,
+                &expr!(
+                    &graph,
+                    [
+                        Person,
+                        Person_isLocatedIn_City,
+                        City,
+                        City_isPartOf_Country,
+                        Country
+                    ],
+                    Person
+                )?,
                 &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
                 &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
             ),
             beta(
-                &expr!(&graph, [Comment, Comment_hasTag_Tag, Tag, Tag_hasType_TagClass, TagClass], Comment)?,
-                &expr!(&graph, [Forum, Forum_containerOf_Post, Post, Comment_replyOf_Post, Comment], Comment)?,
-                &expr!(&graph, [Forum, Forum_containerOf_Post, Post, Comment_replyOf_Post, Comment], Forum)?,
+                &expr!(
+                    &graph,
+                    [
+                        Comment,
+                        Comment_hasTag_Tag,
+                        Tag,
+                        Tag_hasType_TagClass,
+                        TagClass
+                    ],
+                    Comment
+                )?,
+                &expr!(
+                    &graph,
+                    [
+                        Forum,
+                        Forum_containerOf_Post,
+                        Post,
+                        Comment_replyOf_Post,
+                        Comment
+                    ],
+                    Comment
+                )?,
+                &expr!(
+                    &graph,
+                    [
+                        Forum,
+                        Forum_containerOf_Post,
+                        Post,
+                        Comment_replyOf_Post,
+                        Comment
+                    ],
+                    Forum
+                )?,
             ),
         ])
         .get_num();
@@ -271,12 +349,52 @@ mod tests {
         let graph = load_graph();
         let g = gamma(vec![
             (
-                expr!(&graph, [Comment, Comment_hasCreator_Person, Person, Person_knows_Person, Person], Comment)?,
-                expr!(&graph, [Comment, Comment_hasCreator_Person, Person, Person_knows_Person, Person], Person)?,
+                expr!(
+                    &graph,
+                    [
+                        Comment,
+                        Comment_hasCreator_Person,
+                        Person,
+                        Person_knows_Person,
+                        Person
+                    ],
+                    Comment
+                )?,
+                expr!(
+                    &graph,
+                    [
+                        Comment,
+                        Comment_hasCreator_Person,
+                        Person,
+                        Person_knows_Person,
+                        Person
+                    ],
+                    Person
+                )?,
             ),
             (
-                expr!(&graph, [Comment, Comment_replyOf_Post, Post, Post_hasCreator_Person, Person], Comment)?,
-                expr!(&graph, [Comment, Comment_replyOf_Post, Post, Post_hasCreator_Person, Person], Person)?,
+                expr!(
+                    &graph,
+                    [
+                        Comment,
+                        Comment_replyOf_Post,
+                        Post,
+                        Post_hasCreator_Person,
+                        Person
+                    ],
+                    Comment
+                )?,
+                expr!(
+                    &graph,
+                    [
+                        Comment,
+                        Comment_replyOf_Post,
+                        Post,
+                        Post_hasCreator_Person,
+                        Person
+                    ],
+                    Person
+                )?,
             ),
         ]);
         let result = g.get_num();
@@ -289,6 +407,7 @@ mod tests {
         let graph = load_graph();
 
         let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post)?;
+        println!("{}", e1);
         let e2 = expr!(&graph, [Post, Post_hasCreator_Person, Person], Post)?;
         let e3 = expr!(&graph, [Person, Person_likes_Post, Post], Post)?;
         let e4 = expr!(&graph, [Comment, Comment_replyOf_Post, Post], Post)?;
@@ -302,10 +421,13 @@ mod tests {
     #[test]
     fn test_q5() -> GCardResult<()> {
         let graph = load_graph();
-        print_path(&graph);
 
         let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post)?;
-        let e2 = expr!(&graph, [Post, Comment_replyOf_Post, Comment, Comment_hasTag_Tag, Tag], Post)?;
+        let e2 = expr!(
+            &graph,
+            [Post, Comment_replyOf_Post, Comment, Comment_hasTag_Tag, Tag],
+            Post
+        )?;
 
         let result = alpha(&[e1, e2]).sum();
 
@@ -317,7 +439,17 @@ mod tests {
     fn test_q6() -> GCardResult<()> {
         let graph = load_graph();
 
-        let e1 = expr!(&graph, [Person, Person_knows_Person, Person, Person_knows_Person, Person], Person)?;
+        let e1 = expr!(
+            &graph,
+            [
+                Person,
+                Person_knows_Person,
+                Person,
+                Person_knows_Person,
+                Person
+            ],
+            Person
+        )?;
         let e2 = expr!(&graph, [Person, Person_hasInterest_Tag, Tag], Person)?;
 
         let result = alpha(&[e1, e2]).sum();
@@ -329,17 +461,26 @@ mod tests {
     #[test]
     fn test_q8() -> GCardResult<()> {
         let graph = load_graph();
+        print_path(&graph);
 
-        let p1_l = expr!(&graph, [replyOf1, hasTag2], Tag)?;
-        let p1_r = expr!(&graph, [replyOf1, hasTag2], Comment)?;
-        let p2_l = expr!(&graph, [hasTag], Tag)?;
-        let p2_r = expr!(&graph, [hasTag], Comment)?;
+        let p1_l = expr!(
+            &graph,
+            [Comment, Comment_replyOf_Post, Post, Post_hasTag_Tag, Tag],
+            Tag
+        )?;
+        let p1_r = expr!(
+            &graph,
+            [Comment, Comment_replyOf_Post, Post, Post_hasTag_Tag, Tag],
+            Comment
+        )?;
+        let p2_l = expr!(&graph, [Comment, Comment_hasTag_Tag, Tag], Tag)?;
+        let p2_r = expr!(&graph, [Comment, Comment_hasTag_Tag, Tag], Comment)?;
 
         let g = gamma(vec![(p1_l, p1_r), (p2_l, p2_r)]);
 
         let g_comment = g.get("Comment");
 
-        let e = expr!(&graph, [hasTag], Comment)?;
+        let e = expr!(&graph, [Comment, Comment_hasTag_Tag, Tag], Comment)?;
 
         let result = alpha(&[g_comment, e]).sum();
 
@@ -350,14 +491,24 @@ mod tests {
     #[test]
     fn test_q9() -> GCardResult<()> {
         let graph = load_graph();
-        let p1_l = expr!(&graph, [knows, knows], Person)?; // [knows,knows].person
-        let p1_r = expr!(&graph, [knows], Person)?; // [knows].person
+        let p1_l = expr!(
+            &graph,
+            [
+                Person,
+                Person_knows_Person,
+                Person,
+                Person_knows_Person,
+                Person
+            ],
+            Person
+        )?; // [knows,knows].person
+        let p1_r = expr!(&graph, [Person, Person_knows_Person, Person], Person)?; // [knows].person
 
         let g = gamma(vec![(p1_l.clone(), p1_l), (p1_r.clone(), p1_r)]);
 
         let g_person = g.get("Person");
 
-        let e = expr!(&graph, [hasInterest], Person)?;
+        let e = expr!(&graph, [Person, Person_hasInterest_Tag, Tag], Person)?;
 
         let result = alpha(&[g_person, e]).sum();
 
@@ -368,14 +519,35 @@ mod tests {
     #[test]
     fn test_p1() -> GCardResult<()> {
         let graph = load_graph();
+        print_path(&graph);
 
         // 1 : ([hasTag, has_creator].tag , [hasTag, has_creator].person)
-        let p1_l = expr!(&graph, [hasTag, hasCreator1], Tag)?; // tag
-        let p1_r = expr!(&graph, [hasTag, hasCreator1], Person)?; // person
+        let p1_l = expr!(
+            &graph,
+            [
+                Tag,
+                Comment_hasTag_Tag,
+                Comment,
+                Comment_hasCreator_Person,
+                Person
+            ],
+            Tag
+        )?; // tag
+        let p1_r = expr!(
+            &graph,
+            [
+                Tag,
+                Comment_hasTag_Tag,
+                Comment,
+                Comment_hasCreator_Person,
+                Person
+            ],
+            Person
+        )?; // person
 
         // 2 : ([has_interest].tag , [has_interest].person)
-        let p2_l = expr!(&graph, [hasInterest], Tag)?; // tag
-        let p2_r = expr!(&graph, [hasInterest], Person)?; // person
+        let p2_l = expr!(&graph, [Person, Person_hasInterest_Tag, Tag], Tag)?; // tag
+        let p2_r = expr!(&graph, [Person, Person_hasInterest_Tag, Tag], Person)?; // person
 
         let g = gamma(vec![(p1_l, p1_r), (p2_l, p2_r)]);
 
@@ -384,17 +556,58 @@ mod tests {
         println!("Q8 result = {}", result);
         Ok(())
     }
+
     #[test]
     fn test_p2() -> GCardResult<()> {
         let graph = load_graph();
 
         //  ([has_creator, is_located_in].comment, [has_creator, is_located_in].city)
-        let p1_l = expr!(&graph, [hasCreator1, isLocatedIn2], Comment)?;
-        let p1_r = expr!(&graph, [hasCreator1, isLocatedIn2], City)?;
+        let p1_l = expr!(
+            &graph,
+            [
+                Comment,
+                Comment_hasCreator_Person,
+                Person,
+                Person_isLocatedIn_City,
+                City
+            ],
+            Comment
+        )?;
+        let p1_r = expr!(
+            &graph,
+            [
+                Comment,
+                Comment_hasCreator_Person,
+                Person,
+                Person_isLocatedIn_City,
+                City
+            ],
+            City
+        )?;
 
         //  ([likes, is_located_in].comment, [likes, is_located_in].city)
-        let p2_l = expr!(&graph, [likes1, isLocatedIn2], Comment)?;
-        let p2_r = expr!(&graph, [likes1, isLocatedIn2], City)?;
+        let p2_l = expr!(
+            &graph,
+            [
+                Comment,
+                Person_likes_Comment,
+                Person,
+                Person_isLocatedIn_City,
+                City
+            ],
+            Comment
+        )?;
+        let p2_r = expr!(
+            &graph,
+            [
+                Comment,
+                Person_likes_Comment,
+                Person,
+                Person_isLocatedIn_City,
+                City
+            ],
+            City
+        )?;
 
         // Gamma  Pair<Comment, City>
         let g = gamma(vec![(p1_l, p1_r), (p2_l, p2_r)]);
@@ -409,9 +622,28 @@ mod tests {
     #[test]
     fn test_p4() -> GCardResult<()> {
         let graph = load_graph();
-
-        let e1 = expr!(&graph, [hasCreator1, replyOf1], Post)?; // [has_creator, replayof].post
-        let e2 = expr!(&graph, [hasMember, containerOf], Post)?; // [hasMember,container_of].post
+        let e1 = expr!(
+            &graph,
+            [
+                Person,
+                Comment_hasCreator_Person,
+                Comment,
+                Comment_replyOf_Post,
+                Post
+            ],
+            Post
+        )?; // [has_creator, replayof].post
+        let e2 = expr!(
+            &graph,
+            [
+                Person,
+                Forum_hasMember_Person,
+                Forum,
+                Forum_containerOf_Post,
+                Post
+            ],
+            Post
+        )?; // [hasMember,container_of].post
 
         let result = alpha(&[e1, e2]).sum();
 
@@ -422,10 +654,19 @@ mod tests {
     #[test]
     fn test_p5() -> GCardResult<()> {
         let graph = load_graph();
-        print_path(&graph);
-        let c_like = expr!(&graph, [Comment,Comment_hasCreator_Person, Person, Person_likes_Comment, Comment], Comment)?; // [hasCreator, likes].comment
-        let c_reply = expr!(&graph, [Comment, Comment_replyOf_Comment, Comment], Comment)?; // [replyof].comment
+        let c_like = expr!(
+            &graph,
+            [
+                Comment,
+                Comment_hasCreator_Person,
+                Person,
+                Person_likes_Comment,
+                Comment
+            ],
+            Comment
+        )?; // [hasCreator, likes].comment
 
+        let c_reply = expr!(&graph, [Comment, Comment_replyOf_Comment, Comment], Comment)?; // [replyof].comment
         // Gamma(
         //   ([hasCreator, likes].comment,[hasCreator, likes].comment),
         //   ([replyof].comment, [replyof].comment),
@@ -447,15 +688,34 @@ mod tests {
     #[test]
     fn test_p6() -> GCardResult<()> {
         let graph = load_graph();
-        print_path(&graph);
         // t=Gamma(
         //     ([hasMember, likes].post, [hasMember, likes].Forum),
         //     ([containerof].post, [containerof]. forum)
         // )
         let t = gamma(vec![
             (
-                expr!(&graph, [Forum, Forum_hasMember_Person, Person, Person_likes_Post, Post], Post)?,
-                expr!(&graph, [Forum, Forum_hasMember_Person, Person, Person_likes_Post, Post], Forum)?,
+                expr!(
+                    &graph,
+                    [
+                        Forum,
+                        Forum_hasMember_Person,
+                        Person,
+                        Person_likes_Post,
+                        Post
+                    ],
+                    Post
+                )?,
+                expr!(
+                    &graph,
+                    [
+                        Forum,
+                        Forum_hasMember_Person,
+                        Person,
+                        Person_likes_Post,
+                        Post
+                    ],
+                    Forum
+                )?,
             ),
             (
                 expr!(&graph, [Forum, Forum_containerOf_Post, Post], Post)?,
@@ -477,7 +737,11 @@ mod tests {
         let t_forum = t.get("Forum");
 
         // Beta([likes].post, t.post, t.forum)
-        let beta1 = beta(&expr!(&graph, [Person, Person_likes_Post, Post], Post)?, &t_post, &t_forum);
+        let beta1 = beta(
+            &expr!(&graph, [Person, Person_likes_Post, Post], Post)?,
+            &t_post,
+            &t_forum,
+        );
 
         // Beta(t.post, [likes].post, [likes].person)
         let beta2 = beta(
@@ -515,42 +779,66 @@ mod tests {
         let t1 = gamma(vec![
             (
                 beta(
-                    &expr!(&graph, [Person, Comment_hasCreator_Person, Comment, Comment_replyOf_Comment, Comment], Comment)?,
-                    &expr!(&graph, [Comment, Comment_hasCreator_Person, Person], Comment)?,
+                    &expr!(
+                        &graph,
+                        [
+                            Person,
+                            Comment_hasCreator_Person,
+                            Comment,
+                            Comment_replyOf_Comment,
+                            Comment
+                        ],
+                        Comment
+                    )?,
+                    &expr!(
+                        &graph,
+                        [Comment, Comment_hasCreator_Person, Person],
+                        Comment
+                    )?,
                     &expr!(&graph, [Comment, Comment_hasCreator_Person, Person], Person)?,
                 ),
                 beta(
-                    &expr!(&graph, [Comment, Comment_hasCreator_Person, Person], Comment)?,
-                    &expr!(&graph, [Person, Comment_hasCreator_Person, Comment, Comment_replyOf_Comment, Comment], Comment)?,
-                    &expr!(&graph, [Person, Comment_hasCreator_Person, Comment, Comment_replyOf_Comment, Comment], Person)?,
+                    &expr!(
+                        &graph,
+                        [Comment, Comment_hasCreator_Person, Person],
+                        Comment
+                    )?,
+                    &expr!(
+                        &graph,
+                        [
+                            Person,
+                            Comment_hasCreator_Person,
+                            Comment,
+                            Comment_replyOf_Comment,
+                            Comment
+                        ],
+                        Comment
+                    )?,
+                    &expr!(
+                        &graph,
+                        [
+                            Person,
+                            Comment_hasCreator_Person,
+                            Comment,
+                            Comment_replyOf_Comment,
+                            Comment
+                        ],
+                        Person
+                    )?,
                 ),
             ),
             (
                 expr!(&graph, [Person, Person_knows_Person, Person], Person)?,
                 expr!(&graph, [Person, Person_knows_Person, Person], Person)?,
             ),
+            (
+                expr!(&graph, [Person, Forum_hasMember_Person, Forum, Forum_hasMember_Person, Person], Person)?,
+                expr!(&graph, [Person, Forum_hasMember_Person, Forum, Forum_hasMember_Person, Person], Person)?,
+                )
         ]);
 
-        let g = gamma(vec![
-            (
-                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
-                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
-            ),
-            (
-                beta(
-                    &t1.get("Person"),
-                    &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
-                    &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
-                ),
-                beta(
-                    &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
-                    &t1.get("Person"),
-                    &t1.get("Person"),
-                ),
-            ),
-        ]);
 
-        let result = g.sum();
+        let result = t1.sum();
 
         println!("p7 result = {}", result);
         Ok(())

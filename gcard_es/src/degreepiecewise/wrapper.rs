@@ -33,7 +33,7 @@ impl DegreePiecewise {
     pub fn from_degree_sequence_default(degree_sequence: Vec<u64>) -> GCardResult<Self> {
         Self::from_degree_sequence(
             degree_sequence,
-            0.1,
+            0.01,
             true,
         )
     }
