@@ -7,7 +7,6 @@ use mimalloc::MiMalloc;
 
 use crate::command::*;
 
-
 #[global_allocator]
 static ALLOC: MiMalloc = MiMalloc;
 
@@ -16,8 +15,6 @@ static ALLOC: MiMalloc = MiMalloc;
 #[command(version, about)]
 #[command(propagate_version = true)]
 enum Command {
-    /// Load the JSON graph dataset and serialize it into a (bincode) graph file.
-    Serialize(SerializeArgs),
     /// Show the contents of a bincode graph file.
     Show(ShowArgs),
     /// Create catalog from DuckDB database and export to bincode file.
@@ -33,7 +30,6 @@ fn main() {
         .spawn(|| {
             let command = Command::parse();
             match command {
-                Command::Serialize(args) => (),
                 Command::Show(args) => show(args),
                 Command::CreateCatalog(args) => create_catalog(args),
             }

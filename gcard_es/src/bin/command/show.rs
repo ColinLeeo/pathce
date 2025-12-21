@@ -2,7 +2,6 @@ use std::path::PathBuf;
 
 use clap::Args;
 use gcard_es::DegreeSeqGraph;
-use gcard_es::degreepiecewise::DegreePiecewise;
 
 #[derive(Debug, Args)]
 pub struct ShowArgs {

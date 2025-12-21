@@ -2,8 +2,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::error::GCardResult;
 
-use super::pointwise_function_mult;
 use super::pointwise_function_min;
+use super::pointwise_function_mult;
 use super::PiecewiseConstantFunction;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -31,11 +31,7 @@ impl DegreePiecewise {
     }
 
     pub fn from_degree_sequence_default(degree_sequence: Vec<u64>) -> GCardResult<Self> {
-        Self::from_degree_sequence(
-            degree_sequence,
-            0.01,
-            true,
-        )
+        Self::from_degree_sequence(degree_sequence, 0.01, true)
     }
 
     pub fn get_degree_sequence(&self) -> &[u64] {
@@ -83,11 +79,11 @@ pub fn beta_left(rx: &Pcf, ry: &Pcf, sy: &Pcf) -> Pcf {
 }
 
 pub fn beta_right(rx: &Pcf, sx: &Pcf, sy: &Pcf) -> Pcf {
-    calculate_non_joining_column_frequency(rx,sx,sy)
+    calculate_non_joining_column_frequency(rx, sx, sy)
 }
 
 pub fn beta(rx: &Pcf, ry: &Pcf, sy: &Pcf, sz: &Pcf) -> (Pcf, Pcf) {
-    (beta_left(rx,ry,sy), beta_right(ry,sy,sz))
+    (beta_left(rx, ry, sy), beta_right(ry, sy, sz))
 }
 
 fn project_child_via_parent(
@@ -187,7 +183,7 @@ fn project_child_via_parent(
 fn maxreduce_edge(edge_a: &Pcf, edge_b: &Pcf) -> (Pcf, Pcf) {
     let max_a = edge_a.max_value();
     let max_b = edge_b.max_value();
-    
+
     let mut new_a = edge_a.copy();
     let mut new_b = edge_b.copy();
 
@@ -201,10 +197,10 @@ fn maxreduce_edge(edge_a: &Pcf, edge_b: &Pcf) -> (Pcf, Pcf) {
     let total_a = new_a.get_num_rows();
     let total_b = new_b.get_num_rows();
     let aligned_total = total_a.min(total_b);
-    
+
     let aligned_a = new_a.crop_to_total(aligned_total);
     let aligned_b = new_b.crop_to_total(aligned_total);
-    
+
     (aligned_a, aligned_b)
 }
 
@@ -215,6 +211,16 @@ pub fn gamma_core(paths: Vec<(&Pcf, &Pcf)>) -> (Pcf, Pcf) {
 
     let mut aligned_paths: Vec<(Pcf, Pcf)> = paths
         .iter()
+        .filter(|(a, b)| {
+            let solo = a.multiplicity_solo() && b.multiplicity_solo();
+            if solo {
+                println!(
+                    "drop aligned path pair due to multiplicity_solo: a={:?}, b={:?}",
+                    a, b
+                );
+            }
+            !solo
+        })
         .map(|(a, b)| maxreduce_edge(a, b))
         .collect();
 

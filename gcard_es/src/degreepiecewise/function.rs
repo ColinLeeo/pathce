@@ -131,6 +131,17 @@ impl PiecewiseConstantFunction {
         })
     }
 
+    pub fn multiplicity_solo(&self) -> bool {
+        if self.constants.is_empty() {
+            return true;
+        }
+        if self.constants[0] == 1.0 {
+            return true
+        }
+        false
+    }
+
+
     pub fn get_num_rows(&self) -> f64 {
         self.cumulative_rows.last().copied().unwrap_or(0.0)
     }

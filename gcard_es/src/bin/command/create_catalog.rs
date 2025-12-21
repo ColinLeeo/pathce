@@ -19,7 +19,40 @@ pub struct CreateCatalogArgs {
     max_k: usize,
 }
 
-type PathPattern = (Vec<String>, Vec<String>);
+#[derive(Clone, Debug)]
+pub struct PathPattern {
+    vs: Vec<String>,
+    es: Vec<String>,
+}
+
+impl PathPattern {
+    pub fn new(vs: Vec<String>, es: Vec<String>) -> PathPattern {
+        assert_eq!(vs.len(), es.len() + 1);
+        let mut rvs = vs.clone();
+        rvs.reverse();
+        let mut res = es.clone();
+        res.reverse();
+        if (&vs, &es) <= (&rvs, &res) {
+            PathPattern { vs, es }
+        } else {
+            PathPattern { vs: rvs, es: res }
+        }
+    }
+}
+
+impl PartialEq for PathPattern {
+    fn eq(&self, other: &Self) -> bool {
+        self.vs == other.vs && self.es == other.es
+    }
+}
+impl Eq for PathPattern {}
+
+impl Hash for PathPattern {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.vs.hash(state);
+        self.es.hash(state);
+    }
+}
 
 type NodeId = i64;
 type PathsByLen = HashMap<usize, HashSet<PathPattern>>;
@@ -45,8 +78,6 @@ pub type BinCatalog = HashMap<AltKey, HashMap<String, Vec<u64>>>;
 
 pub fn create_catalog(args: CreateCatalogArgs) {
     println!("{:#?}", args);
-
-    // let start = Instant::now();
 
     let conn = match Connection::open(&args.database) {
         Ok(conn) => {
@@ -112,27 +143,23 @@ pub fn create_catalog(args: CreateCatalogArgs) {
 
     let schema_path = enumerate_all_paths_walks_in_schema(&edges, args.max_k);
 
-    // 打印 schema_path 信息
     println!("\n=== Schema Path Patterns ===");
     for (len, patterns) in &schema_path {
         println!("\n长度: {}, 数量: {}", len, patterns.len());
 
-        for (node_seq, edge_seq) in patterns {
-            // 交替打印节点和边，形成链表格式
+        for pattern in patterns {
             let mut parts = Vec::new();
-            for i in 0..edge_seq.len() {
-                parts.push(node_seq[i].clone());
-                parts.push(edge_seq[i].clone());
+            for i in 0..pattern.es.len() {
+                parts.push(pattern.vs[i].clone());
+                parts.push(pattern.es[i].clone());
             }
-            // 添加最后一个节点
-            if let Some(last_node) = node_seq.last() {
+            if let Some(last_node) = pattern.vs.last() {
                 parts.push(last_node.clone());
             }
             println!("  {}", parts.join("--"));
         }
     }
-    println!();
-
+    let start = Instant::now();
     let mut cache: PatternDegCache = HashMap::new();
     let mut adj_cache: AdjCache = HashMap::new();
     for len in 1..=args.max_k {
@@ -144,9 +171,8 @@ pub fn create_catalog(args: CreateCatalogArgs) {
         }
     }
 
-    // let serialized = build_serialized_catalog(&cache);
-    //
-    // write_catalog_json(&serialized, &args.output).expect("failed to write catalog json");
+    let finish = Instant::now();
+    println!("use time: {}", (finish - start).as_secs_f32());
 
     let bin = build_bin_catalog(&cache);
     write_bincode(&args.output, &bin).expect("Error writing bincode");
@@ -246,29 +272,32 @@ fn compute_len1_degrees(
     patterns: &HashSet<PathPattern>,
     cache: &mut PatternDegCache,
 ) -> Result<(), duckdb::Error> {
-    for (v_seq, e_seq) in patterns {
-        let table = &e_seq[0];
-        let src_name = &v_seq[0];
-        let end_name = &v_seq[1];
+    for pattern in patterns {
+        if cache.contains_key(pattern) {
+            continue;
+        }
+        let table = &pattern.es[0];
+        let src_name = &pattern.vs[0];
+        let end_name = &pattern.vs[1];
         let edge_info = parse_edge_table(table).unwrap();
         let left_deg = load_degree_groupby(conn, table, "src")?;
         let right_deg = load_degree_groupby(conn, table, "dst")?;
         if src_name == &edge_info.src_label.to_string() {
             cache
-                .entry((v_seq.clone(), e_seq.clone()))
+                .entry(pattern.clone())
                 .or_default()
                 .insert(src_name.to_string(), left_deg.clone());
             cache
-                .entry((v_seq.clone(), e_seq.clone()))
+                .entry(pattern.clone())
                 .or_default()
                 .insert(end_name.to_string(), right_deg.clone());
         } else {
             cache
-                .entry((v_seq.clone(), e_seq.clone()))
+                .entry(pattern.clone())
                 .or_default()
                 .insert(src_name.to_string(), right_deg.clone());
             cache
-                .entry((v_seq.clone(), e_seq.clone()))
+                .entry(pattern.clone())
                 .or_default()
                 .insert(end_name.to_string(), left_deg.clone());
         }
@@ -283,25 +312,32 @@ fn compute_len_ge2_degrees(
     cache: &mut PatternDegCache,
 ) -> Result<(), duckdb::Error> {
     for pattern in patterns {
-        let (v_seq, e_seq) = pattern;
-        let suffix = (v_seq[1..].to_vec(), e_seq[1..].to_vec());
+        if cache.contains_key(pattern) {
+            continue;
+        }
+        let (v_seq, e_seq) = (&pattern.vs, &pattern.es);
+        let suffix = PathPattern::new(v_seq[1..].to_vec(), e_seq[1..].to_vec());
         let left_node = v_seq[0].to_string();
         let right_node = v_seq.last().unwrap().to_string();
-        let suffix_left_deg = cache[&suffix].get(&suffix.0[0].to_string()).unwrap();
+        let suffix_left_deg = cache[&suffix].get(&suffix.vs[0].to_string()).unwrap();
         let edge_info = parse_edge_table(e_seq[0].as_str()).unwrap();
         let adj0 =
             get_adj_left_right(conn, adj_cache, &e_seq[0], edge_info.src_label == left_node)?;
         let left_deg = dp_extend(adj0, &suffix_left_deg);
-        let rp: PathPattern = (
+        let rp: PathPattern = PathPattern::new(
             v_seq.iter().cloned().rev().collect::<Vec<_>>(),
             e_seq.iter().cloned().rev().collect::<Vec<_>>(),
         );
 
-        let rsuffix = (rp.0[1..].to_vec(), rp.1[1..].to_vec());
-        let rsuffix_left_deg = cache[&rsuffix].get(&rsuffix.0[0].to_string()).unwrap();
-        let edge_info = parse_edge_table(rp.1[0].as_str()).unwrap();
-        let radj0 =
-            get_adj_left_right(conn, adj_cache, &rp.1[0], right_node == edge_info.src_label)?;
+        let rsuffix = PathPattern::new(rp.vs[1..].to_vec(), rp.es[1..].to_vec());
+        let rsuffix_left_deg = cache[&rsuffix].get(&rsuffix.vs[0].to_string()).unwrap();
+        let edge_info = parse_edge_table(rp.es[0].as_str()).unwrap();
+        let radj0 = get_adj_left_right(
+            conn,
+            adj_cache,
+            &rp.es[0],
+            right_node == edge_info.src_label,
+        )?;
         let right_deg = dp_extend(radj0, &rsuffix_left_deg);
         cache
             .entry(pattern.clone())
@@ -405,7 +441,7 @@ fn enumerate_all_paths_walks_in_schema(
         if cur_len > 0 {
             out.entry(cur_len)
                 .or_default()
-                .insert((node_seq.clone(), edge_seq.clone()));
+                .insert(PathPattern::new(node_seq.clone(), edge_seq.clone()));
         }
 
         if cur_len == max_len {
@@ -434,13 +470,13 @@ fn enumerate_all_paths_walks_in_schema(
     out
 }
 
-#[derive(Serialize)]
-struct DegreeVec {
-    degrees: Vec<u64>,
-}
+// #[derive(Serialize)]
+// struct DegreeVec {
+//     degrees: Vec<u64>,
+// }
 
-type SerializedPattern = HashMap<String, DegreeVec>;
-type SerializedCatalog = HashMap<String, SerializedPattern>;
+// type SerializedPattern = HashMap<String, DegreeVec>;
+// type SerializedCatalog = HashMap<String, SerializedPattern>;
 fn clean_degree_map(deg: &DegreeMap) -> Vec<u64> {
     let mut v: Vec<u64> = deg.values().copied().filter(|&d| d > 0).collect();
 
@@ -449,49 +485,47 @@ fn clean_degree_map(deg: &DegreeMap) -> Vec<u64> {
     v
 }
 
-fn build_serialized_catalog(cache: &PatternDegCache) -> SerializedCatalog {
-    let mut out: SerializedCatalog = HashMap::new();
-
-    for ((node_seq, edge_seq), degree_map) in cache {
-        let edge_key = edge_seq.join(",");
-
-        let start_label = node_seq.first().unwrap().clone();
-        let end_label = node_seq.last().unwrap().clone();
-        let start_node = node_seq.first().unwrap().clone();
-        let end_node = node_seq.last().unwrap().clone();
-
-        let start_vec = clean_degree_map(degree_map.get(&start_node.clone()).unwrap());
-        let end_vec = clean_degree_map(degree_map.get(&end_node.clone()).unwrap());
-        if edge_seq.len() == 2 && (start_vec.is_empty() || end_vec.is_empty()) {
-            println!("No edge found for {}", edge_key);
-        }
-
-        let entry = out.entry(edge_key).or_insert_with(HashMap::new);
-
-        entry.insert(start_label, DegreeVec { degrees: start_vec });
-        entry.insert(end_label, DegreeVec { degrees: end_vec });
-    }
-
-    out
-}
+// fn build_serialized_catalog(cache: &PatternDegCache) -> SerializedCatalog {
+//     let mut out: SerializedCatalog = HashMap::new();
+//
+//     for (path_pattern, degree_map) in cache {
+//         let edge_key = path_pattern.es.join(",");
+//
+//         let start_label = path_pattern.vs.first().unwrap().clone();
+//         let end_label = path_pattern.vs.last().unwrap().clone();
+//
+//         let start_vec = clean_degree_map(degree_map.get(&start_label.clone()).unwrap());
+//         let end_vec = clean_degree_map(degree_map.get(&end_label.clone()).unwrap());
+//         if path_pattern.es.len() == 2 && (start_vec.is_empty() || end_vec.is_empty()) {
+//             println!("No edge found for {}", edge_key);
+//         }
+//
+//         let entry = out.entry(edge_key).or_insert_with(HashMap::new);
+//
+//         entry.insert(start_label, DegreeVec { degrees: start_vec });
+//         entry.insert(end_label, DegreeVec { degrees: end_vec });
+//     }
+//
+//     out
+// }
 
 fn build_bin_catalog(cache: &PatternDegCache) -> BinCatalog {
     let mut out: BinCatalog = HashMap::new();
-    for ((node_seq, edge_seq), degree_map) in cache {
-        let key = make_alt_key(node_seq, edge_seq);
+    for (path_pattern, degree_map) in cache {
+        let key = make_alt_key(path_pattern.vs.as_slice(), path_pattern.es.as_slice());
 
-        let start_node = node_seq.first().unwrap().clone();
-        let end_node = node_seq.last().unwrap().clone();
+        let start_node = path_pattern.vs.first().unwrap().clone();
+        let end_node = path_pattern.vs.last().unwrap().clone();
         let start_vec = clean_degree_map(degree_map.get(&start_node.clone()).unwrap());
         let end_vec = clean_degree_map(degree_map.get(&end_node.clone()).unwrap());
         if out.contains_key(&key) {
             let obj = out.get_mut(&key).unwrap();
             let vec_start = obj.get(&start_node).unwrap();
             let vec_end = obj.get(&end_node).unwrap();
-            if (*vec_start!= start_vec) {
+            if *vec_start != start_vec {
                 println!("conflict!!!")
             }
-            if (*vec_end != end_vec) {
+            if *vec_end != end_vec {
                 println!("conflict!!!")
             }
             continue;
@@ -523,14 +557,16 @@ fn make_alt_key(node_seq: &[String], edge_seq: &[String]) -> AltKey {
 }
 
 use std::fs::File;
+use std::hash::{Hash, Hasher};
 use std::io::BufWriter;
+use std::time::Instant;
 
-fn write_catalog_json(
-    catalog: &SerializedCatalog,
-    path: &std::path::Path,
-) -> Result<(), Box<dyn std::error::Error>> {
-    let file = File::create(path)?;
-    let writer = BufWriter::new(file);
-    serde_json::to_writer_pretty(writer, catalog)?;
-    Ok(())
-}
+// fn write_catalog_json(
+//     catalog: &SerializedCatalog,
+//     path: &std::path::Path,
+// ) -> Result<(), Box<dyn std::error::Error>> {
+//     let file = File::create(path)?;
+//     let writer = BufWriter::new(file);
+//     serde_json::to_writer_pretty(writer, catalog)?;
+//     Ok(())
+// }

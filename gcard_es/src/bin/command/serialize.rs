@@ -1,8 +1,6 @@
 use std::path::PathBuf;
-use std::time::Instant;
 
 use clap::Args;
-use gcard_es::DegreeSeqGraph;
 
 #[derive(Debug, Args)]
 pub struct SerializeArgs {
