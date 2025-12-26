@@ -3,12 +3,24 @@ use std::fs::File;
 use std::io::{BufReader, BufWriter};
 use std::path::Path;
 
-use serde::{Deserialize, Serialize};
-
+use crate::degreepiecewise::PiecewiseConstantFunction;
 use crate::error::{GCardError, GCardResult};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct AltKey(pub Vec<String>);
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum CompressedDegreeSeq {
+    SafeBound {
+        function: PiecewiseConstantFunction,
+    },
+    FastCompressor {
+        len: usize,
+        base: f64,
+        counts: Vec<u64>,
+    },
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NewPathData {
@@ -18,7 +30,7 @@ pub struct NewPathData {
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct DegreeSeqGraph {
-    pub edge_set_to_endpoints: HashMap<AltKey, HashMap<String, Vec<u64>>>,
+    pub edge_set_to_endpoints: HashMap<AltKey, HashMap<String, CompressedDegreeSeq>>,
 }
 
 impl DegreeSeqGraph {
@@ -28,15 +40,37 @@ impl DegreeSeqGraph {
         }
     }
 
-    pub fn get_degree_seq_vec_by_path(
+    pub fn get_piece_func_by_path(
         &self,
         path: &AltKey,
         target_node: &str,
-    ) -> Option<Vec<u64>> {
+    ) -> PiecewiseConstantFunction {
         if let Some(endpoints) = self.edge_set_to_endpoints.get(&path) {
-            return endpoints.get(target_node).cloned();
+            let func = endpoints.get(target_node).cloned().expect("not found");
+            match func {
+                CompressedDegreeSeq::SafeBound { function } => function,
+                CompressedDegreeSeq::FastCompressor { len, base, counts } => {
+                    let total: usize = counts.iter().map(|&c| c as usize).sum();
+                    let mut seq = Vec::with_capacity(total);
+                    for (i, &c) in counts.iter().enumerate() {
+                        if c == 0 {
+                            continue;
+                        }
+                        let upper_f = base.powi((i as i32) + 1);
+                        let upper_u64 = if !upper_f.is_finite() || upper_f >= (u64::MAX as f64) {
+                            u64::MAX
+                        } else {
+                            upper_f.ceil() as u64
+                        };
+                        seq.extend(std::iter::repeat(upper_u64).take(c as usize));
+                    }
+                    PiecewiseConstantFunction::from_degree_sequence(seq.as_slice(), 0.01, true)
+                        .unwrap()
+                }
+            }
+        } else {
+            PiecewiseConstantFunction::empty()
         }
-        None
     }
 
     pub fn num_edge_sets(&self) -> usize {
@@ -59,4 +93,3 @@ impl DegreeSeqGraph {
         Ok(graph)
     }
 }
-

@@ -107,14 +107,8 @@ impl Expr {
         target_node: &str,
     ) -> GCardResult<Self> {
         let degree_seq = graph
-            .get_degree_seq_vec_by_path(path, target_node)
-            .ok_or_else(|| {
-                GCardError::InvalidData(format!("Path not found: {:?}.{}", path, target_node))
-            })?;
-
-        let degree_piecewise =
-            crate::degreepiecewise::DegreePiecewise::from_degree_sequence_default(degree_seq)?;
-        let pcf = Rc::new(degree_piecewise.get_piecewise_function().clone());
+            .get_piece_func_by_path(path, target_node);
+        let pcf = Rc::new(degree_seq.clone());
 
         Ok(Expr::Single {
             pcf,
@@ -234,7 +228,7 @@ mod tests {
 
     fn load_graph() -> DegreeSeqGraph {
         DegreeSeqGraph::import_bincode(Path::new(
-            "/Users/colin/dev/pathce/gcard_es/statistic.bincode",
+            "/Users/colin/dev/pathce/gcard_es/output_compressed_safebound.bin",
         ))
         .unwrap()
     }

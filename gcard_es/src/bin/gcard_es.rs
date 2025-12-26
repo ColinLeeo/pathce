@@ -19,6 +19,8 @@ enum Command {
     Show(ShowArgs),
     /// Create catalog from DuckDB database and export to bincode file.
     CreateCatalog(CreateCatalogArgs),
+    /// Compress graph statistics using specified compression method.
+    Compress(CompressArgs),
 }
 
 const STACK_SIZE: usize = 128 * 1024 * 1024;
@@ -32,6 +34,7 @@ fn main() {
             match command {
                 Command::Show(args) => show(args),
                 Command::CreateCatalog(args) => create_catalog(args),
+                Command::Compress(args) => compress(args),
             }
         })
         .unwrap();
