@@ -15,12 +15,8 @@ static ALLOC: MiMalloc = MiMalloc;
 #[command(version, about)]
 #[command(propagate_version = true)]
 enum Command {
-    /// Show the contents of a bincode graph file.
-    Show(ShowArgs),
     /// Create catalog from DuckDB database and export to bincode file.
     CreateCatalog(CreateCatalogArgs),
-    /// Compress graph statistics using specified compression method.
-    Compress(CompressArgs),
 }
 
 const STACK_SIZE: usize = 128 * 1024 * 1024;
@@ -32,9 +28,7 @@ fn main() {
         .spawn(|| {
             let command = Command::parse();
             match command {
-                Command::Show(args) => show(args),
                 Command::CreateCatalog(args) => create_catalog(args),
-                Command::Compress(args) => compress(args),
             }
         })
         .unwrap();

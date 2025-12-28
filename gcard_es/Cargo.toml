@@ -18,3 +18,4 @@ clap = { version = "4.5.4", features = ["derive"] }
 log = "0.4.21"
 env_logger = "0.11.3"
 mimalloc = "0.1.42"
+rayon = "1.10.0"

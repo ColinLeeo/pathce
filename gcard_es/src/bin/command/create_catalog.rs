@@ -1,10 +1,16 @@
-use std::collections::{HashMap, HashSet};
-use std::path::PathBuf;
-use std::sync::Arc;
-
 use clap::Args;
 use duckdb::Connection;
+use gcard_es::degreepiecewise::{FastCompressor, PiecewiseConstantFunction};
+use gcard_es::{make_alt_key, AltKey, CompressedDegreeSeq, DegreeSeqGraphCompressed};
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
+use std::collections::{HashMap, HashSet};
+use std::fs::File;
+use std::hash::{Hash, Hasher};
+use std::io::BufWriter;
+use std::path::PathBuf;
+use std::sync::Arc;
+use std::time::Instant;
 
 #[derive(Debug, Args)]
 pub struct CreateCatalogArgs {
@@ -15,11 +21,31 @@ pub struct CreateCatalogArgs {
     #[arg(short, long, value_name = "OUTPUT_FILE")]
     output: PathBuf,
     /// Maximum number of edges in a path combination (default: 3).
-    #[arg(short = 'k', long, default_value = "3", value_name = "MAX_EDGES")]
+    #[arg(short = 'k', long, default_value = "2", value_name = "MAX_EDGES")]
     max_k: usize,
+    #[arg(short = 't', long, default_value = "1", value_name = "THREAD_NUM")]
+    threads: usize,
+    /// Compression method: SafeBound or FastCompressor.
+    #[arg(short = 'm', long, value_name = "METHOD")]
+    method: CompressionMethod,
+    /// Base value for FastCompressor (default: 2).
+    #[arg(long, default_value = "2")]
+    base: u64,
+    /// Whether to export full graph statistics.
+    #[arg(long)]
+    export_graph_data: bool,
+    /// Epsilon value for SafeBound compression (default: 0.01).
+    #[arg(long, default_value = "0.01")]
+    epsilon: f64,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Debug, Clone, clap::ValueEnum)]
+pub enum CompressionMethod {
+    SafeBound,
+    FastCompressor,
+}
+// In GCard: a_(p)_b_(k)_c is equal c_(k)_b_(p)_a
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct PathPattern {
     vs: Vec<String>,
     es: Vec<String>,
@@ -36,6 +62,23 @@ impl PathPattern {
             PathPattern { vs, es }
         } else {
             PathPattern { vs: rvs, es: res }
+        }
+    }
+
+    pub fn new_without_reverse(vs: Vec<String>, es: Vec<String>) -> PathPattern {
+        assert_eq!(vs.len(), es.len() + 1);
+        PathPattern { vs, es }
+    }
+
+    pub fn sort(&self) -> Self {
+        let mut vs = self.vs.clone();
+        vs.reverse();
+        let mut es = self.es.clone();
+        es.reverse();
+        if (&vs, &es) <= (&self.vs, &self.es) {
+            PathPattern { vs, es }
+        } else {
+            PathPattern { vs: self.vs.clone(), es: self.es.clone() }
         }
     }
 }
@@ -62,17 +105,6 @@ type DegreeMap = HashMap<NodeId, u64>;
 type PatternDegCache = HashMap<PathPattern, HashMap<String, DegreeMap>>;
 
 type AdjCache = HashMap<(String, String, String), Arc<HashMap<NodeId, Vec<NodeId>>>>;
-
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
-pub struct AltKey(pub Vec<String>);
-
-impl AltKey {
-    pub fn sorted(&self) -> AltKey {
-        let mut v = self.0.clone();
-        v.sort();
-        AltKey(v)
-    }
-}
 
 pub type BinCatalog = HashMap<AltKey, HashMap<String, Vec<u64>>>;
 
@@ -159,13 +191,18 @@ pub fn create_catalog(args: CreateCatalogArgs) {
             println!("  {}", parts.join("--"));
         }
     }
+
+    rayon::ThreadPoolBuilder::new()
+        .num_threads(args.threads)
+        .build_global()
+        .unwrap();
     let start = Instant::now();
     let mut cache: PatternDegCache = HashMap::new();
     let mut adj_cache: AdjCache = HashMap::new();
     for len in 1..=args.max_k {
         let pattern = schema_path.get(&len).unwrap();
         if len == 1 {
-            compute_len1_degrees(&conn, pattern, &mut cache).unwrap()
+            compute_len1_degrees(&args.database, pattern, &mut cache).unwrap()
         } else {
             compute_len_ge2_degrees(&conn, &mut adj_cache, pattern, &mut cache).unwrap()
         }
@@ -174,8 +211,31 @@ pub fn create_catalog(args: CreateCatalogArgs) {
     let finish = Instant::now();
     println!("use time: {}", (finish - start).as_secs_f32());
 
+    if args.export_graph_data {
+        write_full_statistic(&args.output, &cache).expect("Error writing output");
+    }
+
     let bin = build_bin_catalog(&cache);
-    write_bincode(&args.output, &bin).expect("Error writing bincode");
+
+    println!("\nCompressing graph statistics...");
+    println!("Compression method: {:?}", args.method);
+    if matches!(args.method, CompressionMethod::FastCompressor) {
+        println!("Base value: {}", args.base);
+    }
+
+    let compress_start = Instant::now();
+    let compressed_graph =
+        compress_catalog(&bin, &args.method, args.base, args.epsilon, args.threads);
+    let compress_finish = Instant::now();
+    println!(
+        "Compression time: {:.3}s",
+        (compress_finish - compress_start).as_secs_f64()
+    );
+
+    compressed_graph
+        .export_bincode(&args.output)
+        .expect("Error writing compressed bincode");
+    println!("Successfully saved compressed graph to {:?}", args.output);
 }
 
 fn get_tables(conn: &Connection) -> Result<Vec<String>, duckdb::Error> {
@@ -233,6 +293,7 @@ fn load_adj(
     Ok(adj)
 }
 
+#[allow(dead_code)]
 fn get_adj_left_right(
     conn: &Connection,
     adj_cache: &mut AdjCache,
@@ -268,39 +329,38 @@ fn dp_extend(adj: Arc<HashMap<NodeId, Vec<NodeId>>>, suffix_deg: &DegreeMap) -> 
 }
 
 fn compute_len1_degrees(
-    conn: &Connection,
+    db_path: &PathBuf,
     patterns: &HashSet<PathPattern>,
     cache: &mut PatternDegCache,
 ) -> Result<(), duckdb::Error> {
-    for pattern in patterns {
-        if cache.contains_key(pattern) {
-            continue;
-        }
-        let table = &pattern.es[0];
-        let src_name = &pattern.vs[0];
-        let end_name = &pattern.vs[1];
-        let edge_info = parse_edge_table(table).unwrap();
-        let left_deg = load_degree_groupby(conn, table, "src")?;
-        let right_deg = load_degree_groupby(conn, table, "dst")?;
-        if src_name == &edge_info.src_label.to_string() {
-            cache
-                .entry(pattern.clone())
-                .or_default()
-                .insert(src_name.to_string(), left_deg.clone());
-            cache
-                .entry(pattern.clone())
-                .or_default()
-                .insert(end_name.to_string(), right_deg.clone());
-        } else {
-            cache
-                .entry(pattern.clone())
-                .or_default()
-                .insert(src_name.to_string(), right_deg.clone());
-            cache
-                .entry(pattern.clone())
-                .or_default()
-                .insert(end_name.to_string(), left_deg.clone());
-        }
+    if patterns.is_empty() {
+        return Ok(());
+    }
+    let partials: Vec<(PathPattern, HashMap<String, DegreeMap>)> = patterns
+        .par_iter()
+        .map_init(
+            || Connection::open(db_path).expect("failed to open db"),
+            |conn, pattern| {
+                let table = &pattern.es[0];
+                let src_name = &pattern.vs[0];
+                let end_name = &pattern.vs[1];
+                let edge_info = parse_edge_table(table).unwrap();
+                let left_deg = load_degree_groupby(conn, table, "src")?;
+                let right_deg = load_degree_groupby(conn, table, "dst")?;
+                let mut m = HashMap::new();
+                if src_name == &edge_info.src_label.to_string() {
+                    m.insert(src_name.to_string(), left_deg);
+                    m.insert(end_name.to_string(), right_deg);
+                } else {
+                    m.insert(src_name.to_string(), right_deg);
+                    m.insert(end_name.to_string(), left_deg);
+                }
+                Ok::<_, duckdb::Error>((pattern.clone(), m))
+            },
+        )
+        .collect::<Result<Vec<_>, _>>()?;
+    for (pattern, m) in partials {
+        cache.entry(pattern).or_default().extend(m);
     }
     Ok(())
 }
@@ -311,43 +371,124 @@ fn compute_len_ge2_degrees(
     patterns: &HashSet<PathPattern>,
     cache: &mut PatternDegCache,
 ) -> Result<(), duckdb::Error> {
+    let mut needed: HashSet<(String, String, String)> = HashSet::new();
     for pattern in patterns {
-        if cache.contains_key(pattern) {
-            continue;
+        let v_seq = &pattern.vs;
+        let e_seq = &pattern.es;
+        let left_node = &v_seq[0];
+        let right_node = v_seq.last().unwrap();
+        {
+            let edge_info = parse_edge_table(e_seq[0].as_str()).unwrap();
+            let left = edge_info.src_label == *left_node;
+            let (left_col, right_col) = if left { ("src", "dst") } else { ("dst", "src") };
+            needed.insert((
+                e_seq[0].clone(),
+                left_col.to_string(),
+                right_col.to_string(),
+            ));
+            // println!(
+            //     "need add {}-{}-{}",
+            //     e_seq[0].clone(),
+            //     left_col.to_string(),
+            //     right_col.to_string()
+            // );
         }
-        let (v_seq, e_seq) = (&pattern.vs, &pattern.es);
-        let suffix = PathPattern::new(v_seq[1..].to_vec(), e_seq[1..].to_vec());
-        let left_node = v_seq[0].to_string();
-        let right_node = v_seq.last().unwrap().to_string();
-        let suffix_left_deg = cache[&suffix].get(&suffix.vs[0].to_string()).unwrap();
-        let edge_info = parse_edge_table(e_seq[0].as_str()).unwrap();
-        let adj0 =
-            get_adj_left_right(conn, adj_cache, &e_seq[0], edge_info.src_label == left_node)?;
-        let left_deg = dp_extend(adj0, &suffix_left_deg);
-        let rp: PathPattern = PathPattern::new(
-            v_seq.iter().cloned().rev().collect::<Vec<_>>(),
-            e_seq.iter().cloned().rev().collect::<Vec<_>>(),
-        );
 
-        let rsuffix = PathPattern::new(rp.vs[1..].to_vec(), rp.es[1..].to_vec());
-        let rsuffix_left_deg = cache[&rsuffix].get(&rsuffix.vs[0].to_string()).unwrap();
-        let edge_info = parse_edge_table(rp.es[0].as_str()).unwrap();
-        let radj0 = get_adj_left_right(
-            conn,
-            adj_cache,
-            &rp.es[0],
-            right_node == edge_info.src_label,
-        )?;
-        let right_deg = dp_extend(radj0, &rsuffix_left_deg);
-        cache
-            .entry(pattern.clone())
-            .or_default()
-            .insert(left_node, left_deg.clone());
-        cache
-            .entry(pattern.clone())
-            .or_default()
-            .insert(right_node, right_deg.clone());
+        {
+            let rp_e0 = e_seq.last().unwrap();
+            let edge_info = parse_edge_table(rp_e0.as_str()).unwrap();
+            let left = *right_node == edge_info.src_label;
+            let (left_col, right_col) = if left { ("src", "dst") } else { ("dst", "src") };
+            needed.insert((rp_e0.clone(), left_col.to_string(), right_col.to_string()));
+            // println!(
+            //     "need add {}-{}-{}",
+            //     rp_e0,
+            //     left_col.to_string(),
+            //     right_col.to_string()
+            // );
+        }
     }
+    // for key in needed.iter() {
+    //     println!(" to load in need {}-{}-{}", key.0, key.1, key.2);
+    // }
+
+    for key in needed {
+        if !adj_cache.contains_key(&key) {
+            // println!("load {}-{}-{} into adj_cache", key.0, key.1, key.2);
+            let (table, left_col, right_col) = (&key.0, &key.1, &key.2);
+            let adj = load_adj(conn, table, left_col, right_col)?;
+            adj_cache.insert(key, Arc::new(adj));
+        }
+    }
+
+    let adj_cache_ro: &AdjCache = &*adj_cache;
+    let cache_ro: &PatternDegCache = &*cache;
+
+    let computed: Vec<(PathPattern, String, DegreeMap, String, DegreeMap)> = patterns
+        .par_iter()
+        .map(|pattern| {
+            let v_seq = &pattern.vs;
+            let e_seq = &pattern.es;
+
+            let suffix = PathPattern::new_without_reverse(v_seq[1..].to_vec(), e_seq[1..].to_vec());
+            let left_node = v_seq[0].to_string();
+            let right_node = v_seq.last().unwrap().to_string();
+
+            let suffix_left_key = suffix.vs[0].to_string();
+            let suffix_left_deg = cache_ro
+                .get(&suffix.sort())
+                .expect("not null")
+                .get(&suffix_left_key)
+                .expect("suffix left deg missing");
+
+            let edge_info = parse_edge_table(e_seq[0].as_str()).unwrap();
+            let left = edge_info.src_label == left_node;
+            let (left_col, right_col) = if left { ("src", "dst") } else { ("dst", "src") };
+            let key0 = (
+                e_seq[0].clone(),
+                left_col.to_string(),
+                right_col.to_string(),
+            );
+            let adj0 = Arc::clone(adj_cache_ro.get(&key0).expect("adj0 missing in adj_cache"));
+
+            let left_deg = dp_extend(adj0, suffix_left_deg);
+
+            let rp = PathPattern::new_without_reverse(
+                v_seq.iter().cloned().rev().collect(),
+                e_seq.iter().cloned().rev().collect(),
+            );
+            let rsuffix = PathPattern::new_without_reverse(rp.vs[1..].to_vec(), rp.es[1..].to_vec());
+
+            let rsuffix_left_key = rsuffix.vs[0].to_string();
+            let rsuffix_left_deg = cache_ro
+                .get(&rsuffix.sort())
+                .expect("rsuffix left deg missing")
+                .get(&rsuffix_left_key)
+                .expect("rsuffix left deg missing");
+
+            let rp_e0 = rp.es[0].clone();
+            let edge_info = parse_edge_table(rp_e0.as_str()).unwrap();
+            let left = right_node == edge_info.src_label;
+            let (left_col, right_col) = if left { ("src", "dst") } else { ("dst", "src") };
+            let rkey0 = (rp_e0, left_col.to_string(), right_col.to_string());
+            let radj0 = Arc::clone(
+                adj_cache_ro
+                    .get(&rkey0)
+                    .expect("radj0 missing in adj_cache"),
+            );
+
+            let right_deg = dp_extend(radj0, rsuffix_left_deg);
+
+            Ok::<_, duckdb::Error>((pattern.clone(), left_node, left_deg, right_node, right_deg))
+        })
+        .collect::<Result<Vec<_>, duckdb::Error>>()?;
+
+    for (pattern, left_node, left_deg, right_node, right_deg) in computed {
+        let entry = cache.entry(pattern).or_default();
+        entry.insert(left_node, left_deg);
+        entry.insert(right_node, right_deg);
+    }
+
     Ok(())
 }
 
@@ -470,54 +611,23 @@ fn enumerate_all_paths_walks_in_schema(
     out
 }
 
-// #[derive(Serialize)]
-// struct DegreeVec {
-//     degrees: Vec<u64>,
-// }
-
-// type SerializedPattern = HashMap<String, DegreeVec>;
-// type SerializedCatalog = HashMap<String, SerializedPattern>;
 fn clean_degree_map(deg: &DegreeMap) -> Vec<u64> {
-    let mut v: Vec<u64> = deg.values().copied().filter(|&d| d > 0).collect();
-
-    v.sort_unstable_by(|a, b| b.cmp(a));
-
+    let v: Vec<u64> = deg.values().copied().filter(|&d| d > 0).collect();
     v
 }
-
-// fn build_serialized_catalog(cache: &PatternDegCache) -> SerializedCatalog {
-//     let mut out: SerializedCatalog = HashMap::new();
-//
-//     for (path_pattern, degree_map) in cache {
-//         let edge_key = path_pattern.es.join(",");
-//
-//         let start_label = path_pattern.vs.first().unwrap().clone();
-//         let end_label = path_pattern.vs.last().unwrap().clone();
-//
-//         let start_vec = clean_degree_map(degree_map.get(&start_label.clone()).unwrap());
-//         let end_vec = clean_degree_map(degree_map.get(&end_label.clone()).unwrap());
-//         if path_pattern.es.len() == 2 && (start_vec.is_empty() || end_vec.is_empty()) {
-//             println!("No edge found for {}", edge_key);
-//         }
-//
-//         let entry = out.entry(edge_key).or_insert_with(HashMap::new);
-//
-//         entry.insert(start_label, DegreeVec { degrees: start_vec });
-//         entry.insert(end_label, DegreeVec { degrees: end_vec });
-//     }
-//
-//     out
-// }
 
 fn build_bin_catalog(cache: &PatternDegCache) -> BinCatalog {
     let mut out: BinCatalog = HashMap::new();
     for (path_pattern, degree_map) in cache {
-        let key = make_alt_key(path_pattern.vs.as_slice(), path_pattern.es.as_slice());
+        let key = make_alt_key(path_pattern.vs.as_slice(), path_pattern.es.as_slice()).sorted();
 
         let start_node = path_pattern.vs.first().unwrap().clone();
         let end_node = path_pattern.vs.last().unwrap().clone();
         let start_vec = clean_degree_map(degree_map.get(&start_node.clone()).unwrap());
         let end_vec = clean_degree_map(degree_map.get(&end_node.clone()).unwrap());
+        if end_vec.is_empty() || start_vec.is_empty() {
+            println!("Error")
+        }
         if out.contains_key(&key) {
             let obj = out.get_mut(&key).unwrap();
             let vec_start = obj.get(&start_node).unwrap();
@@ -530,6 +640,9 @@ fn build_bin_catalog(cache: &PatternDegCache) -> BinCatalog {
             }
             continue;
         }
+        if out.contains_key(&key) {
+            println!("conflict!!! in key")
+        }
         let entry = out.entry(key).or_insert_with(HashMap::new);
         entry.insert(start_node, start_vec);
         entry.insert(end_node, end_vec);
@@ -537,6 +650,7 @@ fn build_bin_catalog(cache: &PatternDegCache) -> BinCatalog {
     out
 }
 
+#[allow(dead_code)]
 fn write_bincode(path: &PathBuf, catalog: &BinCatalog) -> Result<(), std::io::Error> {
     let f = File::create(path)?;
     let mut w = BufWriter::new(f);
@@ -545,28 +659,62 @@ fn write_bincode(path: &PathBuf, catalog: &BinCatalog) -> Result<(), std::io::Er
     Ok(())
 }
 
-fn make_alt_key(node_seq: &[String], edge_seq: &[String]) -> AltKey {
-    let mut out = Vec::with_capacity(node_seq.len() + edge_seq.len());
-    for i in 0..node_seq.len() {
-        out.push(node_seq[i].clone());
-        if i < edge_seq.len() {
-            out.push(edge_seq[i].clone());
-        }
-    }
-    AltKey(out)
+fn write_full_statistic(path: &PathBuf, catalog: &PatternDegCache) -> Result<(), std::io::Error> {
+    let f = File::create(path.with_extension(format!(
+        "{}.full",
+        path.extension().unwrap_or_default().to_string_lossy()
+    )))?;
+
+    let mut w = BufWriter::new(f);
+
+    bincode::serialize_into(&mut w, catalog).expect("serailize failed");
+    Ok(())
 }
 
-use std::fs::File;
-use std::hash::{Hash, Hasher};
-use std::io::BufWriter;
-use std::time::Instant;
+fn compress_catalog(
+    catalog: &BinCatalog,
+    method: &CompressionMethod,
+    base: u64,
+    epsilon: f64,
+    threads: usize,
+) -> DegreeSeqGraphCompressed {
+    let mut compressed_graph = DegreeSeqGraphCompressed::new();
+    let compressed_items: Vec<_> = catalog
+        .par_iter()
+        .map(|(path, endpoints)| {
+            let mut compressed_endpoints = HashMap::new();
+            for (node_type, degree_seq) in endpoints {
+                let compressed = match method {
+                    CompressionMethod::SafeBound => {
+                        let mut deg = degree_seq.clone();
+                        deg.sort_unstable_by(|a, b| b.cmp(a));
+                        let func =
+                            PiecewiseConstantFunction::from_degree_sequence(&deg, epsilon, true)
+                                .unwrap();
+                        CompressedDegreeSeq::SafeBound {
+                            function: func.clone(),
+                        }
+                    }
+                    CompressionMethod::FastCompressor => {
+                        let mut compressor = FastCompressor::new(base, threads);
+                        compressor.compress(degree_seq);
+                        let (len, base, counts) = compressor.get_result();
+                        CompressedDegreeSeq::FastCompressor { len, base, counts }
+                    }
+                };
+                compressed_endpoints.insert(node_type.clone(), compressed);
+            }
+            (path.clone(), compressed_endpoints)
+        })
+        .collect();
 
-// fn write_catalog_json(
-//     catalog: &SerializedCatalog,
-//     path: &std::path::Path,
-// ) -> Result<(), Box<dyn std::error::Error>> {
-//     let file = File::create(path)?;
-//     let writer = BufWriter::new(file);
-//     serde_json::to_writer_pretty(writer, catalog)?;
-//     Ok(())
-// }
+    for (path, compressed_endpoints) in compressed_items {
+        if !compressed_endpoints.is_empty() {
+            compressed_graph
+                .edge_set_to_endpoints
+                .insert(path, compressed_endpoints);
+        }
+    }
+
+    compressed_graph
+}

@@ -1,7 +1,6 @@
 use crate::degreepiecewise::{gamma_core, Pcf};
-use crate::error::{GCardError, GCardResult};
-use crate::graph::DegreeSeqGraph;
-use crate::AltKey;
+use crate::error::GCardResult;
+use crate::{AltKey, DegreeSeqGraphCompressed};
 use std::collections::HashMap;
 use std::fmt;
 use std::rc::Rc;
@@ -102,12 +101,11 @@ impl Expr {
     }
 
     pub fn from_path(
-        graph: &DegreeSeqGraph,
+        graph: &DegreeSeqGraphCompressed,
         path: &AltKey,
         target_node: &str,
     ) -> GCardResult<Self> {
-        let degree_seq = graph
-            .get_piece_func_by_path(path, target_node);
+        let degree_seq = graph.get_piece_func_by_path(path, target_node);
         let pcf = Rc::new(degree_seq.clone());
 
         Ok(Expr::Single {
@@ -157,14 +155,14 @@ impl Expr {
         }
     }
 
-    pub fn get_num(&self) -> f64 {
+    pub fn get_num(&self) -> u64 {
         match self {
-            Self::Single { pcf, .. } => pcf.get_num_rows(),
-            Self::Pair { left, .. } => left.get_num_rows(),
+            Self::Single { pcf, .. } => pcf.get_num_rows() as u64,
+            Self::Pair { left, .. } => left.get_num_rows() as u64,
         }
     }
 
-    pub fn sum(&self) -> f64 {
+    pub fn sum(&self) -> u64 {
         self.get_num()
     }
 }
@@ -226,14 +224,14 @@ mod tests {
     use super::*;
     use std::path::Path;
 
-    fn load_graph() -> DegreeSeqGraph {
-        DegreeSeqGraph::import_bincode(Path::new(
-            "/Users/colin/dev/pathce/gcard_es/output_compressed_safebound.bin",
+    fn load_graph() -> DegreeSeqGraphCompressed {
+        DegreeSeqGraphCompressed::import_bincode(Path::new(
+            "/Users/colin/dev/pathce/gcard_es/statistic_graph_sf0.1_fastcomp.bincode",
         ))
         .unwrap()
     }
-
-    fn print_path(graph: &DegreeSeqGraph) {
+    #[allow(dead_code)]
+    fn print_path(graph: &DegreeSeqGraphCompressed) {
         let path = &graph.edge_set_to_endpoints;
         for (key, _) in path {
             println!("{:?}", key);
@@ -296,25 +294,25 @@ mod tests {
             ),
         ])
         .get_num();
-        println!("get row num is {}", result);
+        println!("Q1 result = {}", result);
         Ok(())
     }
 
     #[test]
     fn test_q2() -> GCardResult<()> {
         let graph = load_graph();
-        let res =                 expr!(
-                    &graph,
-                    [
-                        Comment,
-                        Comment_replyOf_Post,
-                        Post,
-                        Post_hasCreator_Person,
-                        Person
-                    ],
-                    Comment
-                )?;
-        println!("get row num is {}", res.get_num());
+        let res = expr!(
+            &graph,
+            [
+                Comment,
+                Comment_replyOf_Post,
+                Post,
+                Post_hasCreator_Person,
+                Person
+            ],
+            Comment
+        )?;
+        println!("Q2 result =  {}", res.get_num());
         // let g = gamma(vec![
         //     (
         //         expr!(
@@ -375,7 +373,6 @@ mod tests {
         let graph = load_graph();
 
         let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post)?;
-        println!("{}", e1);
         let e2 = expr!(&graph, [Post, Post_hasCreator_Person, Person], Post)?;
         let e3 = expr!(&graph, [Person, Person_likes_Post, Post], Post)?;
         let e4 = expr!(&graph, [Comment, Comment_replyOf_Post, Post], Post)?;
@@ -518,7 +515,7 @@ mod tests {
 
         let result = g.sum();
 
-        println!("Q8 result = {}", result);
+        println!("P1 result = {}", result);
         Ok(())
     }
 
@@ -580,7 +577,7 @@ mod tests {
         // DSL: Gamma(...).left.sum()
         let result = g.sum();
 
-        println!("Q9 result = {}", result);
+        println!("P2 result = {}", result);
         Ok(())
     }
 
@@ -612,7 +609,7 @@ mod tests {
 
         let result = alpha(&[e1, e2]).sum();
 
-        println!("p4 result = {}", result);
+        println!("P4 result = {}", result);
         Ok(())
     }
 
@@ -646,7 +643,7 @@ mod tests {
         // ..sum()
         let result = g.sum();
 
-        println!("p5 result = {}", result);
+        println!("P5 result = {}", result);
         Ok(())
     }
 
@@ -733,7 +730,7 @@ mod tests {
         // Alpha( Gamma(...).person, [knows].person ).sum()
         let result = g_person.sum();
 
-        println!("p6 result = {}", result);
+        println!("P6 result = {}", result);
         Ok(())
     }
 
@@ -823,7 +820,7 @@ mod tests {
 
         let result = t1.sum();
 
-        println!("p7 result = {}", result);
+        println!("P7 result = {}", result);
         Ok(())
     }
 
@@ -911,7 +908,7 @@ mod tests {
 
         let result = g.sum();
 
-        println!("p8 result = {}", result);
+        println!("P8 result = {}", result);
         Ok(())
     }
 }

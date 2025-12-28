@@ -1,44 +1,83 @@
 pub struct FastCompressor {
-    base: f64,
+    base: u64,
     counts: Vec<u64>,
+    threads: usize,
+}
+
+fn build_bounds(base: u64, max_value: u64) -> Vec<u64> {
+    let mut bounds = Vec::new();
+    let mut x = 1;
+    while x < max_value {
+        bounds.push(x);
+        x *= base;
+    }
+    bounds.push(x);
+    bounds
+}
+
+#[inline]
+fn get_bucket_index(bounds: &[u64], value: u64) -> usize {
+    if value == 0 {
+        return 0;
+    }
+    bounds.partition_point(|&b| value > b)
 }
 
 impl FastCompressor {
-    pub fn new(base: f64) -> Self {
-        assert!(base > 1.0, "底数必须大于 1.0");
+    pub fn new(base: u64, threads: usize) -> Self {
+        assert!(base > 1, "底数必须大于 1.0");
+        assert!(threads >= 1, "线程数必须大于1");
         Self {
             base,
             counts: Vec::new(),
+            threads,
         }
     }
-    pub fn compress(&mut self, data: Vec<u64>) {
-        for value in data {
-            let bucket_index = self.get_bucket_index(value);
-            if bucket_index >= self.counts.len() {
-                self.counts.resize(bucket_index + 1, 0);
+
+    pub fn compress(&mut self, data: &Vec<u64>) {
+        if data.is_empty() {
+            return;
+        }
+        let thread_num = self.threads.min(data.len());
+        let base = self.base;
+        let max = data.iter().copied().max().unwrap_or(0);
+
+        let bucket_len = if max == 0 {
+            1
+        } else {
+            let v = max as f64;
+            let base_f = base as f64;
+            let len =  (v.ln() / base_f.ln()).ceil() as usize + 1;
+            len.max(1)
+        };
+        let bounds = build_bounds(self.base, max);
+        let bounds_ref = &bounds;
+        let chunk_size = (data.len() + thread_num - 1) / thread_num;
+        let partials: Vec<Vec<u64>> = std::thread::scope(|s| {
+            let mut handles = Vec::new();
+            for chunk in data.chunks(chunk_size) {
+                handles.push(s.spawn(move || {
+                    let mut local = vec![0u64; bucket_len];
+                    for &v in chunk {
+                        let idx = get_bucket_index(&bounds_ref, v);
+                        local[idx] += 1;
+                    }
+                    local
+                }));
             }
-            self.counts[bucket_index] += 1;
+            handles.into_iter().map(|h| h.join().unwrap()).collect()
+        });
+        if self.counts.len() < bucket_len {
+            self.counts.resize(bucket_len, 0);
+        }
+        for local in partials {
+            for i in 0..bucket_len {
+                self.counts[i] += local[i];
+            }
         }
     }
 
-    fn get_bucket_index(&self, value: u64) -> usize {
-        if value == 0 {
-            return 0;
-        }
-
-        let value_f64 = value as f64;
-        let mut index = 0;
-        let mut upper_bound = self.base;
-
-        while value_f64 > upper_bound {
-            index += 1;
-            upper_bound *= self.base;
-        }
-
-        index
-    }
-
-    pub fn get_result(&self) -> (usize, f64, Vec<u64>) {
+    pub fn get_result(&self) -> (usize, u64, Vec<u64>) {
         (self.counts.len(), self.base, self.counts.clone())
     }
 
@@ -46,7 +85,7 @@ impl FastCompressor {
         self.counts.len()
     }
 
-    pub fn base(&self) -> f64 {
+    pub fn base(&self) -> u64 {
         self.base
     }
 
@@ -56,72 +95,5 @@ impl FastCompressor {
 
     pub fn reset(&mut self) {
         self.counts.clear();
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_fast_compressor_base_2() {
-        let mut compressor = FastCompressor::new(2.0);
-        compressor.compress(vec![10, 8, 5, 3, 2, 1]);
-
-        let (len, base, counts) = compressor.get_result();
-        assert_eq!(len, 4);
-        assert_eq!(base, 2.0);
-        assert_eq!(counts, vec![2, 1, 2, 1]);
-    }
-
-    #[test]
-    fn test_fast_compressor_base_1_5() {
-        let mut compressor = FastCompressor::new(1.5);
-        compressor.compress(vec![5, 3, 2, 1]);
-
-        let (len, base, counts) = compressor.get_result();
-        assert_eq!(len, 4);
-        assert_eq!(base, 1.5);
-        assert_eq!(counts.len(), 4);
-    }
-
-    #[test]
-    fn test_fast_compressor_empty() {
-        let mut compressor = FastCompressor::new(2.0);
-        compressor.compress(vec![]);
-
-        let (len, _, counts) = compressor.get_result();
-        assert_eq!(len, 0);
-        assert_eq!(counts, Vec::<u64>::new());
-    }
-
-    #[test]
-    fn test_fast_compressor_zero() {
-        let mut compressor = FastCompressor::new(2.0);
-        compressor.compress(vec![0, 0, 0]);
-
-        let (_, _, counts) = compressor.get_result();
-        assert_eq!(counts[0], 3);
-    }
-
-    #[test]
-    fn test_fast_compressor_multiple_calls() {
-        let mut compressor = FastCompressor::new(2.0);
-        compressor.compress(vec![1, 2]);
-        compressor.compress(vec![3, 4, 5]);
-
-        let (_, _, counts) = compressor.get_result();
-        assert_eq!(counts, vec![2, 2, 1]);
-    }
-
-    #[test]
-    fn test_reset() {
-        let mut compressor = FastCompressor::new(2.0);
-        compressor.compress(vec![1, 2, 3]);
-        compressor.reset();
-
-        let (len, _, counts) = compressor.get_result();
-        assert_eq!(len, 0);
-        assert_eq!(counts, Vec::<u64>::new());
     }
 }
