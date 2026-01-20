@@ -39,5 +39,11 @@ impl From<bincode::Error> for GCardError {
     }
 }
 
+impl From<duckdb::Error> for GCardError {
+    fn from(err: duckdb::Error) -> Self {
+        GCardError::InvalidData(format!("DuckDB error: {}", err))
+    }
+}
+
 pub type GCardResult<T> = Result<T, GCardError>;
 

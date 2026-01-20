@@ -1,0 +1,299 @@
+-- q10_p001
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='female'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p002
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {gender='female'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p003
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p004
+(p1:Person)-[plc1:LIKE]-(c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p005
+(p1:Person)-[plc1:LIKE]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p006
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {gender='male'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p007
+(p1:Person {language='zh;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {language='zh;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p008
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='male'})-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {length>=79})
+
+-- q10_p009
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment {length>=79})
+
+-- q10_p010
+(p1:Person)-[plc1:LIKE]-(c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p011
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p012
+(p1:Person {gender='female'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p013
+(p1:Person)-[plc1:LIKE]-(c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)
+
+-- q10_p014
+(p1:Person)-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person {language='pt;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p015
+(p1:Person)-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p016
+(p1:Person {language='pt;en'})-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='pt;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p017
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p018
+(p1:Person {gender='female'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p019
+(p1:Person {language='es;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {language='es;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p020
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='female'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p021
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='zh;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p022
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)
+
+-- q10_p023
+(p1:Person {gender='female'})-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p024
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment {explicitlydeleted=false})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {explicitlydeleted=false})
+
+-- q10_p025
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='pt;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p026
+(p1:Person)-[plc1:LIKE]-(c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p027
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p028
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p029
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p030
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p031
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='female'})-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p032
+(p1:Person)-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment {explicitlydeleted=false})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment {explicitlydeleted=false})
+
+-- q10_p033
+(p1:Person {language='es;en'})-[plc1:LIKE]-(c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='es;en'}), (c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)
+
+-- q10_p034
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p035
+(p1:Person)-[plc1:LIKE {creationdate>=1351344255062}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p036
+(p1:Person)-[plc1:LIKE]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person {gender='male'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p037
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p038
+(p1:Person)-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p039
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p040
+(p1:Person {language='zh;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='zh;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p041
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p042
+(p1:Person {gender='female'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p043
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p044
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='zh;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p045
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='male'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p046
+(p1:Person {language='pt;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='pt;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p047
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p048
+(p1:Person {gender='female'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p049
+(p1:Person {gender='female'})-[plc1:LIKE]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person {gender='male'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {gender='female'}), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p050
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='female'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p051
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='en'})-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p052
+(p1:Person)-[plc1:LIKE {creationdate>=1351344255062}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='male'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p053
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='zh;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p054
+(p1:Person {language='de;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='de;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p055
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment {explicitlydeleted=false})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {explicitlydeleted=false})
+
+-- q10_p056
+(p1:Person {gender='female'})-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p057
+(p1:Person)-[plc1:LIKE {creationdate>=1351344255062}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='zh;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)
+
+-- q10_p058
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p059
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)-[plc2:LIKE]-(c2:Comment {explicitlydeleted=false})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {explicitlydeleted=false})
+
+-- q10_p060
+(p1:Person)-[plc1:LIKE {creationdate>=1351344255062}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p061
+(p1:Person {language='es;en'})-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='es;en'}), (c1:Comment {length>=79})-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p062
+(p1:Person {language='es;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='es;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p063
+(p1:Person)-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p064
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p065
+(p1:Person {language='es;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {language='es;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p066
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)
+
+-- q10_p067
+(p1:Person {language='es;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='female'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='es;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p068
+(p1:Person {gender='female'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)
+
+-- q10_p069
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})
+
+-- q10_p070
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p071
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p072
+(p1:Person {gender='male'})-[plc1:LIKE {creationdate>=1351344255062}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='male'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {gender='male'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p073
+(p1:Person)-[plc1:LIKE]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person {gender='female'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p074
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {length>=79})
+
+-- q10_p075
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p076
+(p1:Person)-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p077
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p078
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p079
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='pt;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p080
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='en'})-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p081
+(p1:Person)-[plc1:LIKE]-(c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {length>=79})-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)
+
+-- q10_p082
+(p1:Person)-[plc1:LIKE]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment {explicitlydeleted=false})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment {explicitlydeleted=false})
+
+-- q10_p083
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})
+
+-- q10_p084
+(p1:Person {language='de;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {language='de;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p085
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {length>=79})
+
+-- q10_p086
+(p1:Person {language='zh;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='zh;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p087
+(p1:Person {language='zh;en'})-[plc1:LIKE]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='zh;en'}), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p088
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p089
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p090
+(p1:Person {gender='female'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {gender='female'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p091
+(p1:Person {gender='male'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE {creationdate>=1351344255062}]-(c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p1:Person {gender='male'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {length>=79})
+
+-- q10_p092
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})
+
+-- q10_p093
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='pt;en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p094
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {gender='female'})-[plc2:LIKE {explicitlydeleted=false}]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p095
+(p1:Person {language='pt;en'})-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='pt;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p096
+(p1:Person)-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p097
+(p1:Person)-[plc1:LIKE]-(c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p098
+(p1:Person {language='de;en'})-[plc1:LIKE {explicitlydeleted=false}]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR]-(p1:Person {language='de;en'}), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p099
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person {language='en'})-[plc2:LIKE]-(c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)
+
+-- q10_p100
+(p1:Person)-[plc1:LIKE]-(c1:Comment)-[chp1:HAS_CREATOR]-(p2:Person)-[plc2:LIKE]-(c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p1:Person), (c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {length>=79})

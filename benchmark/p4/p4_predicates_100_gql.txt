@@ -1,0 +1,299 @@
+-- q9_p001
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='zh;en'})
+
+-- q9_p002
+(p_member:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p003
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p004
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p005
+(p_member:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p006
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p007
+(p_member:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p008
+(p_member:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p009
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p010
+(p_member:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p011
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p012
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p013
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p014
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p015
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p016
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p017
+(p_member:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p018
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='zh;en'})
+
+-- q9_p019
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post {language='zh'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p020
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p021
+(p_member:Person {gender='female'})-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p022
+(p_member:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p023
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p024
+(p_member:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p025
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p026
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p027
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='en'})
+
+-- q9_p028
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='en'})
+
+-- q9_p029
+(p_member:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p030
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p031
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p032
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post {language='zh'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p033
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p034
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p035
+(p_member:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p036
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p037
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p038
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p039
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p040
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p041
+(p_member:Person {language='es;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p042
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p043
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p044
+(p_member:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p045
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p046
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='en'})
+
+-- q9_p047
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p048
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p049
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post {language='zh'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p050
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p051
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p052
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p053
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='female'})
+
+-- q9_p054
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='zh'})-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p055
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p056
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='zh;en'})
+
+-- q9_p057
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p058
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p059
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person {language='en'})
+
+-- q9_p060
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='pt;en'})
+
+-- q9_p061
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p062
+(p_member:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p063
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p064
+(p_member:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p065
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='zh'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='zh;en'})
+
+-- q9_p066
+(p_member:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p067
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p068
+(p_member:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p069
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p070
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='en'})
+
+-- q9_p071
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p072
+(p_member:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p073
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p074
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p075
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p076
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='male'})
+
+-- q9_p077
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {gender='female'})
+
+-- q9_p078
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p079
+(p_member:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p080
+(p_member:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p081
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='es;en'})
+
+-- q9_p082
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p083
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p084
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p085
+(p_member:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p086
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p087
+(p_member:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p088
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p_creator:Person {language='zh;en'})
+
+-- q9_p089
+(p_member:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p090
+(p_member:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p091
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p092
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p093
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person {gender='male'})
+
+-- q9_p094
+(p_member:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p095
+(p_member:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p096
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person)
+
+-- q9_p097
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person {language='zh;en'})
+
+-- q9_p098
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Yang Li'})-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p099
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p_creator:Person)
+
+-- q9_p100
+(p_member:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p_creator:Person {language='pt;en'})

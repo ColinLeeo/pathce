@@ -1,0 +1,299 @@
+-- q13_p001
+(t:Tag {name='Muammar_Gaddafi'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Muammar_Gaddafi'}), (c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p002
+(t:Tag {name='Khalid_Sheikh_Mohammed'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Khalid_Sheikh_Mohammed'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p003
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p004
+(t:Tag {name='Wolfgang_Amadeus_Mozart'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Wolfgang_Amadeus_Mozart'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p005
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p006
+(t:Tag {name='Maximilian_I,_Holy_Roman_Emperor'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Maximilian_I,_Holy_Roman_Emperor'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p007
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {language='en'}), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person {language='en'})
+
+-- q13_p008
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='de;en'}), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person), (p1:Person {language='de;en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p009
+(t:Tag {name='Sonia_Gandhi'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Sonia_Gandhi'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS {dst<=253343}]-(p2:Person)
+
+-- q13_p010
+(t:Tag {name='Muammar_Gaddafi'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Muammar_Gaddafi'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p011
+(t:Tag {name='Imelda_Marcos'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Imelda_Marcos'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p012
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'})
+
+-- q13_p013
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {length>=79})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS {src>=253343}]-(p2:Person)
+
+-- q13_p014
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p015
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})
+
+-- q13_p016
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p017
+(t:Tag {name='Sonia_Gandhi'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Sonia_Gandhi'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p018
+(t:Tag {name='Augustine_of_Hippo'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Augustine_of_Hippo'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p019
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='zh;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'})
+
+-- q13_p020
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {length>=79})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c2:Comment {length>=79})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p021
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p022
+(t:Tag {name='Mariano_Rivera'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Mariano_Rivera'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p023
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p024
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS {src>=253343}]-(p2:Person {language='pt;en'})
+
+-- q13_p025
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p026
+(t:Tag {name='Muammar_Gaddafi'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Muammar_Gaddafi'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p027
+(t:Tag {name='Adolf_Hitler'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Adolf_Hitler'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='female'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p028
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p029
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='zh;en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='zh;en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p030
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p1:Person {language='zh;en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='zh;en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p031
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {language='es;en'}), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person {language='es;en'})
+
+-- q13_p032
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p033
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p034
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='pt;en'}), (c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p035
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p036
+(t:Tag {name='Sonia_Gandhi'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Sonia_Gandhi'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p037
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p038
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'})
+
+-- q13_p039
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p040
+(t:Tag {name='Mariano_Rivera'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Mariano_Rivera'}), (c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p041
+(t:Tag {name='Adolf_Hitler'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Adolf_Hitler'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p042
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {creationdate>=1350093427787})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {creationdate>=1350093427787})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p043
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})
+
+-- q13_p044
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'})
+
+-- q13_p045
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {explicitlydeleted=false})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {explicitlydeleted=false})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p046
+(t:Tag {name='Genghis_Khan'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Genghis_Khan'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS {src>=253343}]-(p2:Person)
+
+-- q13_p047
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {language='es;en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p048
+(t:Tag {name='Adolf_Hitler'})-[cht1:HAS_TAG]-(c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Adolf_Hitler'}), (c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p049
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person), (c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p050
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='zh;en'}), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person {language='zh;en'})
+
+-- q13_p051
+(t:Tag {name='Wolfgang_Amadeus_Mozart'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Wolfgang_Amadeus_Mozart'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p052
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p2:Person {gender='male'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'})
+
+-- q13_p053
+(t:Tag {name='Imelda_Marcos'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Imelda_Marcos'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p054
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {language='zh;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'})
+
+-- q13_p055
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {length>=79})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {length>=79})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p056
+(t:Tag {name='Georg_Wilhelm_Friedrich_Hegel'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Georg_Wilhelm_Friedrich_Hegel'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='female'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p057
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF {creationdate>=1351930981563}]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='zh;en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='zh;en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p058
+(t:Tag {name='Morocco'})-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag {name='Morocco'}), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})
+
+-- q13_p059
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {language='en'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p060
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p061
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p062
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p063
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p064
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {explicitlydeleted=false})-[rcc:REPLY_OF]-(c2:Comment {creationdate>=1350093427787})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {explicitlydeleted=false})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {creationdate>=1350093427787})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p065
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS {src>=253343}]-(p2:Person)
+
+-- q13_p066
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Opera'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Opera'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Safari'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Safari'})
+
+-- q13_p067
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Chrome'})-[rcc:REPLY_OF]-(c2:Comment {browserused='Safari'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Chrome'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Safari'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p068
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Safari'})-[rcc:REPLY_OF]-(c2:Comment {browserused='Opera'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Safari'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Opera'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p069
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Safari'})-[rcc:REPLY_OF]-(c2:Comment {browserused='Chrome'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Safari'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Chrome'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p070
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {browserused='Opera'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {browserused='Opera'})-[pkp:KNOWS {src>=253343}]-(p2:Person)
+
+-- q13_p071
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Opera'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Opera'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Opera'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Opera'})
+
+-- q13_p072
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Internet Explorer'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Internet Explorer'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p073
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {gender='male'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS {dst<=253343}]-(p2:Person)
+
+-- q13_p074
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Opera'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Opera'})-[chp2:HAS_CREATOR]-(p2:Person {browserused='Opera'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Opera'})
+
+-- q13_p075
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Safari'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Safari'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Chrome'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Chrome'})
+
+-- q13_p076
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Firefox'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Firefox'})-[chp2:HAS_CREATOR]-(p2:Person {browserused='Chrome'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Chrome'})
+
+-- q13_p077
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Safari'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Safari'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Firefox'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Firefox'})
+
+-- q13_p078
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Internet Explorer'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Internet Explorer'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Opera'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Opera'})
+
+-- q13_p079
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Chrome'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Chrome'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Safari'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Safari'})
+
+-- q13_p080
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {browserused='Chrome'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {browserused='Chrome'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p081
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {browserused='Chrome'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {browserused='Chrome'})-[pkp:KNOWS {dst<=253343}]-(p2:Person)
+
+-- q13_p082
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {browserused='Firefox'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {browserused='Firefox'})-[pkp:KNOWS {src>=253343}]-(p2:Person)
+
+-- q13_p083
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Chrome'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Chrome'})-[chp2:HAS_CREATOR]-(p2:Person {browserused='Safari'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Safari'})
+
+-- q13_p084
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Firefox'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Firefox'})-[chp2:HAS_CREATOR]-(p2:Person {browserused='Safari'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Safari'})
+
+-- q13_p085
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Internet Explorer'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Internet Explorer'})
+
+-- q13_p086
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Opera'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Opera'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'})
+
+-- q13_p087
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Firefox'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Firefox'})-[chp2:HAS_CREATOR]-(p2:Person {browserused='Chrome'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Chrome'})
+
+-- q13_p088
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {browserused='Chrome'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {browserused='Chrome'})-[pkp:KNOWS {src>=253343}]-(p2:Person)
+
+-- q13_p089
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Safari'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Safari'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p090
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Opera'})-[rcc:REPLY_OF]-(c2:Comment {browserused='Firefox'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Opera'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Firefox'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p091
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Firefox'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Firefox'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Chrome'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Chrome'})
+
+-- q13_p092
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Safari'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Safari'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Internet Explorer'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Internet Explorer'})
+
+-- q13_p093
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Chrome'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Chrome'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Internet Explorer'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Internet Explorer'})
+
+-- q13_p094
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Safari'})-[rcc:REPLY_OF]-(c2:Comment {browserused='Opera'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Safari'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Opera'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p095
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Internet Explorer'})-[rcc:REPLY_OF]-(c2:Comment {browserused='Safari'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Internet Explorer'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Safari'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p096
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF {explicitlydeleted=false}]-(c2:Comment {browserused='Internet Explorer'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Internet Explorer'})-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p097
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment {browserused='Firefox'})-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment {browserused='Firefox'})-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person {browserused='Opera'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Opera'})
+
+-- q13_p098
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Safari'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Safari'})-[chp2:HAS_CREATOR]-(p2:Person {browserused='Internet Explorer'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Internet Explorer'})
+
+-- q13_p099
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment)-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person {browserused='Internet Explorer'}), (c2:Comment)-[chp2:HAS_CREATOR]-(p2:Person), (p1:Person {browserused='Internet Explorer'})-[pkp:KNOWS]-(p2:Person)
+
+-- q13_p100
+(t:Tag)-[cht1:HAS_TAG]-(c1:Comment)-[rcc:REPLY_OF]-(c2:Comment {browserused='Chrome'})-[cht2:HAS_TAG]-(t:Tag), (c1:Comment)-[chp1:HAS_CREATOR]-(p1:Person), (c2:Comment {browserused='Chrome'})-[chp2:HAS_CREATOR]-(p2:Person {browserused='Chrome'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {browserused='Chrome'})

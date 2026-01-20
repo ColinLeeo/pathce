@@ -1,0 +1,299 @@
+-- q4_p001
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='male'})-[plp:LIKE]-(m:Post)
+
+-- q4_p002
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='es;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p003
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='es;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p004
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment {length>=79}), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p005
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='pt;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p006
+(t:Tag {name='Wolfgang_Amadeus_Mozart'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p007
+(t:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p008
+(t:Tag {name='Maximilian_I,_Holy_Roman_Emperor'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p009
+(t:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='en'})-[plp:LIKE {explicitlydeleted=false}]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p010
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {language='es;en'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p011
+(t:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment), (m:Post {language='en'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {language='en'})
+
+-- q4_p012
+(t:Tag {name='Genghis_Khan'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post)
+
+-- q4_p013
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length<=4}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p014
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p015
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person {language='en'}), (liker:Person {language='es;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p016
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p017
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length<=4}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p018
+(t:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment), (m:Post {explicitlydeleted=false})-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {explicitlydeleted=false})
+
+-- q4_p019
+(t:Tag {name='Wolfgang_Amadeus_Mozart'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p020
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length>=79}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p021
+(t:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post {language='en'})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {language='en'})
+
+-- q4_p022
+(t:Tag {name='Maximilian_I,_Holy_Roman_Emperor'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p023
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p024
+(t:Tag {name='Genghis_Khan'})-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment), (m:Post {language='en'})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {language='en'})
+
+-- q4_p025
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='female'})-[plp:LIKE]-(m:Post)
+
+-- q4_p026
+(t:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment), (m:Post {language='en'})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {language='en'})
+
+-- q4_p027
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='female'})-[plp:LIKE]-(m:Post)
+
+-- q4_p028
+(t:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p029
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='male'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p030
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {language='zh;en'}), (liker:Person {gender='female'})-[plp:LIKE]-(m:Post)
+
+-- q4_p031
+(t:Tag {name='Mariano_Rivera'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p032
+(t:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment), (m:Post {language='en'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {language='en'})
+
+-- q4_p033
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p034
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {language='en'}), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post)
+
+-- q4_p035
+(t:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment), (m:Post {explicitlydeleted=false})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post {explicitlydeleted=false})
+
+-- q4_p036
+(t:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p037
+(t:Tag {name='Mariano_Rivera'})-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment {length>=79}), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p038
+(t:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment), (m:Post {explicitlydeleted=false})-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='male'})-[plp:LIKE]-(m:Post {explicitlydeleted=false})
+
+-- q4_p039
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person {language='pt;en'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p040
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='female'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p041
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {language='zh;en'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p042
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='male'}), (liker:Person {language='pt;en'})-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p043
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length>=79}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p044
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post)
+
+-- q4_p045
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p046
+(t:Tag {name='Maximilian_I,_Holy_Roman_Emperor'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p047
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p048
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='zh;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p049
+(t:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p050
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person {language='es;en'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p051
+(t:Tag {name='Augustine_of_Hippo'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p052
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='female'}), (liker:Person {gender='male'})-[plp:LIKE]-(m:Post)
+
+-- q4_p053
+(t:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment), (m:Post {explicitlydeleted=false})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post {explicitlydeleted=false})
+
+-- q4_p054
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p055
+(t:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p056
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p057
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='zh;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p058
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p059
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p060
+(t:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person {gender='male'}), (liker:Person)-[plp:LIKE]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p061
+(t:Tag {name='Maximilian_I,_Holy_Roman_Emperor'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p062
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p063
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post)
+
+-- q4_p064
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length<=4}), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p065
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='male'})-[plp:LIKE]-(m:Post)
+
+-- q4_p066
+(t:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='pt;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p067
+(t:Tag {name='Mariano_Rivera'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p068
+(t:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p069
+(t:Tag {name='Augustine_of_Hippo'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p070
+(t:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment), (m:Post {explicitlydeleted=false})-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {explicitlydeleted=false})
+
+-- q4_p071
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment {length>=79}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p072
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='female'})-[plp:LIKE]-(m:Post)
+
+-- q4_p073
+(t:Tag {name='Wolfgang_Amadeus_Mozart'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='male'}), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p074
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person {language='es;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p075
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post {length>0})-[crp:REPLY_OF]-(c:Comment), (m:Post {length>0})-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {length>0})
+
+-- q4_p076
+(t:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p077
+(t:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post {language='en'})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {language='en'})
+
+-- q4_p078
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='en'})-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p079
+(t:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post)
+
+-- q4_p080
+(t:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='female'})-[plp:LIKE]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p081
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='female'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p082
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length<=4}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {creationdate>=1338452282578}]-(m:Post)
+
+-- q4_p083
+(t:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p084
+(t:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p085
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment {explicitlydeleted=false}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p086
+(t:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p087
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p088
+(t:Tag {name='Genghis_Khan'})-[pht:HAS_TAG]-(m:Post {length>0})-[crp:REPLY_OF]-(c:Comment), (m:Post {length>0})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {length>0})
+
+-- q4_p089
+(t:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post)
+
+-- q4_p090
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='male'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p091
+(t:Tag {name='Maximilian_I,_Holy_Roman_Emperor'})-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment), (m:Post {creationdate>=1328021100728})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE {explicitlydeleted=false}]-(m:Post {creationdate>=1328021100728})
+
+-- q4_p092
+(t:Tag {name='Mariano_Rivera'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person {language='en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p093
+(t:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post {explicitlydeleted=false})-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post {explicitlydeleted=false})
+
+-- q4_p094
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p095
+(t:Tag {name='Genghis_Khan'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p096
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person {gender='male'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p097
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {language='zh;en'})-[plp:LIKE]-(m:Post)
+
+-- q4_p098
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p099
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment), (m:Post)-[php:HAS_CREATOR {explicitlydeleted=false}]-(creator:Person {language='pt;en'}), (liker:Person)-[plp:LIKE]-(m:Post)
+
+-- q4_p100
+(t:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787}), (m:Post)-[php:HAS_CREATOR]-(creator:Person), (liker:Person {gender='male'})-[plp:LIKE]-(m:Post)

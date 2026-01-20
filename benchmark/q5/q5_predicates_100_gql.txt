@@ -1,0 +1,299 @@
+-- q5_p001
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Wolfgang_Amadeus_Mozart'})
+
+-- q5_p002
+(t1:Tag {name='Augustine_of_Hippo'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p003
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p004
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Augustine_of_Hippo'})
+
+-- q5_p005
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p006
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p007
+(t1:Tag {name='Augustine_of_Hippo'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p008
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment {creationdate>=1350093427787})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p009
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p010
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p011
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p012
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Muammar_Gaddafi'})
+
+-- q5_p013
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p014
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p015
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length>=79})-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p016
+(t1:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p017
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Khalid_Sheikh_Mohammed'})
+
+-- q5_p018
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p019
+(t1:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p020
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p021
+(t1:Tag {name='Genghis_Khan'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p022
+(t1:Tag {name='Wolfgang_Amadeus_Mozart'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Augustine_of_Hippo'})
+
+-- q5_p023
+(t1:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p024
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p025
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p026
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p027
+(t1:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Wolfgang_Amadeus_Mozart'})
+
+-- q5_p028
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p029
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p030
+(t1:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p031
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Georg_Wilhelm_Friedrich_Hegel'})
+
+-- q5_p032
+(t1:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Wolfgang_Amadeus_Mozart'})
+
+-- q5_p033
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length>=79})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p034
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p035
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p036
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p037
+(t1:Tag {name='Augustine_of_Hippo'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Adolf_Hitler'})
+
+-- q5_p038
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p039
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Sonia_Gandhi'})
+
+-- q5_p040
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p041
+(t1:Tag {name='Augustine_of_Hippo'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p042
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p043
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Georg_Wilhelm_Friedrich_Hegel'})
+
+-- q5_p044
+(t1:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p045
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p046
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p047
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p048
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p049
+(t1:Tag {name='Mariano_Rivera'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p050
+(t1:Tag {name='Wolfgang_Amadeus_Mozart'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p051
+(t1:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p052
+(t1:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p053
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p054
+(t1:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p055
+(t1:Tag {name='Augustine_of_Hippo'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p056
+(t1:Tag {name='Wolfgang_Amadeus_Mozart'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p057
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Khalid_Sheikh_Mohammed'})
+
+-- q5_p058
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p059
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p060
+(t1:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p061
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Khalid_Sheikh_Mohammed'})
+
+-- q5_p062
+(t1:Tag {name='Mariano_Rivera'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p063
+(t1:Tag {name='Mariano_Rivera'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Georg_Wilhelm_Friedrich_Hegel'})
+
+-- q5_p064
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p065
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag {name='Augustine_of_Hippo'})
+
+-- q5_p066
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p067
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p068
+(t1:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Muammar_Gaddafi'})
+
+-- q5_p069
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Khalid_Sheikh_Mohammed'})
+
+-- q5_p070
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p071
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Khalid_Sheikh_Mohammed'})
+
+-- q5_p072
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Adolf_Hitler'})
+
+-- q5_p073
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Wolfgang_Amadeus_Mozart'})
+
+-- q5_p074
+(t1:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p075
+(t1:Tag {name='Wolfgang_Amadeus_Mozart'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Augustine_of_Hippo'})
+
+-- q5_p076
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p077
+(t1:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p078
+(t1:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Muammar_Gaddafi'})
+
+-- q5_p079
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p080
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p081
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {length>0})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p082
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p083
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {creationdate>=1328021100728})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment {length>=79})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p084
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p085
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p086
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Adolf_Hitler'})
+
+-- q5_p087
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Sonia_Gandhi'})
+
+-- q5_p088
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p089
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Khalid_Sheikh_Mohammed'})
+
+-- q5_p090
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Wolfgang_Amadeus_Mozart'})
+
+-- q5_p091
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p092
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Augustine_of_Hippo'})
+
+-- q5_p093
+(t1:Tag)-[pht:HAS_TAG]-(m:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p094
+(t1:Tag {name='Adolf_Hitler'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p095
+(t1:Tag {name='Hamid_Karzai'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p096
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment {length>=79})-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p097
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)
+
+-- q5_p098
+(t1:Tag)-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Genghis_Khan'})
+
+-- q5_p099
+(t1:Tag {name='Muammar_Gaddafi'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag {name='Wolfgang_Amadeus_Mozart'})
+
+-- q5_p100
+(t1:Tag {name='Genghis_Khan'})-[pht:HAS_TAG]-(m:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t2:Tag)

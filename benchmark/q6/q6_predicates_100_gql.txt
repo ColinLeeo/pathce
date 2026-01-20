@@ -1,0 +1,299 @@
+-- q6_p001
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person {language='pt;en'})-[phi:HAS_INTEREST]-(t:Tag {name='Plato'})
+
+-- q6_p002
+(p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p003
+(p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p004
+(p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Augustine_of_Hippo'})
+
+-- q6_p005
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Bill_Clinton'})
+
+-- q6_p006
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='Jesus'})
+
+-- q6_p007
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Napoleon'})
+
+-- q6_p008
+(p1:Person)-[pk12:KNOWS]-(p2:Person {gender='male'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='Elizabeth_II'})
+
+-- q6_p009
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Augustine_of_Hippo'})
+
+-- q6_p010
+(p1:Person)-[pk12:KNOWS]-(p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p011
+(p1:Person)-[pk12:KNOWS]-(p2:Person {gender='male'})-[pk23:KNOWS]-(p3:Person {language='en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p012
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p013
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='pt;en'})-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p014
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'})-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p015
+(p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p016
+(p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='zh;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p017
+(p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p018
+(p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p019
+(p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='John_F._Kennedy'})
+
+-- q6_p020
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {gender='male'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p021
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Napoleon'})
+
+-- q6_p022
+(p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p023
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person {language='zh;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p024
+(p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p025
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='William_Shakespeare'})
+
+-- q6_p026
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Plato'})
+
+-- q6_p027
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p028
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Bill_Clinton'})
+
+-- q6_p029
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {gender='male'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p030
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p031
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p032
+(p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p033
+(p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p034
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p035
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='pt;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p036
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Jesus'})
+
+-- q6_p037
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p038
+(p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p039
+(p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p040
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p041
+(p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p042
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p043
+(p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person {gender='male'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p044
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p045
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'})-[phi:HAS_INTEREST]-(t:Tag {name='Jesus'})
+
+-- q6_p046
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='John_F._Kennedy'})
+
+-- q6_p047
+(p1:Person)-[pk12:KNOWS]-(p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p048
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p049
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='William_Shakespeare'})
+
+-- q6_p050
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Napoleon'})
+
+-- q6_p051
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Plato'})
+
+-- q6_p052
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person {gender='female'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p053
+(p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p054
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Bill_Clinton'})
+
+-- q6_p055
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'})-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='George_W._Bush'})
+
+-- q6_p056
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='Bill_Clinton'})
+
+-- q6_p057
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Plato'})
+
+-- q6_p058
+(p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p059
+(p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p060
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Napoleon'})
+
+-- q6_p061
+(p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p062
+(p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Jesus'})
+
+-- q6_p063
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Plato'})
+
+-- q6_p064
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p065
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='Augustine_of_Hippo'})
+
+-- q6_p066
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='John_F._Kennedy'})
+
+-- q6_p067
+(p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p068
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='zh;en'})-[phi:HAS_INTEREST]-(t:Tag {name='Aristotle'})
+
+-- q6_p069
+(p1:Person)-[pk12:KNOWS]-(p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person {gender='female'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p070
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Napoleon'})
+
+-- q6_p071
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p072
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='John_F._Kennedy'})
+
+-- q6_p073
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Jesus'})
+
+-- q6_p074
+(p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='Bill_Clinton'})
+
+-- q6_p075
+(p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p076
+(p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Bill_Clinton'})
+
+-- q6_p077
+(p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p078
+(p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p079
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p080
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p081
+(p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='pt;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p082
+(p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p083
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Elizabeth_II'})
+
+-- q6_p084
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p085
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='Aristotle'})
+
+-- q6_p086
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p087
+(p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Plato'})
+
+-- q6_p088
+(p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p089
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'})-[phi:HAS_INTEREST]-(t:Tag {name='William_Shakespeare'})
+
+-- q6_p090
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p091
+(p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p092
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='pt;en'})-[phi:HAS_INTEREST]-(t:Tag {name='John_F._Kennedy'})
+
+-- q6_p093
+(p1:Person)-[pk12:KNOWS]-(p2:Person {gender='male'})-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag)
+
+-- q6_p094
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {language='zh;en'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p095
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='Plato'})
+
+-- q6_p096
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Napoleon'})
+
+-- q6_p097
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST {creationdate>=1309845298772}]-(t:Tag {name='George_W._Bush'})
+
+-- q6_p098
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person {gender='male'})-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p099
+(p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag)
+
+-- q6_p100
+(p1:Person)-[pk12:KNOWS]-(p2:Person)-[pk23:KNOWS]-(p3:Person)-[phi:HAS_INTEREST]-(t:Tag {name='Napoleon'})

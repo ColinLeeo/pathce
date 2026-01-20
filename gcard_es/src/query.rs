@@ -3,6 +3,9 @@ use crate::error::GCardResult;
 use crate::{AltKey, DegreeSeqGraphCompressed};
 use std::collections::HashMap;
 use std::fmt;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+use std::path::Path;
 use std::rc::Rc;
 
 #[derive(Debug, Clone)]
@@ -104,9 +107,10 @@ impl Expr {
         graph: &DegreeSeqGraphCompressed,
         path: &AltKey,
         target_node: &str,
+        f: f64,
     ) -> GCardResult<Self> {
         let degree_seq = graph.get_piece_func_by_path(path, target_node);
-        let pcf = Rc::new(degree_seq.clone());
+        let pcf = Rc::new(degree_seq.truncate_by_selectivity(f).clone());
 
         Ok(Expr::Single {
             pcf,
@@ -169,16 +173,16 @@ impl Expr {
 
 #[macro_export]
 macro_rules! expr {
-    ($graph:expr, [$($edge:ident),*], $target:ident) => {
+    ($graph:expr, [$($edge:ident),*], $target:ident, $f:expr) => {
         {
         let key = AltKey(vec![$(stringify!($edge).to_string()),*]);
-            Expr::from_path($graph, &key, stringify!($target))
+            Expr::from_path($graph, &key, stringify!($target), $f)
         }
     };
-    ($graph:expr, [$($edge:ident),*], $target:expr) => {
+    ($graph:expr, [$($edge:ident),*], $target:expr, $f:expr) => {
         {
         let key = AltKey(vec![$(stringify!($edge).to_string()),*]);
-            Expr::from_path($graph, &key, $target)
+            Expr::from_path($graph, &key, $target, $f)
         }
     };
 }
@@ -219,9 +223,55 @@ pub fn gamma(paris: Vec<(Expr, Expr)>) -> Expr {
     Expr::new_pair(left_name, right_name, Rc::new(left_pcf), Rc::new(right_pcf))
 }
 
+/// 从GQL查询文件中解析GQL查询
+///
+/// 文件格式：
+/// -- query_id
+/// (gql pattern)
+///
+/// # Arguments
+/// * `file_path` - GQL查询文件路径
+///
+/// # Returns
+/// 返回GQL查询字符串的向量
+pub fn parse_gql_queries<P: AsRef<Path>>(file_path: P) -> GCardResult<Vec<String>> {
+    let file = File::open(file_path)?;
+    let reader = BufReader::new(file);
+    let lines: Vec<String> = reader.lines().collect::<Result<Vec<_>, _>>()?;
+
+    let mut queries = Vec::new();
+    let mut i = 0;
+
+    while i < lines.len() {
+        let line = lines[i].trim();
+
+        // 查找注释行（以 -- 开头）
+        if line.starts_with("--") {
+            // 查找下一行非空行作为GQL查询
+            i += 1;
+            while i < lines.len() && lines[i].trim().is_empty() {
+                i += 1;
+            }
+
+            if i < lines.len() {
+                let gql = lines[i].trim().to_string();
+                if !gql.is_empty() {
+                    queries.push(gql);
+                }
+            }
+        }
+        i += 1;
+    }
+
+    Ok(queries)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::parser::parse_pattern;
+    use crate::wander_join_selectivity;
+    use duckdb::Connection;
     use std::path::Path;
 
     fn load_graph() -> DegreeSeqGraphCompressed {
@@ -252,10 +302,10 @@ mod tests {
                         City_isPartOf_Country,
                         Country
                     ],
-                    Person
+                    Person, 1.0
                 )?,
-                &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person)?,
-                &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?,
+                &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Person, 1.0)?,
+                &expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum, 1.0)?,
             ),
             beta(
                 &expr!(
@@ -267,7 +317,8 @@ mod tests {
                         Tag_hasType_TagClass,
                         TagClass
                     ],
-                    Comment
+                    Comment,
+                    1.0
                 )?,
                 &expr!(
                     &graph,
@@ -278,7 +329,8 @@ mod tests {
                         Comment_replyOf_Post,
                         Comment
                     ],
-                    Comment
+                    Comment,
+                    1.0
                 )?,
                 &expr!(
                     &graph,
@@ -289,7 +341,8 @@ mod tests {
                         Comment_replyOf_Post,
                         Comment
                     ],
-                    Forum
+                    Forum,
+                    1.0
                 )?,
             ),
         ])
@@ -300,26 +353,55 @@ mod tests {
 
     #[test]
     fn test_q2() -> GCardResult<()> {
-        let graph = load_graph();
-        let res = alpha(&[
-            expr!(
-                &graph,
-                [
+        // (p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationDate>=1350093427787}]-(p1:Person {gender='female'})
+        let gqls = parse_gql_queries("/Users/colin/dev/pathce/benchmark/q2/q2_predicates_100_gql.txt")?;
+        for gql in gqls {
+            let s = parse_pattern(&gql).unwrap();
+            let expr1: Vec<String> = vec![
+                "Comment",
+                "Comment_replyOf_Post",
+                "Post",
+                "Post_hasCreator_Person",
+                "Person",
+            ].into_iter().map(|s| s.to_string()).collect();
+            let expr1_var: Vec<String> = vec!["c", "crp", "po", "php", "p2"]
+                .into_iter().map(|s| s.to_string()).collect();
+            let expr2 :  Vec<String> = vec![
+                "Comment", "Comment_hasCreator_Person", "Person",
+            ].into_iter().map(|s| s.to_string()).collect();
+
+            let expr2_var:  Vec<String>  = vec!["c", "chp", "p1"].into_iter().map(|s| s.to_string()).collect();
+            let graph = load_graph();
+            let conn = match Connection::open("/Users/colin/dev/pathce/graphs/ldbc/duckdb/ldbc_with_attrs_sf0.1.duckdb") {
+                Ok(conn) => conn,
+                Err(e) => {
+                    std::process::exit(1);
+                }
+            };
+            let f1 = wander_join_selectivity(&conn, &s, &expr1, &expr1_var, 20).unwrap();
+            let f2 = wander_join_selectivity(&conn, &s, &expr2, &expr2_var, 200).unwrap();
+            let res = alpha(&[
+                expr!(
+                    &graph,
+                    [
+                        Comment,
+                        Comment_replyOf_Post,
+                        Post,
+                        Post_hasCreator_Person,
+                        Person
+                    ],
+                    Comment, f1
+                )?,
+                expr!(
+                    &graph,
+                    [Comment, Comment_hasCreator_Person, Person],
                     Comment,
-                    Comment_replyOf_Post,
-                    Post,
-                    Post_hasCreator_Person,
-                    Person
-                ],
-                Comment
-            )?,
-            expr!(
-                &graph,
-                [Comment, Comment_hasCreator_Person, Person],
-                Comment
-            )?,
-        ]);
-        println!("Q2 result = {}", res.get_num());
+                    f2
+                )?,
+            ]);
+            println!("Q2 result = {}", res.get_num());
+        }
+
         Ok(())
     }
 
@@ -327,10 +409,10 @@ mod tests {
     fn test_q4() -> GCardResult<()> {
         let graph = load_graph();
 
-        let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post)?;
-        let e2 = expr!(&graph, [Post, Post_hasCreator_Person, Person], Post)?;
-        let e3 = expr!(&graph, [Person, Person_likes_Post, Post], Post)?;
-        let e4 = expr!(&graph, [Comment, Comment_replyOf_Post, Post], Post)?;
+        let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post, 1.0)?;
+        let e2 = expr!(&graph, [Post, Post_hasCreator_Person, Person], Post, 1.0)?;
+        let e3 = expr!(&graph, [Person, Person_likes_Post, Post], Post, 1.0)?;
+        let e4 = expr!(&graph, [Comment, Comment_replyOf_Post, Post], Post, 1.0)?;
 
         let result = alpha(&[e1, e2, e3, e4]).sum();
 
@@ -342,11 +424,12 @@ mod tests {
     fn test_q5() -> GCardResult<()> {
         let graph = load_graph();
 
-        let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post)?;
+        let e1 = expr!(&graph, [Post, Post_hasTag_Tag, Tag], Post, 1.0)?;
         let e2 = expr!(
             &graph,
             [Post, Comment_replyOf_Post, Comment, Comment_hasTag_Tag, Tag],
-            Post
+            Post,
+            1.0
         )?;
 
         let result = alpha(&[e1, e2]).sum();
@@ -368,9 +451,10 @@ mod tests {
                 Person_knows_Person,
                 Person
             ],
-            Person
+            Person,
+            1.0
         )?;
-        let e2 = expr!(&graph, [Person, Person_hasInterest_Tag, Tag], Person)?;
+        let e2 = expr!(&graph, [Person, Person_hasInterest_Tag, Tag], Person, 1.0)?;
 
         let result = alpha(&[e1, e2]).sum();
 
@@ -382,11 +466,12 @@ mod tests {
     fn test_q8() -> GCardResult<()> {
         let graph = load_graph();
         let result = alpha(&[
-            expr!(&graph, [Comment, Comment_hasTag_Tag, Tag], Comment)?,
+            expr!(&graph, [Comment, Comment_hasTag_Tag, Tag], Comment, 1.0)?,
             expr!(
                 &graph,
                 [Comment, Comment_replyOf_Post, Post, Post_hasTag_Tag, Tag],
-                Comment
+                Comment,
+                1.0
             )?,
         ]);
 
@@ -399,7 +484,7 @@ mod tests {
         let graph = load_graph();
 
         let result = alpha(&[
-            expr!(&graph, [Person, Person_knows_Person, Person], Person)?,
+            expr!(&graph, [Person, Person_knows_Person, Person], Person, 1.0)?,
             expr!(
                 &graph,
                 [
@@ -409,7 +494,8 @@ mod tests {
                     Person_hasInterest_Tag,
                     Tag
                 ],
-                Person
+                Person,
+                1.0
             )?,
         ])
         .sum();
@@ -431,7 +517,8 @@ mod tests {
                 Comment_hasTag_Tag,
                 Comment
             ],
-            Person
+            Person,
+            1.0
         )?;
 
         println!("P1 result = {}", result.get_num());
@@ -444,7 +531,7 @@ mod tests {
 
         // DSL: Gamma(...).left.sum()
         let result = alpha(&[
-            expr!(&graph, [Person, Person_likes_Comment, Comment], Comment)?,
+            expr!(&graph, [Person, Person_likes_Comment, Comment], Comment, 1.0)?,
             expr!(
                 &graph,
                 [
@@ -454,7 +541,8 @@ mod tests {
                     Person_isLocatedIn_City,
                     City
                 ],
-                Comment
+                Comment,
+                1.0
             )?,
         ])
         .sum();
@@ -475,7 +563,8 @@ mod tests {
                 Comment_replyOf_Post,
                 Post
             ],
-            Post
+            Post,
+            1.0
         )?; // [has_creator, replayof].post
         let e2 = expr!(
             &graph,
@@ -486,7 +575,8 @@ mod tests {
                 Forum_containerOf_Post,
                 Post
             ],
-            Post
+            Post,
+            1.0
         )?; // [hasMember,container_of].post
 
         let result = alpha(&[e1, e2]).sum();
@@ -500,9 +590,9 @@ mod tests {
         let graph = load_graph();
         // ..sum()
         let result = alpha(&[
-            expr!(&graph, [Person, Person_likes_Comment, Comment], Comment)?,
-            expr!(&graph, [Comment, Comment_replyOf_Comment, Comment], Comment)?,
-            expr!(&graph, [Comment, Person_likes_Comment, Comment], Comment)?,
+            expr!(&graph, [Person, Person_likes_Comment, Comment], Comment, 1.0)?,
+            expr!(&graph, [Comment, Comment_replyOf_Comment, Comment], Comment, 1.0)?,
+            expr!(&graph, [Comment, Person_likes_Comment, Person], Comment, 1.0)?,
         ])
         .sum();
 
@@ -526,9 +616,10 @@ mod tests {
                         Forum_containerOf_Post,
                         Forum
                     ],
-                    Forum
+                    Forum,
+                    1.0
                 )?,
-                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum)?
+                expr!(&graph, [Forum, Forum_hasMember_Person, Person], Forum, 1.0)?
             ])
             .get_num()
         );
@@ -550,7 +641,8 @@ mod tests {
                         Comment_hasCreator_Person,
                         Comment
                     ],
-                    Comment
+                    Comment,
+                    1.0
                 )?,
                 expr!(
                     &graph,
@@ -561,9 +653,11 @@ mod tests {
                         Comment_replyOf_Comment,
                         Comment
                     ],
-                    Comment
+                    Comment,
+                    1.0
                 )?
-            ]).sum()
+            ])
+            .sum()
         );
         Ok(())
     }
@@ -572,10 +666,27 @@ mod tests {
     fn test_p8() -> GCardResult<()> {
         let graph = load_graph();
         let result = alpha(&[
-            expr!(&graph, [Comment, Comment_hasCreator_Person, Person], Comment)?,
-            expr!(&graph, [Comment, Comment_replyOf_Comment, Comment, Comment_hasCreator_Person, Person], Comment)?,
-            expr!(&graph, [Comment, Comment_hasTag_Tag, Tag], Comment)?,
-        ]).sum();
+            expr!(
+                &graph,
+                [Comment, Comment_hasCreator_Person, Person],
+                Comment,
+                1.0
+            )?,
+            expr!(
+                &graph,
+                [
+                    Comment,
+                    Comment_replyOf_Comment,
+                    Comment,
+                    Comment_hasCreator_Person,
+                    Person
+                ],
+                Comment,
+                1.0
+            )?,
+            expr!(&graph, [Comment, Comment_hasTag_Tag, Tag], Comment, 1.0)?,
+        ])
+        .sum();
 
         println!("P8 result = {}", result);
         Ok(())

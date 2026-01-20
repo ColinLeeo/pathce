@@ -204,6 +204,84 @@ impl PiecewiseConstantFunction {
         self_join_size
     }
 
+    pub fn truncate_by_selectivity(&self, selectivity: f64) -> Self {
+        if self.constants.is_empty() {
+            return self.clone();
+        }
+
+        let total_rows = self.get_num_rows();
+        let target = total_rows * selectivity;
+
+        if target <= 0.0 {
+            return Self::empty();
+        }
+        if target >= total_rows {
+            return self.clone();
+        }
+
+        let segment_idx = bisect_left_double(&self.cumulative_rows, target);
+        
+        let mut new_constants = Vec::new();
+        let mut new_right_edges = Vec::new();
+        let mut new_cumulative_rows = Vec::new();
+
+        if segment_idx > 0 && (self.cumulative_rows[segment_idx - 1] - target).abs() < 1e-10 {
+            for i in 0..segment_idx {
+                new_constants.push(self.constants[i]);
+                new_right_edges.push(self.right_interval_edges[i]);
+                new_cumulative_rows.push(self.cumulative_rows[i]);
+            }
+            return Self {
+                constants: new_constants,
+                right_interval_edges: new_right_edges,
+                cumulative_rows: new_cumulative_rows,
+            };
+        }
+
+        let segment = segment_idx.min(self.constants.len().saturating_sub(1));
+
+        for i in 0..segment {
+            new_constants.push(self.constants[i]);
+            new_right_edges.push(self.right_interval_edges[i]);
+            new_cumulative_rows.push(self.cumulative_rows[i]);
+        }
+
+        let prev_cumulative = if segment > 0 {
+            self.cumulative_rows[segment - 1]
+        } else {
+            0.0
+        };
+
+        let rows_in_segment = target - prev_cumulative;
+        let constant = self.constants[segment];
+
+        if constant == 0.0 || rows_in_segment <= 0.0 {
+            return Self {
+                constants: new_constants,
+                right_interval_edges: new_right_edges,
+                cumulative_rows: new_cumulative_rows,
+            };
+        }
+
+        let left_edge = if segment > 0 {
+            self.right_interval_edges[segment - 1]
+        } else {
+            0.0
+        };
+
+        let truncate_x = left_edge + rows_in_segment / constant;
+
+        new_constants.push(constant);
+        new_right_edges.push(truncate_x);
+        new_cumulative_rows.push(target);
+
+        Self {
+            constants: new_constants,
+            right_interval_edges: new_right_edges,
+            cumulative_rows: new_cumulative_rows,
+        }
+    }
+
     pub fn compress_func(&mut self, num_segments: Option<usize>) {
         if let Some(num_seg) = num_segments {
             if num_seg > 0 {

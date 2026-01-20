@@ -1,0 +1,299 @@
+-- q11_p001
+(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Wall of Rahul Khan'})-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum {title='Wall of Rahul Khan'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p002
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'}), (p1:Person)-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person {gender='female'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p003
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p004
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='en'})-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p005
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='es;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='es;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='es;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p006
+(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum {title='Wall of Rahul Khan'})-[fhm1:HAS_MEMBER]-(p1:Person {language='en'}), (f:Forum {title='Wall of Rahul Khan'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p007
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='pt;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='pt;en'})-[pkp:KNOWS {dst<=253343}]-(p2:Person), (p1:Person {language='pt;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p008
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='de;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='de;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='de;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p009
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='es;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='es;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p010
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length<=0}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post {length<=0}), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post {length<=0})
+
+-- q11_p011
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p012
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='zh;en'}), (p1:Person)-[pkp:KNOWS {dst<=253343}]-(p2:Person {language='zh;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='zh;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p013
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE {explicitlydeleted=false}]-(po:Post {language='en'}), (p2:Person)-[plp2:LIKE]-(po:Post {language='en'})
+
+-- q11_p014
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='de;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='de;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='de;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p015
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='female'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p016
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='de;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='de;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='de;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p017
+(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum {title='Wall of Rahul Khan'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Wall of Rahul Khan'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE {explicitlydeleted=false}]-(po:Post)
+
+-- q11_p018
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {gender='male'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='male'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p019
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='es;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='es;en'}), (p1:Person)-[plp1:LIKE]-(po:Post {explicitlydeleted=false}), (p2:Person {language='es;en'})-[plp2:LIKE]-(po:Post {explicitlydeleted=false})
+
+-- q11_p020
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {gender='male'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='male'})-[plp2:LIKE {explicitlydeleted=false}]-(po:Post)
+
+-- q11_p021
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {language='en'}), (p2:Person)-[plp2:LIKE]-(po:Post {language='en'})
+
+-- q11_p022
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='es;en'}), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person), (p1:Person {language='es;en'})-[pkp:KNOWS {src>=253343}]-(p2:Person), (p1:Person {language='es;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p023
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='zh;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='zh;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p024
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {gender='male'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS {dst<=253343}]-(p2:Person), (p1:Person {gender='male'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p025
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS {dst<=253343}]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p026
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p027
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p028
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS {src>=253343}]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p029
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p030
+(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Wall of Rahul Khan'})-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum {title='Wall of Rahul Khan'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p031
+(f:Forum {title='Album 1 of Karan Singh'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Album 1 of Karan Singh'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Album 1 of Karan Singh'})-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p032
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='es;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='es;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='es;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p033
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='de;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='de;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='de;en'})-[plp2:LIKE {explicitlydeleted=false}]-(po:Post)
+
+-- q11_p034
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'}), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {language='en'}), (p2:Person)-[plp2:LIKE]-(po:Post {language='en'})
+
+-- q11_p035
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p036
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {explicitlydeleted=false}), (p2:Person)-[plp2:LIKE]-(po:Post {explicitlydeleted=false})
+
+-- q11_p037
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p038
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length<=0}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {length<=0}), (p2:Person)-[plp2:LIKE]-(po:Post {length<=0})
+
+-- q11_p039
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS {src>=253343}]-(p2:Person), (p1:Person {language='en'})-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p040
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length<=0}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {length<=0}), (p2:Person)-[plp2:LIKE]-(po:Post {length<=0})
+
+-- q11_p041
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p042
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {explicitlydeleted=false}), (p2:Person)-[plp2:LIKE]-(po:Post {explicitlydeleted=false})
+
+-- q11_p043
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='pt;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='pt;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE {explicitlydeleted=false}]-(po:Post)
+
+-- q11_p044
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='de;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='de;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='de;en'})-[plp2:LIKE {explicitlydeleted=false}]-(po:Post)
+
+-- q11_p045
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p046
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {explicitlydeleted=false}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='de;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='de;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='de;en'})-[plp1:LIKE]-(po:Post {explicitlydeleted=false}), (p2:Person)-[plp2:LIKE]-(po:Post {explicitlydeleted=false})
+
+-- q11_p047
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>=0}), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {length>=0}), (p2:Person)-[plp2:LIKE]-(po:Post {length>=0})
+
+-- q11_p048
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='pt;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='pt;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p049
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {gender='female'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person), (p1:Person {gender='female'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p050
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p051
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='pt;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='pt;en'})-[pkp:KNOWS {dst<=253343}]-(p2:Person), (p1:Person {language='pt;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p052
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {gender='female'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person), (p1:Person {gender='female'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p053
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='female'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p054
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='de;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='de;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='de;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p055
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'}), (p1:Person)-[plp1:LIKE]-(po:Post {language='en'}), (p2:Person {language='en'})-[plp2:LIKE {explicitlydeleted=false}]-(po:Post {language='en'})
+
+-- q11_p056
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p057
+(f:Forum {title='Album 1 of Karan Singh'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Album 1 of Karan Singh'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Album 1 of Karan Singh'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p058
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {gender='female'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='female'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p059
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person {gender='male'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person), (p1:Person {gender='male'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p060
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>=0}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {length>=0}), (p2:Person)-[plp2:LIKE]-(po:Post {length>=0})
+
+-- q11_p061
+(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {explicitlydeleted=false})-[fhm1:HAS_MEMBER]-(p1:Person {language='en'}), (f:Forum {explicitlydeleted=false})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p062
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>=0}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {length>=0}), (p2:Person)-[plp2:LIKE]-(po:Post {length>=0})
+
+-- q11_p063
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p064
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='zh;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='zh;en'})-[pkp:KNOWS {src>=253343}]-(p2:Person), (p1:Person {language='zh;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p065
+(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {explicitlydeleted=false})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {explicitlydeleted=false})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p066
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS {src>=253343}]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p067
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person {language='en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p068
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post {length<=0}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS {dst<=253343}]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {length<=0}), (p2:Person)-[plp2:LIKE]-(po:Post {length<=0})
+
+-- q11_p069
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='de;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='de;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='de;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p070
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p071
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='es;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='es;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='es;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p072
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person {gender='female'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person), (p1:Person {gender='female'})-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p073
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p074
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person {language='de;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='de;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='de;en'})-[plp2:LIKE {explicitlydeleted=false}]-(po:Post)
+
+-- q11_p075
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p076
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='de;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='zh;en'}), (p1:Person {language='de;en'})-[pkp:KNOWS]-(p2:Person {language='zh;en'}), (p1:Person {language='de;en'})-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person {language='zh;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p077
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p078
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p079
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='zh;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='zh;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p080
+(f:Forum {title='Album 1 of Karan Singh'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Album 1 of Karan Singh'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Album 1 of Karan Singh'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS {dst<=253343}]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p081
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='pt;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='pt;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p082
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {gender='male'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='male'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p083
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='es;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='en'}), (p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person {language='en'}), (p1:Person {language='es;en'})-[plp1:LIKE]-(po:Post), (p2:Person {language='en'})-[plp2:LIKE {explicitlydeleted=false}]-(po:Post)
+
+-- q11_p084
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post {length<=0}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {length<=0}), (p2:Person)-[plp2:LIKE]-(po:Post {length<=0})
+
+-- q11_p085
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {creationdate>=1328021100728}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {creationdate>=1328021100728}), (p2:Person)-[plp2:LIKE]-(po:Post {creationdate>=1328021100728})
+
+-- q11_p086
+(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Wall of Rahul Khan'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Wall of Rahul Khan'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p087
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {language='pt;en'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {language='pt;en'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p088
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'}), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS {dst<=253343}]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {language='en'}), (p2:Person)-[plp2:LIKE]-(po:Post {language='en'})
+
+-- q11_p089
+(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Wall of Rahul Khan'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Wall of Rahul Khan'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p090
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person {gender='male'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='male'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p091
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person {gender='female'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person), (p1:Person {gender='female'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p092
+(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p093
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum)-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person {gender='male'}), (p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'}), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person {gender='male'})-[plp2:LIKE]-(po:Post)
+
+-- q11_p094
+(f:Forum {title='Album 1 of Karan Singh'})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {title='Album 1 of Karan Singh'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Album 1 of Karan Singh'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p095
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='es;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='es;en'})-[plp1:LIKE {explicitlydeleted=false}]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p096
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER {explicitlydeleted=false}]-(p1:Person {language='es;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='es;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p097
+(f:Forum {title='Album 1 of Karan Singh'})-[fcp:CONTAINER_OF]-(po:Post {creationdate>=1328021100728}), (f:Forum {title='Album 1 of Karan Singh'})-[fhm1:HAS_MEMBER]-(p1:Person), (f:Forum {title='Album 1 of Karan Singh'})-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person)-[pkp:KNOWS]-(p2:Person), (p1:Person)-[plp1:LIKE]-(po:Post {creationdate>=1328021100728}), (p2:Person)-[plp2:LIKE]-(po:Post {creationdate>=1328021100728})
+
+-- q11_p098
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='pt;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='pt;en'})-[pkp:KNOWS {src>=253343}]-(p2:Person), (p1:Person {language='pt;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p099
+(f:Forum)-[fcp:CONTAINER_OF]-(po:Post), (f:Forum)-[fhm1:HAS_MEMBER]-(p1:Person {language='es;en'}), (f:Forum)-[fhm2:HAS_MEMBER]-(p2:Person), (p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='es;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)
+
+-- q11_p100
+(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post), (f:Forum {explicitlydeleted=false})-[fhm1:HAS_MEMBER]-(p1:Person {language='zh;en'}), (f:Forum {explicitlydeleted=false})-[fhm2:HAS_MEMBER {explicitlydeleted=false}]-(p2:Person), (p1:Person {language='zh;en'})-[pkp:KNOWS]-(p2:Person), (p1:Person {language='zh;en'})-[plp1:LIKE]-(po:Post), (p2:Person)-[plp2:LIKE]-(po:Post)

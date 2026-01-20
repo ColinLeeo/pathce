@@ -1,0 +1,299 @@
+-- q1_p001
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p002
+(co:Country {name='Cameroon'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p003
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p004
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p005
+(co:Country {name='Cameroon'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p006
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p007
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p008
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='es;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p009
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p010
+(co:Country {name='Venezuela'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p011
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p012
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p013
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag {name='Mariano_Rivera'})-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p014
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p015
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p016
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p017
+(co:Country {name='Cameroon'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p018
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p019
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City {name='Kochi'})<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p020
+(co:Country {name='Italy'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p021
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p022
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p023
+(co:Country {name='Burma'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p024
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p025
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p026
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p027
+(co:Country {name='Cameroon'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p028
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female', language='en;tl'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p029
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male', language='es;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p030
+(co:Country {name='Burma'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p031
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female', language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p032
+(co:Country {name='Venezuela'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p033
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p034
+(co:Country {name='Cameroon'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p035
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass {name='OfficeHolder'})
+
+-- q1_p036
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag {name='Sonia_Gandhi'})-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p037
+(co:Country {name='Italy'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p038
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p039
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='es;en'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p040
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='es;en'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Singh'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p041
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p042
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag {name='Augustine_of_Hippo'})-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p043
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City {name='Thirthahalli'})<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p044
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City {name='Mérida'})<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p045
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='zh;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p046
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='pt;en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p047
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER {creationDate>=1338094917792}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p048
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p049
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p050
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER {explicitlydeleted=false}]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass {name='MusicalArtist'})
+
+-- q1_p051
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag {name='Charlemagne'})-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p052
+(co:Country {name='Italy'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p053
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City {name='Gomel'})<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p054
+(co:Country {name='Venezuela'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p055
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment {creationDate>=1350093427787})-[cht:HAS_TAG]-(t:Tag {name='Sonia_Gandhi'})-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p056
+(co:Country {name='Czech_Republic'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p057
+(co:Country {name='Burma'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p058
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {creationDate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p059
+(co:Country {name='Burma'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p060
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p061
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='es;en'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p062
+(co:Country {name='Cameroon'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p063
+(co:Country {name='Burma'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p064
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City {name='Rạch_Giá'})<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post {creationDate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p065
+(co:Country {name='Venezuela'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='es;en'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p066
+(co:Country {name='Italy'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p067
+(co:Country {name='Cameroon'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {language='en'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p068
+(co:Country {name='Italy'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p069
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {creationDate>=1347725413194}]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p070
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {title='Wall of Rahul Khan'})-[fcp:CONTAINER_OF]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p071
+(co:Country {name='Venezuela'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p072
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male', language='en'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p073
+(co:Country {name='Italy'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p074
+(co:Country {name='Burma'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p075
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag {name='Charlemagne'})-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p076
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p077
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City {name='Rạch_Giá'})<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p078
+(co:Country {name='Venezuela'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='female'})-[fhm:HAS_MEMBER]-(f:Forum {creationDate>=1305589168419})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p079
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {creationDate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p080
+(co:Country {name='Venezuela'})<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person {gender='male'})-[fhm:HAS_MEMBER]-(f:Forum {explicitlydeleted=false})-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p081
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER {creationDate>=1338094917792}]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass {name='Single'})
+
+-- q1_p082
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p083
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p084
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p085
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN {explicitlydeleted=false}]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p086
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN {explicitlydeleted=false}]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p087
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p088
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p089
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN {explicitlydeleted=false}]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p090
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p091
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p092
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p093
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p094
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF {creationDate>=1347725413194}]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass {name='MusicalArtist'})
+
+-- q1_p095
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN {explicitlydeleted=false}]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p096
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)
+
+-- q1_p097
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass {name='Song'})
+
+-- q1_p098
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p099
+(co:Country)<-[cipc:IS_PART_OF]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE {tagclassid IS NOT NULL}]->(tc:TagClass)
+
+-- q1_p100
+(co:Country)<-[cipc:IS_PART_OF {src_type='City'}]-(ci:City)<-[plc:IS_LOCATED_IN]-(p:Person)-[fhm:HAS_MEMBER]-(f:Forum)-[fcp:CONTAINER_OF]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[cht:HAS_TAG]-(t:Tag)-[tht:HAS_TYPE]->(tc:TagClass)

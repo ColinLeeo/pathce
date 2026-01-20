@@ -1,0 +1,299 @@
+-- q3_p001
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {gender='female'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='female'})
+
+-- q3_p002
+(co:Country {name='Cameroon'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person), (co:Country {name='Cameroon'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country {name='Cameroon'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p003
+(co:Country {name='Italy'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country {name='Italy'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country {name='Italy'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p004
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p005
+(co:Country {name='Burma'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person), (co:Country {name='Burma'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country {name='Burma'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p006
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='en'})
+
+-- q3_p007
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='pt;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='pt;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='pt;en'})
+
+-- q3_p008
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='zh;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p009
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p010
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p011
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City {name='Mérida'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p012
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'}), (p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p013
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='zh;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p014
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p015
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='es;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='es;en'})
+
+-- q3_p016
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p017
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {gender='male'}), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person {gender='male'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='male'})
+
+-- q3_p018
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p019
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='female'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p020
+(co:Country {name='Cameroon'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country {name='Cameroon'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='en'}), (co:Country {name='Cameroon'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'}), (p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p021
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {gender='male'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='male'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='male'})
+
+-- q3_p022
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='female'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p023
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City {name='Intramuros'}), (ci2:City {name='Intramuros'})<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p024
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='en'})
+
+-- q3_p025
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person {gender='female'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person {gender='female'}), (p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person), (p1:Person {language='en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p026
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'}), (p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p027
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='en'})
+
+-- q3_p028
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {gender='female'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {gender='female'}), (p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p029
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='es;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='es;en'})
+
+-- q3_p030
+(co:Country {name='Cameroon'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country {name='Cameroon'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country {name='Cameroon'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p031
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'}), (p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p032
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {gender='female'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='female'})
+
+-- q3_p033
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='zh;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='zh;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='zh;en'})
+
+-- q3_p034
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person {language='zh;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='zh;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='zh;en'})
+
+-- q3_p035
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person {gender='female'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='female'})
+
+-- q3_p036
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {gender='male'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {gender='male'}), (p2:Person {gender='male'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p037
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person {language='es;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='es;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p038
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p039
+(co:Country {name='Burma'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country {name='Burma'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country {name='Burma'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p040
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='es;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='es;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p041
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='zh;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='zh;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='zh;en'})
+
+-- q3_p042
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='pt;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='pt;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='pt;en'})
+
+-- q3_p043
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p044
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person {language='es;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='es;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p045
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='zh;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p046
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p047
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {gender='female'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='female'})
+
+-- q3_p048
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person {gender='female'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person {gender='female'}), (p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person), (p1:Person {language='zh;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p049
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City {name='Izmir'}), (ci2:City {name='Izmir'})<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p050
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City {name='Intramuros'}), (ci3:City {name='Intramuros'})<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p051
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {gender='male'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {gender='male'}), (p2:Person {gender='male'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p052
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='es;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='es;en'}), (p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p053
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p054
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p055
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p056
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City {name='Intramuros'}), (ci3:City {name='Intramuros'})<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p057
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='zh;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='zh;en'}), (p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p058
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {gender='female'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person {language='zh;en'})-[pk12:KNOWS]-(p2:Person {gender='female'}), (p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person), (p1:Person {language='zh;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p059
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='es;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='es;en'}), (p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p060
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='es;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='es;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p061
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='es;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {explicitlydeleted=false}]-(p3:Person), (p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person {language='en'}), (p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person), (p1:Person {language='es;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p062
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City {name='Mérida'}), (ci3:City {name='Mérida'})<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p063
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='male'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='zh;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person {gender='male'})-[pk12:KNOWS]-(p2:Person {language='zh;en'}), (p2:Person {language='zh;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='male'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p064
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p065
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='es;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='es;en'})
+
+-- q3_p066
+(co:Country {name='Italy'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country {name='Italy'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country {name='Italy'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p067
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p068
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {gender='male'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='male'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='male'})
+
+-- q3_p069
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {gender='female'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='female'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p070
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City {name='Izmir'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p071
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {gender='female'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {gender='female'}), (p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p072
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p073
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='pt;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='pt;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p074
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City {name='Mérida'}), (ci2:City {name='Mérida'})<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p075
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p076
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p077
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='es;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='es;en'}), (p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p078
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City {name='Mérida'}), (ci3:City {name='Mérida'})<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='female'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p079
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='pt;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='pt;en'}), (p2:Person {language='pt;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p080
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City {name='Izmir'}), (ci2:City {name='Izmir'})<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='female'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p081
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='female'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p082
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City {name='Mérida'}), (ci3:City {name='Mérida'})<-[plc3:IS_LOCATED_IN]-(p3:Person {gender='male'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='male'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='male'})
+
+-- q3_p083
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City {name='Izmir'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person {gender='female'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {gender='female'}), (p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p084
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City {name='Mérida'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p085
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='en'}), (p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p086
+(co:Country {name='Burma'})<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country {name='Burma'})<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country {name='Burma'})<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p087
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='es;en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {language='es;en'}), (p2:Person {language='es;en'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p088
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person {gender='female'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {gender='female'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p089
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City {name='Izmir'}), (ci2:City {name='Izmir'})<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p090
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='en'})
+
+-- q3_p091
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='es;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {language='en'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person {language='en'}), (p2:Person {language='en'})-[pk23:KNOWS]-(p3:Person), (p1:Person {language='es;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p092
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p093
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person {gender='female'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {gender='female'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {gender='female'})
+
+-- q3_p094
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {gender='female'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {gender='female'}), (p2:Person {gender='female'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p095
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='es;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='es;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='es;en'})
+
+-- q3_p096
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN {creationdate>=1309571252085}]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person {language='zh;en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='zh;en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='zh;en'})
+
+-- q3_p097
+(co:Country)<-[cipc1:IS_PART_OF {src_type='City'}]-(ci1:City {name='Mérida'})<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person {gender='male'}), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person {gender='male'}), (p2:Person {gender='male'})-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p098
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN {creationdate<=1333481787908}]-(p3:Person {language='en'}), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person {language='en'}), (p1:Person)-[pk13:KNOWS]-(p3:Person {language='en'})
+
+-- q3_p099
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='es;en'}), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City), (ci3:City)<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person {language='es;en'})-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person {language='es;en'})-[pk13:KNOWS]-(p3:Person)
+
+-- q3_p100
+(co:Country)<-[cipc1:IS_PART_OF]-(ci1:City)<-[plc1:IS_LOCATED_IN]-(p1:Person), (co:Country)<-[cipc2:IS_PART_OF]-(ci2:City), (ci2:City)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(p2:Person), (co:Country)<-[cipc3:IS_PART_OF]-(ci3:City {name='Izmir'}), (ci3:City {name='Izmir'})<-[plc3:IS_LOCATED_IN]-(p3:Person), (p1:Person)-[pk12:KNOWS]-(p2:Person), (p2:Person)-[pk23:KNOWS]-(p3:Person), (p1:Person)-[pk13:KNOWS]-(p3:Person)

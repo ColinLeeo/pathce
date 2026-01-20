@@ -44,6 +44,7 @@ pub enum CompressionMethod {
     SafeBound,
     FastCompressor,
 }
+
 // In GCard: a_(p)_b_(k)_c is equal c_(k)_b_(p)_a
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct PathPattern {

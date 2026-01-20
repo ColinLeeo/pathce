@@ -1,0 +1,299 @@
+-- q8_p001
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p002
+(ci:City {name='Rạch_Giá'})<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Rạch_Giá'})
+
+-- q8_p003
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p004
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='pt;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p005
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p006
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p007
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p008
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p009
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p010
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p011
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p012
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment {length>=79})-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p013
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person {language='pt;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p014
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='male'})-[plc_like:LIKE]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p015
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p016
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {gender='female'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p017
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p018
+(ci:City {name='Rạch_Giá'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Rạch_Giá'})
+
+-- q8_p019
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='pt;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p020
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p021
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='zh;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p022
+(ci:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Intramuros'})
+
+-- q8_p023
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p024
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'})-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p025
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p026
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='es;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p027
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p028
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p029
+(ci:City {name='Pontianak'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Pontianak'})
+
+-- q8_p030
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='zh;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p031
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p032
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='pt;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p033
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p034
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p035
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p036
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {language='pt;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p037
+(ci:City {name='Pontianak'})<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Pontianak'})
+
+-- q8_p038
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='es;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p039
+(ci:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City {name='Intramuros'})
+
+-- q8_p040
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='male'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p041
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p042
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='es;en'})<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p043
+(ci:City {name='Rạch_Giá'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Rạch_Giá'})
+
+-- q8_p044
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p045
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p046
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='pt;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p047
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p048
+(ci:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Intramuros'})
+
+-- q8_p049
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='male'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p050
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='male'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p051
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p052
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p053
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p054
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p055
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p056
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='pt;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p057
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p058
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p059
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='zh;en'})<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p060
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p061
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {language='zh;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p062
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'})-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p063
+(ci:City {name='Rạch_Giá'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City {name='Rạch_Giá'})
+
+-- q8_p064
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='es;en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p065
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p066
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='zh;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p067
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p068
+(ci:City {name='Izmir'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Izmir'})
+
+-- q8_p069
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='pt;en'})-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p070
+(ci:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Intramuros'})
+
+-- q8_p071
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p072
+(ci:City {name='Intramuros'})<-[plc1:IS_LOCATED_IN]-(p1:Person {language='en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City {name='Intramuros'})
+
+-- q8_p073
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p074
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p075
+(ci:City {name='Izmir'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Izmir'})
+
+-- q8_p076
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p077
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p078
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p079
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p080
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p081
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='es;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p082
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='female'})-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p083
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='male'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p084
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p085
+(ci:City {name='Pontianak'})<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City {name='Pontianak'})
+
+-- q8_p086
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {gender='male'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p087
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p088
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p089
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {gender='female'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN {explicitlydeleted=false}]-(ci:City)
+
+-- q8_p090
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {gender='female'})-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p091
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {language='pt;en'})-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p092
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p093
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {language='en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p094
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {gender='female'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p095
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person {language='en'})<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p096
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p097
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {creationdate>=1351344255062}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p098
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person {language='en'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p099
+(ci:City)<-[plc1:IS_LOCATED_IN {explicitlydeleted=false}]-(p1:Person {gender='female'})-[plc_like:LIKE]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person)<-[plc2:IS_LOCATED_IN]-(ci:City)
+
+-- q8_p100
+(ci:City)<-[plc1:IS_LOCATED_IN]-(p1:Person)-[plc_like:LIKE {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p2:Person {language='pt;en'})<-[plc2:IS_LOCATED_IN]-(ci:City)

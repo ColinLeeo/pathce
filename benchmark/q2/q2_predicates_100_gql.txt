@@ -1,0 +1,299 @@
+-- q2_p001
+(p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person {gender='female'})
+
+-- q2_p002
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p003
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p004
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p005
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p006
+(p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='female'})
+
+-- q2_p007
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='es;en'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p008
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p009
+(p1:Person {language='es;en'})-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='es;en'})
+
+-- q2_p010
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p011
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p012
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p013
+(p1:Person {language='en'})-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {language='en'})
+
+-- q2_p014
+(p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person {gender='female'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='male'})
+
+-- q2_p015
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p016
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p017
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p018
+(p1:Person {language='zh;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='zh;en'})
+
+-- q2_p019
+(p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person {language='en'})
+
+-- q2_p020
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p021
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p022
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p023
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p024
+(p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p1:Person {gender='female'})
+
+-- q2_p025
+(p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person {language='zh;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person {language='en'})
+
+-- q2_p026
+(p1:Person {language='zh;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='zh;en'})
+
+-- q2_p027
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='es;en'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p028
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p029
+(p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person {language='es;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='male'})
+
+-- q2_p030
+(p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='en'})
+
+-- q2_p031
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p032
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p033
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {length>0})-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p034
+(p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='male'})
+
+-- q2_p035
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p036
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p037
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p038
+(p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='pt;en'})
+
+-- q2_p039
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p040
+(p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='pt;en'})
+
+-- q2_p041
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p042
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p043
+(p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p044
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p045
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p046
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p047
+(p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p1:Person {language='es;en'})
+
+-- q2_p048
+(p1:Person {language='zh;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='zh;en'})
+
+-- q2_p049
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p050
+(p1:Person {gender='male'})-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='male'})
+
+-- q2_p051
+(p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='es;en'})
+
+-- q2_p052
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p053
+(p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person {gender='male'})
+
+-- q2_p054
+(p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='female'})
+
+-- q2_p055
+(p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p056
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p057
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {explicitlydeleted=false})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p058
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p059
+(p1:Person {gender='female'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person {gender='female'})
+
+-- q2_p060
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p061
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'})-[php:HAS_CREATOR]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p062
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p063
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='es;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p064
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p065
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {language='en'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p066
+(p1:Person)-[pkp:KNOWS]-(p2:Person {gender='female'})-[php:HAS_CREATOR]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p067
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p068
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p069
+(p1:Person {language='es;en'})-[pkp:KNOWS {src<=253760}]-(p2:Person {gender='female'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='es;en'})
+
+-- q2_p070
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p071
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='zh;en'})-[php:HAS_CREATOR]-(po:Post {language='en'})-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p072
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {explicitlydeleted=false}]-(p1:Person)
+
+-- q2_p073
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p074
+(p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='pt;en'})
+
+-- q2_p075
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p076
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {creationdate>=1328021100728})-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p077
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p078
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person {language='en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p079
+(p1:Person {language='pt;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='pt;en'})
+
+-- q2_p080
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p081
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment {length<=4})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p082
+(p1:Person {language='en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person {language='en'})
+
+-- q2_p083
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {explicitlydeleted=false})-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p084
+(p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p085
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {language='en'})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p086
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {explicitlydeleted=false}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p087
+(p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='male'})
+
+-- q2_p088
+(p1:Person)-[pkp:KNOWS]-(p2:Person {gender='male'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p089
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p090
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {creationdate>=1328021100728})-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p091
+(p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='es;en'})
+
+-- q2_p092
+(p1:Person)-[pkp:KNOWS {src<=253760}]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length>=79})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p093
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='en'})-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p094
+(p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='male'})
+
+-- q2_p095
+(p1:Person {gender='male'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {language='en'})-[crp:REPLY_OF {creationdate>=1347725413194}]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {gender='male'})
+
+-- q2_p096
+(p1:Person {language='es;en'})-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person {language='es;en'})
+
+-- q2_p097
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p098
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post)-[crp:REPLY_OF]-(c:Comment {length>=79})-[chp:HAS_CREATOR {creationdate>=1350093427787}]-(p1:Person)
+
+-- q2_p099
+(p1:Person)-[pkp:KNOWS]-(p2:Person)-[php:HAS_CREATOR]-(po:Post {length>0})-[crp:REPLY_OF]-(c:Comment {creationdate>=1350093427787})-[chp:HAS_CREATOR]-(p1:Person)
+
+-- q2_p100
+(p1:Person)-[pkp:KNOWS]-(p2:Person {language='pt;en'})-[php:HAS_CREATOR {explicitlydeleted=false}]-(po:Post)-[crp:REPLY_OF]-(c:Comment)-[chp:HAS_CREATOR]-(p1:Person)
